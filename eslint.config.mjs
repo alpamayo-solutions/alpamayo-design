@@ -9,6 +9,8 @@ export default [
             '.output/',
             'design-sync/dist/',
             'playground/.nuxt/',
+            'playground/.output/',
+            'playground/dist/',
             '**/*.vue',
             '**/*.ts',
             // vendored PrimeVue pass-through presets follow upstream conventions (unused ctx params)
