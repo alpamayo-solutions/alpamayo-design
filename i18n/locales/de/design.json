@@ -1,0 +1,13 @@
+{
+    "design": {
+        "toolbar": {
+            "search": "Suchen",
+            "filtersButton": "Filter",
+            "allOption": "Alle {label}",
+            "savedView": "Gespeicherte Ansicht",
+            "clearAll": "Alle entfernen",
+            "items": "Einträge",
+            "removeFilter": "Filter entfernen"
+        }
+    }
+}

@@ -1,1 +1,13 @@
-{ "design": { "toolbar": { "search": "Search" } } }
+{
+    "design": {
+        "toolbar": {
+            "search": "Search",
+            "filtersButton": "Filters",
+            "allOption": "All {label}",
+            "savedView": "Saved view",
+            "clearAll": "Clear all",
+            "items": "items",
+            "removeFilter": "Remove filter"
+        }
+    }
+}
