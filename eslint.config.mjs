@@ -20,7 +20,7 @@ export default [
     },
     {
         // Standalone Node CLI scripts (build/check tooling), not bundled by Nuxt/Vite.
-        files: ['scripts/**/*.mjs', 'eslint.config.mjs'],
+        files: ['scripts/**/*.mjs', 'design-sync/**/*.mjs', 'eslint.config.mjs'],
         languageOptions: {
             globals: globals.node
         }
