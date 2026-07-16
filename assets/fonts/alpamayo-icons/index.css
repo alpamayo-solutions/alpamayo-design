@@ -1,0 +1,176 @@
+@font-face {
+    font-family: 'alp-icons';
+    src: url('./alpamayo-icons.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.alp-icons {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'alp-icons' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.alp-icons::before {
+    display: inline-block;
+    font-size: 1.5em; /* scale relative to text-* font-size */
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.alp-icons-mes:before {
+    content: '\e900';
+}
+.alp-icons-plc:before {
+    content: '\e901';
+}
+.alp-icons-data-contextualization:before {
+    content: '\e902';
+}
+.alp-icons-scale-horizontally-b:before {
+    content: '\e903';
+}
+.alp-icons-cpu:before {
+    content: '\e904';
+}
+.alp-icons-data-ops-node:before {
+    content: '\e905';
+}
+.alp-icons-edge-node:before {
+    content: '\e906';
+}
+.alp-icons-data-architecture:before {
+    content: '\e907';
+}
+.alp-icons-data-structure:before {
+    content: '\e908';
+}
+.alp-icons-root-cause-analysis:before {
+    content: '\e909';
+}
+.alp-icons-monitor-check:before {
+    content: '\e90a';
+}
+.alp-icons-cursor:before {
+    content: '\e90b';
+}
+.alp-icons-smart-product:before {
+    content: '\e90c';
+}
+.alp-icons-options:before {
+    content: '\e90d';
+}
+.alp-icons-wifi:before {
+    content: '\e90e';
+}
+.alp-icons-data-quality:before {
+    content: '\e90f';
+}
+.alp-icons-feedback-loop:before {
+    content: '\e910';
+}
+.alp-icons-cloud-analytics:before {
+    content: '\e911';
+}
+.alp-icons-pilot-in-a-box:before {
+    content: '\e912';
+}
+.alp-icons-built-in:before {
+    content: '\e913';
+}
+.alp-icons-telefon:before {
+    content: '\e914';
+}
+.alp-icons-offline:before {
+    content: '\e915';
+}
+.alp-icons-unified-namespace:before {
+    content: '\e916';
+}
+.alp-icons-internet:before {
+    content: '\e917';
+}
+.alp-icons-intranet:before {
+    content: '\e918';
+}
+.alp-icons-data-security:before {
+    content: '\e919';
+}
+.alp-icons-open-architecture:before {
+    content: '\e91a';
+}
+.alp-icons-wifi-offline:before {
+    content: '\e91b';
+}
+.alp-icons-land-and-expand:before {
+    content: '\e91c';
+}
+.alp-icons-edge-driven:before {
+    content: '\e91d';
+}
+.alp-icons-hmi:before {
+    content: '\e91e';
+}
+.alp-icons-data-analysis:before {
+    content: '\e91f';
+}
+.alp-icons-interoperability:before {
+    content: '\e920';
+}
+.alp-icons-team:before {
+    content: '\e921';
+}
+.alp-icons-remote-monitoring:before {
+    content: '\e922';
+}
+.alp-icons-historian:before {
+    content: '\e923';
+}
+.alp-icons-vendor-lock-in:before {
+    content: '\e924';
+}
+.alp-icons-anomaly-detection:before {
+    content: '\e925';
+}
+.alp-icons-user:before {
+    content: '\e926';
+}
+.alp-icons-open-interfaces:before {
+    content: '\e927';
+}
+.alp-icons-scale-horizontally:before {
+    content: '\e928';
+}
+.alp-icons-predictive-maintenance:before {
+    content: '\e929';
+}
+.alp-icons-digital-product-runner:before {
+    content: '\e92a';
+}
+.alp-icons-smart-data:before {
+    content: '\e92b';
+}
+.alp-icons-end-to-end:before {
+    content: '\e92c';
+}
+.alp-icons-email:before {
+    content: '\e92d';
+}
+.alp-icons-centralized:before {
+    content: '\e92e';
+}
+.alp-icons-bridge-node:before {
+    content: '\e92f';
+}
+.alp-icons-location-pin:before {
+    content: '\e930';
+}

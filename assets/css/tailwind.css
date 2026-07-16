@@ -1,0 +1,703 @@
+@source "../../components/**/*.vue";
+@source "../../presets/**/*.js";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-primary-50: var(--primary-50);
+    --color-primary-100: var(--primary-100);
+    --color-primary-200: var(--primary-200);
+    --color-primary-300: var(--primary-300);
+    --color-primary-400: var(--primary-400);
+    --color-primary-500: var(--primary-500);
+    --color-primary-600: var(--primary-600);
+    --color-primary-700: var(--primary-700);
+    --color-primary-800: var(--primary-800);
+    --color-primary-900: var(--primary-900);
+    --color-primary-950: var(--primary-950);
+    --color-primary-contrast: var(--primary-contrast);
+    --color-primary: var(--primary-500);
+    --color-primary-emphasis: var(--primary-600);
+
+    --color-secondary-50: var(--secondary-50);
+    --color-secondary-100: var(--secondary-100);
+    --color-secondary-200: var(--secondary-200);
+    --color-secondary-300: var(--secondary-300);
+    --color-secondary-400: var(--secondary-400);
+    --color-secondary-500: var(--secondary-500);
+    --color-secondary-600: var(--secondary-600);
+    --color-secondary-700: var(--secondary-700);
+    --color-secondary-800: var(--secondary-800);
+    --color-secondary-900: var(--secondary-900);
+    --color-secondary-950: var(--secondary-950);
+
+    --color-success-50: var(--success-50);
+    --color-success-100: var(--success-100);
+    --color-success-200: var(--success-200);
+    --color-success-300: var(--success-300);
+    --color-success-400: var(--success-400);
+    --color-success-500: var(--success-500);
+    --color-success-600: var(--success-600);
+    --color-success-700: var(--success-700);
+    --color-success-800: var(--success-800);
+    --color-success-900: var(--success-900);
+    --color-success-950: var(--success-950);
+
+    --color-info-50: var(--info-50);
+    --color-info-100: var(--info-100);
+    --color-info-200: var(--info-200);
+    --color-info-300: var(--info-300);
+    --color-info-400: var(--info-400);
+    --color-info-500: var(--info-500);
+    --color-info-600: var(--info-600);
+    --color-info-700: var(--info-700);
+    --color-info-800: var(--info-800);
+    --color-info-900: var(--info-900);
+    --color-info-950: var(--info-950);
+
+    --color-warning-50: var(--warning-50);
+    --color-warning-100: var(--warning-100);
+    --color-warning-200: var(--warning-200);
+    --color-warning-300: var(--warning-300);
+    --color-warning-400: var(--warning-400);
+    --color-warning-500: var(--warning-500);
+    --color-warning-600: var(--warning-600);
+    --color-warning-700: var(--warning-700);
+    --color-warning-800: var(--warning-800);
+    --color-warning-900: var(--warning-900);
+    --color-warning-950: var(--warning-950);
+
+    --color-help-50: var(--help-50);
+    --color-help-100: var(--help-100);
+    --color-help-200: var(--help-200);
+    --color-help-300: var(--help-300);
+    --color-help-400: var(--help-400);
+    --color-help-500: var(--help-500);
+    --color-help-600: var(--help-600);
+    --color-help-700: var(--help-700);
+    --color-help-800: var(--help-800);
+    --color-help-900: var(--help-900);
+    --color-help-950: var(--help-950);
+
+    --color-danger-50: var(--danger-50);
+    --color-danger-100: var(--danger-100);
+    --color-danger-200: var(--danger-200);
+    --color-danger-300: var(--danger-300);
+    --color-danger-400: var(--danger-400);
+    --color-danger-500: var(--danger-500);
+    --color-danger-600: var(--danger-600);
+    --color-danger-700: var(--danger-700);
+    --color-danger-800: var(--danger-800);
+    --color-danger-900: var(--danger-900);
+    --color-danger-950: var(--danger-950);
+
+    --color-light-50: var(--light-50);
+    --color-light-100: var(--light-100);
+    --color-light-200: var(--light-200);
+    --color-light-300: var(--light-300);
+    --color-light-400: var(--light-400);
+    --color-light-500: var(--light-500);
+    --color-light-600: var(--light-600);
+    --color-light-700: var(--light-700);
+    --color-light-800: var(--light-800);
+    --color-light-900: var(--light-900);
+    --color-light-950: var(--light-950);
+
+    --color-dark-50: var(--dark-50);
+    --color-dark-100: var(--dark-100);
+    --color-dark-200: var(--dark-200);
+    --color-dark-300: var(--dark-300);
+    --color-dark-400: var(--dark-400);
+    --color-dark-500: var(--dark-500);
+    --color-dark-600: var(--dark-600);
+    --color-dark-700: var(--dark-700);
+    --color-dark-800: var(--dark-800);
+    --color-dark-900: var(--dark-900);
+    --color-dark-950: var(--dark-950);
+
+    --color-surface-0: var(--p-surface-0);
+    --color-surface-50: var(--p-surface-50);
+    --color-surface-100: var(--p-surface-100);
+    --color-surface-200: var(--p-surface-200);
+    --color-surface-300: var(--p-surface-300);
+    --color-surface-400: var(--p-surface-400);
+    --color-surface-500: var(--p-surface-500);
+    --color-surface-600: var(--p-surface-600);
+    --color-surface-700: var(--p-surface-700);
+    --color-surface-800: var(--p-surface-800);
+    --color-surface-900: var(--p-surface-900);
+    --color-surface-950: var(--p-surface-950);
+    --spacing-18: 4.5rem;
+
+    --shadow-card: var(--card-shadow);
+    --shadow-black-card: var(--black-card-shadow);
+    --shadow-blue-card: var(--blue-card-shadow);
+    --shadow-stroke: var(--stroke-shadow);
+
+    --opacity-1: 0.01;
+    --opacity-4: 0.04;
+    --opacity-6: 0.06;
+    --opacity-8: 0.08;
+    --opacity-12: 0.12;
+    --opacity-16: 0.16;
+    --opacity-24: 0.24;
+    --opacity-32: 0.32;
+    --opacity-56: 0.56;
+    --opacity-64: 0.64;
+    --opacity-72: 0.72;
+    --opacity-88: 0.88;
+
+    --z-1: 1;
+    --z-2: 2;
+    --z-3: 3;
+    --z-4: 4;
+    --z-5: 5;
+    --z-6: 6;
+    --z-7: 7;
+    --z-8: 8;
+    --z-9: 9;
+
+    --container-xs: 24rem;
+    --container-sm: 32rem;
+    --container-md: 40rem;
+    --container-lg: 48rem;
+    --container-xl: 56rem;
+    --container-2xl: 60rem;
+    --container-3xl: 64rem;
+
+    --duration-600: 600ms;
+}
+
+@keyframes infinite-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes cloud-idle {
+    25% {
+        transform: translate3d(80px, 0, 0);
+    }
+    50% {
+        transform: translate3d(75px, -20px, 0);
+    }
+    75% {
+        transform: translate3d(55px, 25px, 0);
+    }
+    100% {
+        transform: translate3d(35px, -15px, 0);
+    }
+}
+
+@keyframes slidefadein {
+    from {
+        opacity: 0;
+        transform: translateY(-6rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slidefadeinright {
+    from {
+        opacity: 0;
+        transform: translateX(8rem);
+    }
+    to {
+        opacity: 1;
+        transform: translatex(0);
+    }
+}
+
+@keyframes slidefadeinleft {
+    from {
+        opacity: 0;
+        transform: translateX(-8rem);
+    }
+    to {
+        opacity: 1;
+        transform: translatex(0);
+    }
+}
+
+@keyframes zoomfadein {
+    0% {
+        transform: scale(0.75);
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@utility bg-navbar-gradient {
+    background-image: var(--bg-navbar-gradient);
+}
+@utility bg-main-gradient {
+    background-image: var(--gradient-background);
+}
+@utility bg-main-gradient-to-top {
+    background-image: var(--gradient-background-to-top);
+}
+@utility bg-main-gradient-to-left {
+    background-image: var(--gradient-background-to-left);
+}
+
+@utility icon-gradient {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 5%, rgba(255, 255, 255, 0.15) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+}
+
+@utility shadow-card {
+    box-shadow: var(--card-shadow);
+}
+@utility shadow-black-card {
+    box-shadow: var(--black-card-shadow);
+}
+@utility shadow-blue-card {
+    box-shadow: var(--blue-card-shadow);
+}
+@utility shadow-stroke {
+    box-shadow: var(--stroke-shadow);
+}
+
+@utility animate-infinite-scroll {
+    animation: infinite-scroll 40s linear infinite;
+}
+@utility animate-cloud-idle {
+    animation: cloud-idle 60s infinite alternate;
+}
+@utility animate-slidefadein {
+    animation: slidefadein 500ms ease;
+}
+@utility animate-slidefadeinright {
+    animation: slidefadeinright 500ms ease;
+}
+@utility animate-slidefadeinleft {
+    animation: slidefadeinleft 500ms ease;
+}
+@utility animate-zoomfadein {
+    animation: zoomfadein 500ms ease-in-out;
+}
+
+/* Prefer nicer line breaks for headings */
+h1,
+h2 {
+    /* Balance lines for multi-line headings */
+    /* text-wrap: balance; */
+    /* Prefer breaking at phrase boundaries (commas/periods) when supported */
+    word-break: auto-phrase;
+}
+
+/* Utility to opt-in elsewhere (e.g., long subtitles) */
+@utility break-at-punctuation {
+    word-break: auto-phrase;
+}
+
+@utility text-balance {
+    text-wrap: balance;
+}
+
+@utility text-section-inner-title {
+    @apply text-primary-800 dark:text-primary-400 text-2xl font-semibold;
+}
+
+/* Fallbacks for slash-opacity color utilities in browsers without color-mix */
+.text-white\/1 {
+    color: rgba(255 255 255 / 0.01);
+}
+.text-white\/4 {
+    color: rgba(255 255 255 / 0.04);
+}
+.text-white\/6 {
+    color: rgba(255 255 255 / 0.06);
+}
+.text-white\/8 {
+    color: rgba(255 255 255 / 0.08);
+}
+.text-white\/12 {
+    color: rgba(255 255 255 / 0.12);
+}
+.text-white\/16 {
+    color: rgba(255 255 255 / 0.16);
+}
+.text-white\/24 {
+    color: rgba(255 255 255 / 0.24);
+}
+.text-white\/32 {
+    color: rgba(255 255 255 / 0.32);
+}
+.text-white\/56 {
+    color: rgba(255 255 255 / 0.56);
+}
+.text-white\/64 {
+    color: rgba(255 255 255 / 0.64);
+}
+.text-white\/72 {
+    color: rgba(255 255 255 / 0.72);
+}
+.text-white\/88 {
+    color: rgba(255 255 255 / 0.88);
+}
+
+.whiten {
+    filter: brightness(0) invert(0.9);
+    opacity: 0.94;
+}
+
+@layer components {
+    .title {
+        @apply text-6xl bg-clip-text text-transparent font-semibold leading-[125%] bg-[linear-gradient(180deg,rgba(255,255,255,0.85)_5%,rgba(255,255,255,1)_90%)];
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .description {
+        @apply text-lg lg:text-xl leading-7 text-white opacity-64;
+    }
+
+    .button-regular {
+        @apply min-w-28 px-5 py-2 rounded-full flex items-center justify-center gap-2 font-medium text-surface-950 bg-surface-0 cursor-pointer hover:opacity-80 transition-all shadow-[0px_10px_10px_-8px_rgba(18,18,23,0.02),0px_2px_2px_-1.5px_rgba(18,18,23,0.02),0px_1px_1px_-0.5px_rgba(18,18,23,0.02),0px_0px_0px_1px_rgba(18,18,23,0.02)];
+    }
+
+    .button-outlined {
+        @apply min-w-28 px-5 py-2 rounded-full flex items-center justify-center gap-2 font-medium text-surface-0 cursor-pointer backdrop-blur-lg border border-white/24 hover:opacity-80 transition-all;
+    }
+
+    .button-gradient {
+        @apply rounded-full px-5 py-2 bg-main-gradient shadow-blue-card min-w-28 w-fit flex items-center justify-center gap-2 font-medium text-surface-0 cursor-pointer hover:opacity-80 transition-all;
+    }
+    .button-blur {
+        @apply h-11 px-5 rounded-full flex items-center justify-center gap-2 bg-white/16 hover:bg-white/24 transition-all backdrop-blur-[48px] text-surface-0 font-medium border border-white/8 shadow-[0px_2px_5px_0px_rgba(255,255,255,0.06)_inset,0px_12px_20px_0px_rgba(0,0,0,0.06)];
+    }
+    .badge {
+        @apply block px-3.5 py-1 w-fit rounded-full border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-950 font-medium text-surface-950 dark:text-surface-0 shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)];
+    }
+
+    .container {
+        @apply max-w-[1152px] px-4 mx-auto;
+    }
+
+    .icon-box {
+        @apply w-14 h-14 lg:w-20 lg:h-20 flex items-center justify-center mx-auto bg-main-gradient rounded-2xl lg:rounded-3xl [&>svg]:w-8 [&>svg]:h-8 [&>svg]:lg:w-10 [&>svg]:lg:h-10  shadow-[0px_2px_3px_0px_rgba(255,255,255,0.25)_inset,0px_19px_5px_0px_rgba(0,0,0,0.00),0px_12px_5px_0px_rgba(0,0,0,0.01),0px_7px_4px_0px_rgba(0,0,0,0.05),0px_3px_3px_0px_rgba(0,0,0,0.09),0px_1px_2px_0px_rgba(0,0,0,0.10)];
+    }
+
+    .hero-inner {
+        @apply relative overflow-hidden lg:rounded-4xl bg-main-gradient shadow-black-card;
+    }
+
+    @media (min-width: 1024px) {
+        .hero-container {
+            @apply bg-main-gradient shadow-black-card overflow-hidden pt-0;
+        }
+
+        .hero-inner {
+            @apply rounded-none bg-transparent shadow-none;
+        }
+    }
+
+    /* Carousel patterns */
+    .carousel-height-responsive {
+        height: 40rem;
+    }
+
+    @media (min-width: 1024px) {
+        .carousel-height-responsive {
+            height: 23rem;
+        }
+    }
+
+    .carousel-height-testimonials {
+        height: 40rem;
+    }
+
+    @media (min-width: 1024px) {
+        .carousel-height-testimonials {
+            height: 25rem;
+        }
+    }
+
+    .carousel-hide-mask {
+        --hide-mask: true;
+    }
+
+    @media (min-width: 1024px) {
+        .carousel-hide-mask {
+            --hide-mask: false;
+        }
+    }
+
+    .carousel-size-testimonials {
+        width: 85%;
+    }
+
+    @media (min-width: 1024px) {
+        .carousel-size-testimonials {
+            width: 45%;
+        }
+    }
+
+    .carousel-spacing-testimonials {
+        --spacing: 16rem;
+    }
+
+    @media (min-width: 1024px) {
+        .carousel-spacing-testimonials {
+            --spacing: 0;
+        }
+    }
+
+    .carousel-height-teachers {
+        height: 27rem;
+    }
+
+    .carousel-size-responsive {
+        width: 75%;
+    }
+
+    @media (min-width: 1024px) {
+        .carousel-size-responsive {
+            width: 20%;
+        }
+    }
+}
+
+/* Nuxt Content markdown (Tailwind Typography) tweaks */
+.prose {
+    @apply text-surface-700 dark:text-surface-200;
+}
+.prose :where(h1, h2, h3, h4):not(:where(.not-prose *)) {
+    @apply text-surface-950 dark:text-surface-0 font-semibold;
+}
+.prose :where(h1):not(:where(.not-prose *)) {
+    @apply text-4xl lg:text-5xl leading-tight;
+}
+.prose :where(h2):not(:where(.not-prose *)) {
+    @apply text-3xl lg:text-4xl mt-10;
+}
+.prose :where(h3):not(:where(.not-prose *)) {
+    @apply text-2xl lg:text-3xl mt-8;
+}
+.prose :where(p):not(:where(.not-prose *)) {
+    @apply leading-relaxed;
+}
+.prose :where(ul):not(:where(.not-prose *)) {
+    @apply list-disc pl-6 my-4;
+}
+.prose :where(ol):not(:where(.not-prose *)) {
+    @apply list-decimal pl-6 my-4;
+}
+.prose :where(li)::marker {
+    @apply text-primary-500;
+}
+.prose :where(a):not(:where(.not-prose *)) {
+    @apply text-primary-600 dark:text-primary-400 underline decoration-from-font underline-offset-4 hover:text-primary-700 dark:hover:text-primary-300;
+}
+.prose :where(blockquote):not(:where(.not-prose *)) {
+    @apply border-l-4 border-primary-400/40 pl-4 italic text-surface-800 dark:text-surface-200;
+}
+.prose :where(code):not(:where(.not-prose *)) {
+    @apply px-1.5 py-0.5 rounded-md bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-100;
+}
+.prose :where(pre):not(:where(.not-prose *)) {
+    @apply overflow-x-auto rounded-lg p-4 bg-surface-100 text-surface-900 dark:bg-surface-900 dark:text-surface-100;
+}
+.prose :where(pre code):not(:where(.not-prose *)) {
+    @apply bg-transparent p-0 text-inherit;
+}
+
+.markdown-content {
+    @apply max-w-none text-sm text-surface-700 dark:text-surface-300;
+}
+.markdown-content :where(h1, h2, h3, h4):not(:where(.not-prose *)) {
+    @apply font-semibold text-surface-950 dark:text-surface-0;
+}
+.markdown-content :where(h1):not(:where(.not-prose *)) {
+    @apply mt-4 mb-2 text-xl leading-tight;
+}
+.markdown-content :where(h2):not(:where(.not-prose *)) {
+    @apply mt-4 mb-2 text-lg leading-tight;
+}
+.markdown-content :where(h3):not(:where(.not-prose *)) {
+    @apply mt-3 mb-2 text-base leading-tight;
+}
+.markdown-content :where(h4):not(:where(.not-prose *)) {
+    @apply mt-3 mb-1.5 text-sm leading-tight;
+}
+.markdown-content :where(p):not(:where(.not-prose *)) {
+    @apply my-2 leading-relaxed;
+}
+.markdown-content :where(ul):not(:where(.not-prose *)) {
+    @apply my-2 list-disc pl-5;
+}
+.markdown-content :where(ol):not(:where(.not-prose *)) {
+    @apply my-2 list-decimal pl-5;
+}
+.markdown-content :where(li):not(:where(.not-prose *)) {
+    @apply my-0.5;
+}
+.markdown-content :where(li)::marker {
+    @apply text-primary-500;
+}
+.markdown-content :where(a):not(:where(.not-prose *)) {
+    @apply text-primary-600 underline decoration-from-font underline-offset-4 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300;
+}
+.markdown-content :where(blockquote):not(:where(.not-prose *)) {
+    @apply my-3 border-l-4 border-primary-400/40 pl-4 italic text-surface-800 dark:text-surface-200;
+}
+.markdown-content :where(code):not(:where(.not-prose *)) {
+    @apply rounded bg-surface-100 px-1 py-0.5 text-xs text-surface-900 dark:bg-surface-700 dark:text-surface-100;
+}
+.markdown-content :where(pre):not(:where(.not-prose *)) {
+    @apply my-3 overflow-x-auto rounded-lg bg-surface-900 p-4 text-surface-50;
+}
+.markdown-content :where(pre code):not(:where(.not-prose *)) {
+    @apply bg-transparent p-0 text-inherit;
+}
+.markdown-content :where(table):not(:where(.not-prose *)) {
+    @apply my-3 w-full border-collapse text-left text-xs;
+}
+.markdown-content :where(th):not(:where(.not-prose *)) {
+    @apply border-b border-surface-200 px-2 py-1 font-semibold text-surface-700 dark:border-surface-700 dark:text-surface-200;
+}
+.markdown-content :where(td):not(:where(.not-prose *)) {
+    @apply border-b border-surface-100 px-2 py-1 dark:border-surface-800;
+}
+.markdown-content :where(hr):not(:where(.not-prose *)) {
+    @apply my-4 border-surface-200 dark:border-surface-700;
+}
+.markdown-content-compact {
+    @apply mt-3;
+}
+.markdown-content-compact :where(h1, h2, h3, h4):not(:where(.not-prose *)) {
+    @apply my-2 text-sm;
+}
+.markdown-content-compact :where(p):not(:where(.not-prose *)) {
+    @apply my-1.5;
+}
+.markdown-content-compact :where(ul, ol):not(:where(.not-prose *)) {
+    @apply my-1.5;
+}
+.markdown-content-compact :where(pre):not(:where(.not-prose *)) {
+    @apply my-2 p-3;
+}
+
+/* Mouse text-selection color — browser default is too dark/heavy; reuse the
+   same highlight tokens PrimeVue uses for "selected" states, so it stays
+   theme-aware in both light and dark mode automatically. */
+::selection {
+    background-color: var(--p-highlight-background);
+    color: var(--p-highlight-color);
+}
+
+/* Skeleton loading shimmer — a moving highlight sweep reads as "actively
+   loading" faster than a plain opacity pulse (research note on #12). */
+@keyframes skeleton-shimmer-sweep {
+    0% {
+        background-position: 150% 0;
+    }
+    100% {
+        background-position: -50% 0;
+    }
+}
+.skeleton-shimmer {
+    background-image: linear-gradient(
+        90deg,
+        var(--p-surface-200) 25%,
+        var(--p-surface-100) 50%,
+        var(--p-surface-200) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer-sweep 1.5s ease-in-out infinite;
+}
+.dark .skeleton-shimmer {
+    background-image: linear-gradient(
+        90deg,
+        var(--p-surface-700) 25%,
+        var(--p-surface-600) 50%,
+        var(--p-surface-700) 75%
+    );
+}
+
+/* Blur sensitive data toggle — activated by .blur-mode on <html> */
+:root.blur-mode .sensitive {
+    filter: blur(5px);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.2s ease;
+}
+:root.blur-mode .sensitive:hover {
+    filter: blur(2px);
+}
+
+/* 50-shade overrides — !important ensures these beat any Tailwind-generated rule regardless of source order */
+.bg-primary-50 {
+    background-color: var(--primary-50) !important;
+}
+.bg-secondary-50 {
+    background-color: var(--secondary-50) !important;
+}
+.bg-success-50 {
+    background-color: var(--success-50) !important;
+}
+.bg-info-50 {
+    background-color: var(--info-50) !important;
+}
+.bg-warning-50 {
+    background-color: var(--warning-50) !important;
+}
+.bg-danger-50 {
+    background-color: var(--danger-50) !important;
+}
+.bg-help-50 {
+    background-color: var(--help-50) !important;
+}
+.text-primary-50 {
+    color: var(--primary-50) !important;
+}
+.text-secondary-50 {
+    color: var(--secondary-50) !important;
+}
+.text-success-50 {
+    color: var(--success-50) !important;
+}
+.text-info-50 {
+    color: var(--info-50) !important;
+}
+.text-warning-50 {
+    color: var(--warning-50) !important;
+}
+.text-danger-50 {
+    color: var(--danger-50) !important;
+}
+.text-help-50 {
+    color: var(--help-50) !important;
+}
+.border-primary-50 {
+    border-color: var(--primary-50) !important;
+}
+.border-secondary-50 {
+    border-color: var(--secondary-50) !important;
+}
+.border-success-50 {
+    border-color: var(--success-50) !important;
+}
+.border-info-50 {
+    border-color: var(--info-50) !important;
+}
+.border-warning-50 {
+    border-color: var(--warning-50) !important;
+}
+.border-danger-50 {
+    border-color: var(--danger-50) !important;
+}
+.border-help-50 {
+    border-color: var(--help-50) !important;
+}
