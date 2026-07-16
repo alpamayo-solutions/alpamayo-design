@@ -38,6 +38,14 @@ function parseStory(id) {
     };
 }
 
+// Cards must stay well under the platform's upsert size expectations. Only the custom
+// alp-icons woff (39K, not available on any CDN) is worth inlining as a data URI — inlining
+// all 18 Poppins weights + Material Symbols woff2 blew every card up to ~4.5M. Poppins and
+// Material Symbols load from Google Fonts instead, same as the interim hand-built library.
+const GOOGLE_FONTS_IMPORTS =
+    "@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');\n" +
+    "@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');\n";
+
 // Inline every same-origin stylesheet into the page.
 function inlineCss(html) {
     return html.replace(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"[^>]*>/g, (tag, href) => {
@@ -45,9 +53,12 @@ function inlineCss(html) {
         const cssPath = join(PUB, href.replace(/^\//, ''));
         if (!existsSync(cssPath)) return tag;
         let css = readFileSync(cssPath, 'utf8');
-        // Inline font urls referenced by the css as data URIs.
+        // Inline only the alp-icons font url as a data URI; leave Poppins/Material Symbols
+        // font urls untouched (their @font-face blocks get dropped below — they're covered
+        // by the Google Fonts imports instead).
         css = css.replace(/url\(([^)]+\.(woff2?|ttf))\)/g, (u, fontHref) => {
             const clean = fontHref.replace(/["']/g, '');
+            if (!/alpamayo-icons/i.test(clean)) return u;
             const real = clean.startsWith('/') ? join(PUB, clean.slice(1)) : join(dirname(cssPath), clean);
             if (!existsSync(real)) return u;
             const ext = clean.endsWith('.woff2')
@@ -57,7 +68,11 @@ function inlineCss(html) {
                   : 'font/ttf';
             return `url(data:${ext};base64,${readFileSync(real).toString('base64')})`;
         });
-        return `<style>${css}</style>`;
+        // Drop @font-face blocks that weren't inlined above (Poppins, Material Symbols) —
+        // their src still points at a relative /_nuxt/ path that 404s once the card is
+        // standalone. The Google Fonts @import covers those families instead.
+        css = css.replace(/@font-face\{[^}]*\}/g, (block) => (block.includes('data:font') ? block : ''));
+        return `<style>${GOOGLE_FONTS_IMPORTS}${css}</style>`;
     });
 }
 
