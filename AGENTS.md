@@ -31,8 +31,14 @@ export default defineNuxtConfig({
 @import '@alpamayo-solutions/design/assets/css/tailwind.css';
 ```
 
-- Peer deps you must have: `vue`, `primevue`, `vue-i18n`, `tailwind-merge`,
-  `tailwindcss-primeui`, `primeicons`.
+- Peer deps you must have — **pin the majors**; npm-latest PrimeVue is v5, which
+  this layer does not support yet, and npm installs mismatched peers with only a
+  warning:
+
+    ```bash
+    npm install primevue@^4.5.4 primeicons@^7.0.0 vue-i18n@^11 tailwind-merge@^3 tailwindcss-primeui@^0.6
+    ```
+
 - Design cards load Poppins/Material Symbols from Google Fonts; only the custom alp-icons font is embedded.
 - The layer auto-imports `Volt*` and `Alp*` components, applies the PrimeVue
   unstyled config + `alpamayo` preset, registers `v-tooltip`/`v-badge`/
