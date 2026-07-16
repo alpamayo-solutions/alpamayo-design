@@ -4,6 +4,8 @@ import { execSync } from 'node:child_process';
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import postcss from 'postcss';
+import { transform as lightningTransform } from 'lightningcss';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const OUT = join(root, 'design-sync/dist');
@@ -51,6 +53,48 @@ const GOOGLE_FONTS_IMPORTS =
     "@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');\n" +
     "@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');\n";
 
+// The Design System pane renders cards through a sanitizer/shadow context that drops or
+// inerts modern CSS: @layer blocks (which hold ~all Tailwind 4 utilities), @property
+// declarations (which establish the --tw-* variable defaults), and native nesting.
+// Lower all of it to plain, boring CSS the pane provably renders (the interim hand-written
+// library used exactly that):
+//   1. @property --x { initial-value: V } → collected into one `:root, :host { --x: V }` rule.
+//   2. @layer blocks unwrapped in place (source order already encodes the cascade we want).
+//   3. lightningcss with older browser targets compiles away native nesting and static
+//      modern color syntax (oklab/oklch). var()-dependent color-mix() stays — the pane
+//      rendered the interim library's color-mix() fine.
+function compatCss(css) {
+    const rootVars = [];
+    const ast = postcss.parse(css);
+    ast.walkAtRules('property', (at) => {
+        const name = at.params.trim();
+        let initial = null;
+        at.walkDecls('initial-value', (d) => {
+            initial = d.value;
+        });
+        if (initial !== null && name.startsWith('--')) rootVars.push(`${name}: ${initial}`);
+        at.remove();
+    });
+    ast.walkAtRules('layer', (at) => {
+        if (at.nodes && at.nodes.length) at.replaceWith(at.nodes);
+        else at.remove();
+    });
+    let out = ast.toString();
+    if (rootVars.length) out = `:root, :host {\n${rootVars.join(';\n')};\n}\n${out}`;
+    out = Buffer.from(
+        lightningTransform({
+            filename: 'card.css',
+            code: Buffer.from(out),
+            // chrome 100 / firefox 100 / safari 15.4 — old enough that nesting and modern
+            // color syntax get compiled away, new enough to keep grid/flex/custom props.
+            targets: { chrome: 100 << 16, firefox: 100 << 16, safari: (15 << 16) | (4 << 8) },
+            minify: false,
+            errorRecovery: true
+        }).code
+    ).toString();
+    return out;
+}
+
 // Inline every same-origin stylesheet into the page.
 function inlineCss(html) {
     return html.replace(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"[^>]*>/g, (tag, href) => {
@@ -77,6 +121,7 @@ function inlineCss(html) {
         // their src still points at a relative /_nuxt/ path that 404s once the card is
         // standalone. The Google Fonts @import covers those families instead.
         css = css.replace(/@font-face\{[^}]*\}/g, (block) => (block.includes('data:font') ? block : ''));
+        css = compatCss(css);
         return `<style>${GOOGLE_FONTS_IMPORTS}${css}</style>`;
     });
 }
@@ -131,4 +176,25 @@ const manifest = {
     cards: cards.sort((a, b) => a.path.localeCompare(b.path))
 };
 writeFileSync(join(OUT, 'components.json'), JSON.stringify(manifest, null, 2));
+
+// Also emit the Design System pane's own card index. The pane renders from a compiled
+// _ds_manifest.json; the platform's self-check does not reliably recompile it after an
+// upsert replaces cards, which leaves the pane showing a stale card list. Shipping the
+// index with the bundle (and upserting it) makes the pane state deterministic.
+const projectCfg = JSON.parse(readFileSync(join(root, 'design-sync/project.json'), 'utf8'));
+const dsManifest = {
+    namespace: projectCfg.dsNamespace,
+    components: [],
+    startingPoints: [],
+    cards: manifest.cards.map((c) => ({ path: c.path, group: c.group })),
+    templates: [],
+    hasThumbnailHtml: false,
+    globalCssPaths: [],
+    tokens: [],
+    themes: [],
+    fonts: [],
+    brandFonts: [],
+    source: 'spa'
+};
+writeFileSync(join(OUT, '_ds_manifest.json'), JSON.stringify(dsManifest));
 console.log(`Built ${cards.length} cards → design-sync/dist/`);

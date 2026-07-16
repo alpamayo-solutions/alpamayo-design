@@ -36,6 +36,20 @@ describe('design-sync build output', () => {
             // what the platform upsert expects. Only the custom alp-icons woff is inlined.
             expect(html, card.path).toContain('fonts.googleapis.com');
             expect(statSync(cardPath).size, card.path).toBeLessThan(500_000);
+            // The Design pane's renderer strips @layer blocks and inerts @property —
+            // the compat pass must have lowered both out of every card.
+            expect(html, card.path).not.toContain('@layer');
+            expect(html, card.path).not.toContain('@property');
         }
+    });
+    it.skipIf(!existsSync(dist))('pane card index (_ds_manifest.json) mirrors the manifest', () => {
+        const manifest = JSON.parse(readFileSync(join(dist, 'components.json'), 'utf8'));
+        const project = JSON.parse(readFileSync(join(root, 'design-sync/project.json'), 'utf8'));
+        const index = JSON.parse(readFileSync(join(dist, '_ds_manifest.json'), 'utf8'));
+        expect(index.namespace).toBe(project.dsNamespace);
+        expect(index.source).toBe('spa');
+        expect(index.cards.map((c: { path: string }) => c.path).sort()).toEqual(
+            manifest.cards.map((c: { path: string }) => c.path).sort()
+        );
     });
 });
