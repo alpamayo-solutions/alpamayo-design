@@ -15,7 +15,7 @@ export default defineStory({
             },
             slots: {
                 default:
-                    '<div class="p-2 text-sm"><p class="font-semibold text-surface-700 mb-1">Rollout history</p><p class="text-surface-500">Composed from VoltAccordionPanel / VoltAccordionHeader / VoltAccordionContent — see snippet.</p></div>'
+                    '<VoltAccordionPanel value="0"><VoltAccordionHeader>Rollout history</VoltAccordionHeader><VoltAccordionContent>5 deployments in the last 30 days for edge-node-07.</VoltAccordionContent></VoltAccordionPanel>'
             }
         }
     ],

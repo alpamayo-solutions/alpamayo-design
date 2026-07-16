@@ -15,7 +15,7 @@ export default defineStory({
             },
             slots: {
                 default:
-                    '<div class="text-sm"><p class="font-semibold text-surface-700 mb-1">Tabs are composed from VoltTabList / VoltTab / VoltTabPanels / VoltTabPanel.</p><p class="text-surface-500">See snippet for the real composition.</p></div>'
+                    '<VoltTabList><VoltTab value="overview">Overview</VoltTab><VoltTab value="devices">Devices</VoltTab></VoltTabList><VoltTabPanels><VoltTabPanel value="overview">Fleet summary for Line 4 retrofit.</VoltTabPanel><VoltTabPanel value="devices">edge-node-07 status details.</VoltTabPanel></VoltTabPanels>'
             }
         }
     ],
