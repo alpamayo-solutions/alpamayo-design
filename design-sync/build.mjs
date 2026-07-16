@@ -18,7 +18,12 @@ if (!existsSync(join(PUB, 'story'))) {
 
 // Parse story metadata (title/group/etc.) straight from the story files.
 function parseStory(id) {
-    const src = readFileSync(join(root, 'stories', `${id}.story.ts`), 'utf8');
+    const storyPath = join(root, 'stories', `${id}.story.ts`);
+    if (!existsSync(storyPath)) {
+        console.error(`Story file missing for generated route: ${id} (stories/${id}.story.ts)`);
+        process.exit(1);
+    }
+    const src = readFileSync(storyPath, 'utf8');
     const g = (re) => src.match(re)?.[1] ?? null;
     return {
         component: g(/component:\s*'([^']+)'/),

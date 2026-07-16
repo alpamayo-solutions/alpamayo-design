@@ -30,6 +30,7 @@ describe('design-sync build output', () => {
             expect(html, card.path).toContain('@dsMeta');
             expect(html, card.path).toContain('data-story-footer');
             expect(html, card.path).not.toContain('<script');
+            expect(html, card.path).not.toContain('<link');
             // Poppins/Material Symbols load from Google Fonts instead of being data-URI
             // inlined — inlining all font weights blew every card up to ~4.5M, far past
             // what the platform upsert expects. Only the custom alp-icons woff is inlined.
