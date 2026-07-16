@@ -1,14 +1,14 @@
 <template>
     <span
         class="inline-flex items-center gap-1.5 font-medium"
-        :class="[shapeClass, sizeClass, severityClass]"
+        :class="[shapeClass, sizeClass, severityClass, status && 'capitalize']"
     >
         <span
             v-if="dot"
             class="rounded-full"
             :class="[dotSizeClass, dotColorClass, animated && 'animate-pulse']"
         />
-        <slot>{{ label }}</slot>
+        <slot>{{ resolvedLabel }}</slot>
     </span>
 </template>
 
@@ -23,6 +23,7 @@ const props = withDefaults(
     defineProps<{
         label?: string;
         severity?: Severity;
+        status?: string;
         dot?: boolean;
         animated?: boolean;
         shape?: Shape;
@@ -31,12 +32,29 @@ const props = withDefaults(
     {
         label: undefined,
         severity: 'neutral',
+        status: undefined,
         dot: false,
         animated: false,
         shape: 'pill',
         size: 'sm'
     }
 );
+
+const STATUS_SEVERITY: Record<string, Severity> = {
+    active: 'success',
+    completed: 'success',
+    deployed: 'success',
+    planning: 'info',
+    draft: 'info',
+    pending: 'info',
+    on_hold: 'warning',
+    paused: 'warning',
+    review: 'warning',
+    inactive: 'neutral',
+    archived: 'neutral',
+    cancelled: 'neutral',
+    failed: 'neutral'
+};
 
 const SEVERITY_BG_TEXT: Record<Severity, string> = {
     success: 'bg-success-100 dark:bg-success-900/20 text-success-600 dark:text-success-400',
@@ -56,8 +74,13 @@ const SEVERITY_DOT: Record<Severity, string> = {
     neutral: 'bg-surface-400'
 };
 
-const severityClass = computed(() => SEVERITY_BG_TEXT[props.severity]);
-const dotColorClass = computed(() => SEVERITY_DOT[props.severity]);
+const resolvedSeverity = computed<Severity>(() => {
+    if (props.status) return STATUS_SEVERITY[props.status.toLowerCase()] ?? 'neutral';
+    return props.severity;
+});
+const resolvedLabel = computed(() => props.label ?? props.status?.replace(/_/g, ' '));
+const severityClass = computed(() => SEVERITY_BG_TEXT[resolvedSeverity.value]);
+const dotColorClass = computed(() => SEVERITY_DOT[resolvedSeverity.value]);
 const shapeClass = computed(() => (props.shape === 'pill' ? 'rounded-full' : 'rounded'));
 const sizeClass = computed(() => (props.size === 'md' ? 'text-sm px-2.5 py-1' : 'text-xs px-2 py-0.5'));
 const dotSizeClass = computed(() => (props.size === 'md' ? 'w-2 h-2' : 'w-1.5 h-1.5'));

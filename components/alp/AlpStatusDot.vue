@@ -1,7 +1,7 @@
 <template>
     <span class="relative flex shrink-0" :class="size">
         <span
-            v-if="animated"
+            v-if="isAnimated"
             class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
             :class="ringClass"
         />
@@ -13,11 +13,13 @@
 import { computed } from 'vue';
 
 type Severity = 'success' | 'warning' | 'danger' | 'info' | 'help' | 'neutral';
+type DeviceStatus = 'online' | 'offline' | 'degraded' | 'maintenance' | 'unknown';
 
 const props = withDefaults(
     defineProps<{
         color?: string;
         severity?: Severity;
+        status?: DeviceStatus;
         animated?: boolean;
         size?: string;
         ringColor?: string;
@@ -25,11 +27,20 @@ const props = withDefaults(
     {
         color: undefined,
         severity: undefined,
+        status: undefined,
         animated: false,
         size: 'h-2 w-2',
         ringColor: undefined
     }
 );
+
+const STATUS_SEVERITY: Record<DeviceStatus, Severity> = {
+    online: 'success',
+    offline: 'danger',
+    degraded: 'warning',
+    maintenance: 'info',
+    unknown: 'neutral'
+};
 
 const SEVERITY_DOT: Record<Severity, string> = {
     success: 'bg-success-500',
@@ -49,10 +60,16 @@ const SEVERITY_RING: Record<Severity, string> = {
     neutral: 'bg-surface-300'
 };
 
+const resolvedSeverity = computed<Severity | undefined>(
+    () => props.severity ?? (props.status ? STATUS_SEVERITY[props.status] : undefined)
+);
+const isAnimated = computed(() => props.animated || props.status === 'online');
 const resolvedColor = computed(
-    () => props.color ?? (props.severity ? SEVERITY_DOT[props.severity] : 'bg-surface-400')
+    () => props.color ?? (resolvedSeverity.value ? SEVERITY_DOT[resolvedSeverity.value] : 'bg-surface-400')
 );
 const ringClass = computed(
-    () => props.ringColor ?? (props.severity ? SEVERITY_RING[props.severity] : resolvedColor.value)
+    () =>
+        props.ringColor ??
+        (resolvedSeverity.value ? SEVERITY_RING[resolvedSeverity.value] : resolvedColor.value)
 );
 </script>
