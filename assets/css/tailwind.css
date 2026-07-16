@@ -626,17 +626,6 @@ h2 {
     );
 }
 
-/* Blur sensitive data toggle — activated by .blur-mode on <html> */
-:root.blur-mode .sensitive {
-    filter: blur(5px);
-    user-select: none;
-    pointer-events: none;
-    transition: filter 0.2s ease;
-}
-:root.blur-mode .sensitive:hover {
-    filter: blur(2px);
-}
-
 /* 50-shade overrides — !important ensures these beat any Tailwind-generated rule regardless of source order */
 .bg-primary-50 {
     background-color: var(--primary-50) !important;
