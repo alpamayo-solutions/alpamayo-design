@@ -1,0 +1,31 @@
+name: PR Check
+on:
+    pull_request:
+    push:
+        branches: [main]
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+            - run: npm ci
+            - run: npm run format:check
+            - run: npm run lint
+            - run: npm run check:stories
+            - run: npm test
+            - run: npm run typecheck
+            - run: npm run design:build
+            - name: Validate cards
+              run: |
+                  test -f design-sync/dist/components.json
+                  COUNT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('design-sync/dist/components.json','utf8')).cards.length)")
+                  echo "cards: $COUNT"; test "$COUNT" -gt 0
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: design-sync-bundle
+                  path: design-sync/dist/

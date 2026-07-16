@@ -1,0 +1,52 @@
+name: Release
+on:
+    push:
+        branches: [main]
+
+permissions:
+    contents: write
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        # Only version-bump commits release; the bump commit itself is [skip ci]-guarded.
+        if: startsWith(github.event.head_commit.message, 'MINOR:') || startsWith(github.event.head_commit.message, 'PATCH:')
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+            - run: npm ci
+            - run: npm run format:check
+            - run: npm run check:stories
+            - run: npm test
+            - run: npm run typecheck
+            - run: npm run design:build
+            - name: Bump version and tag
+              id: bump
+              run: |
+                  KIND=patch
+                  case "${{ github.event.head_commit.message }}" in MINOR:*) KIND=minor;; esac
+                  git config user.name "alpamayo-bot"
+                  git config user.email "bot@alpamayo-solutions.com"
+                  NEW=$(npm version $KIND -m "chore: release %s [skip ci]")
+                  git push origin main --follow-tags
+                  echo "version=$NEW" >> "$GITHUB_OUTPUT"
+            - name: Rebuild manifest at release commit
+              run: npm run design:build
+            - name: Pack tarball
+              run: npm pack
+            - name: Zip design bundle
+              run: cd design-sync && zip -r ../design-sync-bundle.zip dist
+            - name: Create GitHub Release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh release create "${{ steps.bump.outputs.version }}" \
+                    --title "${{ steps.bump.outputs.version }}" \
+                    --notes "${{ github.event.head_commit.message }}" \
+                    alpamayo-solutions-design-*.tgz design-sync-bundle.zip
