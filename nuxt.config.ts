@@ -7,6 +7,7 @@ export default defineNuxtConfig({
         { path: r('./components/volt'), prefix: 'Volt', pathPrefix: false },
         { path: r('./components/alp'), pathPrefix: false }
     ],
+    imports: { dirs: [r('./composables')] },
     css: [r('./assets/css/tokens.css')],
     plugins: [r('./plugins/primevue.ts')]
 });
