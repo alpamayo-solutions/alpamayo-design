@@ -2,54 +2,36 @@
 import { computed, onMounted, ref } from 'vue';
 import AlpFlagIcon from './AlpFlagIcon.vue';
 
-// `useI18n()` is intentionally left unimported: within a Nuxt app this
-// resolves via @nuxtjs/i18n's auto-import to the module-augmented composable
-// (which adds `locales`/`setLocale` on top of core vue-i18n) — an explicit
-// `import { useI18n } from 'vue-i18n'` would shadow that and lose both.
-const { locale, locales, setLocale } = useI18n();
+// Presentational: locale data and the active locale come in as props, and
+// selection is reported via `update:modelValue`. Persisting the choice and
+// actually switching vue-i18n's locale are the consumer's responsibility.
+const props = defineProps<{
+    locales: { code: string; name: string }[];
+    modelValue: string;
+}>();
 
-const LOCALE_STORAGE_KEY = 'alp.locale';
+const emit = defineEmits<{ (e: 'update:modelValue', code: string): void }>();
 
 const open = ref(false);
 const rootRef = ref<HTMLElement | null>(null);
 
-const localeOptions = computed(() =>
-    (locales.value as Array<{ code: string; name: string }>).map((l) => ({
-        code: l.code,
-        name: l.name
-    }))
-);
-
 const activeOption = computed(
-    () => localeOptions.value.find((l) => l.code === locale.value) ?? localeOptions.value[0]
+    () => props.locales.find((l) => l.code === props.modelValue) ?? props.locales[0]
 );
 
-async function select(code: string) {
+function select(code: string) {
     open.value = false;
-    if (code === locale.value) return;
-    if (import.meta.client) {
-        try {
-            localStorage.setItem(LOCALE_STORAGE_KEY, code);
-        } catch {}
-    }
-    await setLocale(code as never);
+    if (code === props.modelValue) return;
+    emit('update:modelValue', code);
 }
 
-if (import.meta.client) {
-    onMounted(async () => {
-        try {
-            const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
-            if (stored && stored !== locale.value && localeOptions.value.some((l) => l.code === stored)) {
-                await setLocale(stored as never);
-            }
-        } catch {}
-        document.addEventListener('click', (e) => {
-            if (rootRef.value && !rootRef.value.contains(e.target as Node)) {
-                open.value = false;
-            }
-        });
+onMounted(() => {
+    document.addEventListener('click', (e) => {
+        if (rootRef.value && !rootRef.value.contains(e.target as Node)) {
+            open.value = false;
+        }
     });
-}
+});
 </script>
 
 <template>
@@ -80,7 +62,7 @@ if (import.meta.client) {
                 class="absolute right-0 top-full mt-1 w-36 bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 py-1 z-50 flex flex-col"
             >
                 <VoltButton
-                    v-for="opt in localeOptions"
+                    v-for="opt in locales"
                     :key="opt.code"
                     type="button"
                     severity="ghost"
@@ -88,7 +70,7 @@ if (import.meta.client) {
                     fluid
                     :class="[
                         '!w-full !justify-start !gap-2.5 !rounded-none !px-3 !py-2 !text-sm',
-                        opt.code === locale
+                        opt.code === modelValue
                             ? '!bg-primary-50 dark:!bg-primary-900/40 !text-primary-700 dark:!text-primary-300 !font-semibold'
                             : '!text-surface-700 dark:!text-surface-200 hover:!bg-surface-50 dark:hover:!bg-surface-700'
                     ]"

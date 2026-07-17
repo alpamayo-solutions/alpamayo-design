@@ -1,6 +1,6 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import type { DataTableFilterMetaData } from 'primevue/datatable';
 import AlpCardSkeleton from '../components/alp/AlpCardSkeleton.vue';
 import AlpListSkeleton from '../components/alp/AlpListSkeleton.vue';
@@ -74,47 +74,54 @@ describe('AlpFlagIcon', () => {
 });
 
 describe('AlpLocaleSwitcher', () => {
-    function stubI18n(activeLocale = 'en') {
-        const locale = ref(activeLocale);
-        const locales = ref([
-            { code: 'en', name: 'English' },
-            { code: 'de', name: 'Deutsch' }
-        ]);
-        const setLocale = vi.fn(async (code: string) => {
-            locale.value = code;
+    const locales = [
+        { code: 'en', name: 'English' },
+        { code: 'de', name: 'Deutsch' }
+    ];
+
+    function mountSwitcher(modelValue = 'en') {
+        return mount(AlpLocaleSwitcher, {
+            props: { locales, modelValue },
+            // Explicit stub (not the unresolved-component fallback) so the
+            // component under test doesn't depend on Vue's dev-mode warning
+            // path; renderStubDefaultSlot keeps the AlpFlagIcon/label
+            // children visible for assertions.
+            global: { stubs: { VoltButton: true }, renderStubDefaultSlot: true }
         });
-        vi.stubGlobal('useI18n', () => ({ locale, locales, setLocale }));
-        return { locale, locales, setLocale };
     }
 
-    afterEach(() => {
-        vi.unstubAllGlobals();
-    });
-
-    it('renders one option per available locale', async () => {
-        stubI18n();
-        const w = mount(AlpLocaleSwitcher);
+    it('renders one row per passed locale', async () => {
+        const w = mountSwitcher();
 
         // Trigger button only, before the dropdown is opened.
         expect(w.findAllComponents(AlpFlagIcon).length).toBe(1);
 
-        await w.find('voltbutton').trigger('click');
+        await w.find('volt-button-stub').trigger('click');
 
-        // Trigger + one entry per locale (en, de).
+        // Trigger + one row per locale (en, de).
         expect(w.findAllComponents(AlpFlagIcon).length).toBe(3);
     });
 
-    it('calls setLocale when a locale option is selected', async () => {
-        const { setLocale } = stubI18n('en');
-        const w = mount(AlpLocaleSwitcher);
+    it('marks the active row for modelValue', async () => {
+        const w = mountSwitcher('de');
 
-        await w.find('voltbutton').trigger('click');
-        const optionButtons = w.findAll('voltbutton').slice(1);
+        await w.find('volt-button-stub').trigger('click');
+        const optionButtons = w.findAll('volt-button-stub').slice(1);
         expect(optionButtons.length).toBe(2);
+
+        expect(optionButtons[0]!.attributes('class')).not.toContain('!bg-primary-50');
+        expect(optionButtons[1]!.attributes('class')).toContain('!bg-primary-50');
+    });
+
+    it('emits update:modelValue with the selected code when a row is clicked', async () => {
+        const w = mountSwitcher('en');
+
+        await w.find('volt-button-stub').trigger('click');
+        const optionButtons = w.findAll('volt-button-stub').slice(1);
 
         await optionButtons[1]!.trigger('click');
 
-        expect(setLocale).toHaveBeenCalledWith('de');
+        expect(w.emitted('update:modelValue')).toEqual([['de']]);
     });
 });
 

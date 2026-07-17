@@ -6,8 +6,16 @@ export default defineStory({
     title: 'List Skeleton',
     description: 'Table-shaped loading skeleton — header bar plus shimmering rows.',
     variants: [
-        { name: 'default', props: {} },
-        { name: 'five-rows', props: { rows: 5 } }
+        {
+            name: 'default',
+            props: {}
+        },
+        {
+            name: 'five-rows',
+            props: {
+                rows: 5
+            }
+        }
     ],
     snippet: '<AlpListSkeleton :rows="5" />',
     sourcePath: 'components/alp/AlpListSkeleton.vue'
