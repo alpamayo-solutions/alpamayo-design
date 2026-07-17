@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Story } from '../../../stories/_types';
+import Column from 'primevue/column';
+import type { Story, StoryVariant } from '../../../stories/_types';
 
 const route = useRoute();
 const modules = import.meta.glob<{ default: Story }>('../../../stories/*.story.ts', { eager: true });
@@ -19,6 +20,36 @@ function resolve(name: string | null) {
         if (registered === name) return (mod as { default: unknown }).default;
     }
     return null;
+}
+
+// Every tag name a story's slot content can reference: Volt*/Alp* design-system components (by their
+// registered story name) plus PrimeVue's Column (used for table column declarations).
+const tagComponents: Record<string, unknown> = { Column };
+for (const [path, mod] of Object.entries(comps)) {
+    const file = path.split('/').pop()!.replace('.vue', '');
+    const registered = path.includes('/volt/') ? `Volt${file}` : file;
+    tagComponents[registered] = (mod as { default: unknown }).default;
+}
+
+// Story `slots` are authored as raw template-string markup (e.g. `<Column field="name" .../>`) so
+// that component tags inside them actually instantiate — and so components that rely on synchronous
+// static slot-vnode introspection (e.g. PrimeVue DataTable's Column collection, which walks the exact
+// vnode array `$slots.default()` returns *without* mounting anything) can see them, the component
+// usage and its slot content must be compiled together as a *single* runtime template. Compiling the
+// slot content in isolation and nesting it under the component via a separate wrapper component hides
+// those vnodes one component-instance deeper than that synchronous walk looks, so e.g. DataTable
+// silently sees zero columns. `runtimeCompiler: true` (playground/nuxt.config.ts) enables compiling
+// the generated `template` string below at runtime; `components` gives it app-context resolution for
+// every tag name it might reference.
+function compileVariant(componentName: string | null, variant: StoryVariant) {
+    const slotTemplates = Object.entries(variant.slots ?? {})
+        .map(([name, html]) => `<template #${name}>${html}</template>`)
+        .join('');
+    return {
+        components: { StoryComponent: resolve(componentName), ...tagComponents },
+        setup: () => ({ variantProps: variant.props ?? {} }),
+        template: `<StoryComponent v-bind="variantProps">${slotTemplates}</StoryComponent>`
+    };
 }
 </script>
 
@@ -41,11 +72,7 @@ function resolve(name: string | null) {
                 <div class="bg-surface-50 p-6 space-y-4">
                     <div v-for="v in story.variants" :key="v.name">
                         <p class="text-[11px] font-semibold uppercase text-surface-400 mb-2">{{ v.name }}</p>
-                        <component :is="resolve(story.component)" v-if="story.component" v-bind="v.props">
-                            <template v-for="(html, slot) in v.slots ?? {}" :key="slot" #[slot]
-                                ><span v-html="html"
-                            /></template>
-                        </component>
+                        <component :is="compileVariant(story.component, v)" v-if="story.component" />
                     </div>
                 </div>
             </section>
@@ -58,11 +85,7 @@ function resolve(name: string | null) {
                 <div class="bg-primary-900 p-6 space-y-4">
                     <div v-for="v in story.variants" :key="v.name">
                         <p class="text-[11px] font-semibold uppercase text-surface-500 mb-2">{{ v.name }}</p>
-                        <component :is="resolve(story.component)" v-if="story.component" v-bind="v.props">
-                            <template v-for="(html, slot) in v.slots ?? {}" :key="slot" #[slot]
-                                ><span v-html="html"
-                            /></template>
-                        </component>
+                        <component :is="compileVariant(story.component, v)" v-if="story.component" />
                     </div>
                 </div>
             </section>
