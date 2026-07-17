@@ -30,6 +30,9 @@ export default defineStory({
                 rows: 10,
                 totalRecords: 3,
                 first: 0
+            },
+            slots: {
+                default: '<Column field="name" header="Device" /><Column field="status" header="Status" />'
             }
         },
         {
@@ -40,6 +43,9 @@ export default defineStory({
                 totalRecords: 0,
                 first: 0,
                 loading: false
+            },
+            slots: {
+                default: '<Column field="name" header="Device" /><Column field="status" header="Status" />'
             }
         }
     ],

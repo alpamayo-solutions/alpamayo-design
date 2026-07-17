@@ -105,6 +105,21 @@ describe('AlpClientTable', () => {
         expect(w.text()).toContain('edge-node-02');
     });
 
+    it('triggers navigation via rowTo on row click', async () => {
+        const rowTo = vi.fn((row: { id: string }) => `/nodes/${row.id}`);
+        const w = mount(AlpClientTable, {
+            props: { items: rows, rowTo },
+            slots: { default: '<Column field="name" header="Name" />' },
+            global: globalConfig as any
+        });
+
+        await w.findComponent(DataTable).vm.$emit('row-click', { data: rows[0] });
+
+        expect(rowTo).toHaveBeenCalledWith(rows[0]);
+        expect(navigateTo).toHaveBeenCalledWith('/nodes/1');
+        expect(w.emitted('rowClick')).toEqual([[{ data: rows[0] }]]);
+    });
+
     it('forwards filter updates via the DataTableFilterMeta prop', async () => {
         const w = mount(AlpClientTable, {
             props: { items: rows, filters: { name: { value: null, matchMode: 'contains' } } },

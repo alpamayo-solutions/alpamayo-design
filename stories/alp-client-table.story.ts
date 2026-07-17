@@ -27,6 +27,9 @@ export default defineStory({
                         status: 'offline'
                     }
                 ]
+            },
+            slots: {
+                default: '<Column field="name" header="Device" /><Column field="status" header="Status" />'
             }
         },
         {
@@ -34,6 +37,9 @@ export default defineStory({
             props: {
                 items: [],
                 loading: false
+            },
+            slots: {
+                default: '<Column field="name" header="Device" /><Column field="status" header="Status" />'
             }
         }
     ],
