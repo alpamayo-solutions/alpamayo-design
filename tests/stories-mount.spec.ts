@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { ref } from 'vue';
 import { createI18n } from 'vue-i18n';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
@@ -19,13 +20,26 @@ function resolveComp(name: string) {
     return null;
 }
 
+const i18n = createI18n({ legacy: false, locale: 'en', messages: { en } });
+
+// Nuxt's @nuxtjs/i18n module auto-imports an augmented `useI18n()` (adds
+// `locales`/`setLocale` on top of core vue-i18n) wherever a component calls
+// it without an explicit import — e.g. AlpLocaleSwitcher. Vitest has no Nuxt
+// auto-import step, so stub the same shape here, backed by the shared i18n
+// instance below.
+vi.stubGlobal('useI18n', () => ({
+    locale: i18n.global.locale,
+    locales: ref([
+        { code: 'en', name: 'English' },
+        { code: 'de', name: 'Deutsch' }
+    ]),
+    setLocale: async (code: string) => {
+        i18n.global.locale.value = code as never;
+    }
+}));
+
 const globalConfig = {
-    plugins: [
-        [PrimeVue, { unstyled: true }],
-        ToastService,
-        ConfirmationService,
-        createI18n({ legacy: false, locale: 'en', messages: { en } })
-    ],
+    plugins: [[PrimeVue, { unstyled: true }], ToastService, ConfirmationService, i18n],
     directives: { tooltip: Tooltip, badge: {}, styleclass: {}, animateonscroll: {} },
     stubs: { NuxtLink: { template: '<a><slot /></a>' }, teleport: true },
     components: Object.fromEntries(
