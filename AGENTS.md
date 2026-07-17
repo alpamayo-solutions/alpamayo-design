@@ -31,6 +31,11 @@ export default defineNuxtConfig({
 @import '@alpamayo-solutions/design/assets/css/tailwind.css';
 ```
 
+- **All `@import`s must precede any other statement** (including `@plugin`).
+  Vite's postcss-import runs before Tailwind and silently DROPS any `@import`
+  that follows a non-import statement — a misplaced `@plugin` line deletes this
+  package's entire stylesheet from production builds with no error.
+
 - Peer deps you must have — **pin the majors**; npm-latest PrimeVue is v5, which
   this layer does not support yet, and npm installs mismatched peers with only a
   warning:
@@ -44,9 +49,17 @@ export default defineNuxtConfig({
   unstyled config + `alpamayo` preset, registers `v-tooltip`/`v-badge`/
   `v-styleclass`/`v-animateonscroll` and Toast/Confirmation services, loads the
   design tokens CSS, and serves brand assets at `/brand/...` + `/favicon.ico`.
-- If you use `@nuxtjs/i18n`, the layer's `design.*` keys merge automatically;
-  without it, `AlpFilterChip`/`AlpListToolbar` need a vue-i18n instance providing
-  those keys.
+- i18n: the layer does NOT auto-merge locale messages. Import its `design.*`
+  keys explicitly in each locale entry and spread them, e.g.
+  `import design from '@alpamayo-solutions/design/i18n/locales/en/design.json'`
+  → `export default { ...common, ...design }`. `AlpFilterChip`/`AlpListToolbar`
+  need those keys in the active vue-i18n instance.
+- Deep imports are part of the public contract: consumers import
+  `components/volt/*.vue`, `components/alp/*.vue` (incl. type-only imports like
+  `AlpListToolbar.vue`'s `FilterChipDef`), and `i18n/locales/*/design.json`
+  directly. package.json therefore deliberately ships **no `exports` map** —
+  adding one without matching subpath patterns (`"./components/*"`, `"./i18n/*"`,
+  `"./assets/*"`) breaks every consumer on their next version bump.
 
 ## Component discipline (for agents building UIs)
 
