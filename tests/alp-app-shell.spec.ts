@@ -163,6 +163,13 @@ describe('AlpAppShell', () => {
         expect(w.findAll('[data-testid="sidebar-section"]').length).toBe(3);
     });
 
+    it('renders no icon rail when railSections is empty', () => {
+        const w = mount(AlpAppShell, { props: { sections, railSections: [] }, global: globalConfig });
+        expect(w.findAll('[data-testid="icon-rail-item"]').length).toBe(0);
+        expect(w.find('[data-testid="icon-rail"]').exists()).toBe(false);
+        expect(w.findAll('[data-testid="sidebar-section"]').length).toBe(3);
+    });
+
     it('expands the matching sidebar section when a rail item without a direct match is selected', async () => {
         const w = mount(AlpAppShell, { props: { sections }, global: globalConfig });
         expect(w.find('a[href="/fleet/devices"]').exists()).toBe(false);

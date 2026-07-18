@@ -83,6 +83,7 @@ async function handleRailSelect(key: string) {
         <!-- Body: desktop = padding wraps rail + panel; mobile = edge-to-edge -->
         <div class="flex flex-1 overflow-hidden md:px-2 md:pb-2 md:pt-1 md:gap-2">
             <AlpIconRail
+                v-if="effectiveRailSections.length"
                 :sections="effectiveRailSections"
                 :active-key="internalActiveKey"
                 @select="handleRailSelect"

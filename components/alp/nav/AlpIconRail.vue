@@ -17,6 +17,7 @@ function isActive(section: NavSection): boolean {
 
 <template>
     <aside
+        data-testid="icon-rail"
         class="hidden md:flex flex-col items-center bg-primary-900 w-[72px] flex-shrink-0 py-2 gap-0.5 rounded-xl"
     >
         <nav class="flex flex-col items-center gap-1 flex-1 w-full px-2">
