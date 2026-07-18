@@ -10,8 +10,11 @@ const story = computed<Story | null>(() => {
     return entry ? entry[1].default : null;
 });
 
-// Runtime component registry: import.meta.glob over both component dirs
-const comps = import.meta.glob<{ default: unknown }>('../../../components/{volt,alp}/*.vue', { eager: true });
+// Runtime component registry: import.meta.glob over both component dirs (recursive — components/alp
+// has nested subdirectories, e.g. components/alp/nav/)
+const comps = import.meta.glob<{ default: unknown }>('../../../components/{volt,alp}/**/*.vue', {
+    eager: true
+});
 function resolve(name: string | null) {
     if (!name) return null;
     for (const [path, mod] of Object.entries(comps)) {
