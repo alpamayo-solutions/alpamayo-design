@@ -22,14 +22,13 @@ export default defineNuxtConfig({
             // Story variants demonstrate real component props with illustrative hrefs
             // (e.g. AlpDetailActions' `editHref="/projects/edge-node-04"`, AlpAppShell's
             // nav `to: '/settings'`) that describe routes a *consuming app* would have —
-            // not routes that exist in this playground. Nitro's default crawler still
-            // walks every rendered `<a href>`/NuxtLink it finds, including these, and
-            // 404s attempting to prerender them. Failing the whole `generate` over
-            // inherently-fictitious demo hrefs would make it impossible to show a
-            // realistic prop example in any story. Log + continue instead of aborting;
-            // the actual `/story/<id>` pages this repo cares about (design-sync/build.mjs
-            // reads them directly off disk) still render and write out successfully.
-            failOnError: false
+            // not routes that exist in this playground (which only has `/` and
+            // `/story/*`). Nitro's default crawler still walks every rendered
+            // `<a href>`/NuxtLink it finds, including these, and 404s attempting to
+            // prerender them. Rather than disabling `failOnError` globally (which would
+            // also hide genuinely broken links), scope out exactly these fictitious demo
+            // route families; every other route still fails `generate` as normal.
+            ignore: ['/settings', '/projects/', '/fleet/']
         }
     }
 });
