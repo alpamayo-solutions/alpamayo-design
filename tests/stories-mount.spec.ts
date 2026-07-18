@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
 import PrimeVue from 'primevue/config';
@@ -9,7 +9,7 @@ import en from '../i18n/locales/en/design.json';
 import type { Story } from '../stories/_types';
 
 const stories = import.meta.glob<{ default: Story }>('../stories/*.story.ts', { eager: true });
-const comps = import.meta.glob<{ default: unknown }>('../components/{volt,alp}/*.vue', { eager: true });
+const comps = import.meta.glob<{ default: unknown }>('../components/{volt,alp}/**/*.vue', { eager: true });
 
 function resolveComp(name: string) {
     for (const [path, mod] of Object.entries(comps)) {
@@ -19,13 +19,16 @@ function resolveComp(name: string) {
     return null;
 }
 
+const i18n = createI18n({ legacy: false, locale: 'en', messages: { en } });
+
+// Nav components (AlpSidebar, AlpMobileDrawer) call the Nuxt auto-import useRoute()
+// unconditionally at setup — stub it once for every story mount in this file, same
+// pattern as the navigateTo stub used elsewhere for Nuxt auto-imports.
+vi.stubGlobal('useRoute', () => ({ path: '/' }));
+vi.stubGlobal('navigateTo', vi.fn());
+
 const globalConfig = {
-    plugins: [
-        [PrimeVue, { unstyled: true }],
-        ToastService,
-        ConfirmationService,
-        createI18n({ legacy: false, locale: 'en', messages: { en } })
-    ],
+    plugins: [[PrimeVue, { unstyled: true }], ToastService, ConfirmationService, i18n],
     directives: { tooltip: Tooltip, badge: {}, styleclass: {}, animateonscroll: {} },
     stubs: { NuxtLink: { template: '<a><slot /></a>' }, teleport: true },
     components: Object.fromEntries(

@@ -11,6 +11,7 @@
     },
     "files": [
         "components",
+        "composables",
         "presets",
         "assets",
         "public",
@@ -38,6 +39,10 @@
         "tailwindcss-primeui": "^0.6.0",
         "vue": "^3.5.0",
         "vue-i18n": "^11.0.0"
+    },
+    "dependencies": {
+        "dompurify": "^3.3.3",
+        "marked": "^17.0.5"
     },
     "devDependencies": {
         "@eslint/js": "^9.28.0",

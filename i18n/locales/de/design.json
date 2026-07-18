@@ -8,6 +8,69 @@
             "clearAll": "Alle entfernen",
             "items": "Einträge",
             "removeFilter": "Filter entfernen"
+        },
+        "table": {
+            "emptyMessage": "Keine Einträge gefunden.",
+            "previousPage": "Vorherige Seite",
+            "nextPage": "Nächste Seite",
+            "pageSizeOption": "{value} / Seite"
+        },
+        "confirm": {
+            "cancel": "Abbrechen",
+            "confirm": "Bestätigen",
+            "notesPlaceholder": "Optionale Notiz"
+        },
+        "actions": {
+            "close": "Schließen",
+            "delete": "Löschen",
+            "edit": "Bearbeiten",
+            "more": "Mehr",
+            "next": "Weiter",
+            "previous": "Zurück"
+        },
+        "staleness": {
+            "noData": "Keine Daten",
+            "justNow": "gerade eben",
+            "secondsAgo": "vor {seconds}s",
+            "minutesAgo": "vor {minutes}m",
+            "hoursAgo": "vor {hours}h",
+            "refresh": "Überwachungsdaten aktualisieren"
+        },
+        "presence": {
+            "editWarning": "bearbeitet dies gerade. Beim Speichern können Änderungen überschrieben werden. | bearbeiten dies gerade. Beim Speichern können Änderungen überschrieben werden.",
+            "viewing": "{count} anwesend",
+            "editingSuffix": "(bearbeitet)",
+            "workingOn": "Arbeitet an",
+            "release": "Freigeben"
+        },
+        "related": {
+            "loading": "Lädt…",
+            "previous": "Vorherige Seite",
+            "next": "Nächste Seite",
+            "emptyDefault": "Keine verknüpften Einträge.",
+            "emptyMessage": "Keine verknüpften Einträge gefunden."
+        },
+        "date": {
+            "trigger": "Fälligkeitsdatum"
+        },
+        "priority": {
+            "trigger": "Priorität",
+            "none": "Keine",
+            "low": "Niedrig",
+            "medium": "Mittel",
+            "high": "Hoch"
+        },
+        "groupBy": {
+            "trigger": "Gruppieren nach"
+        },
+        "sort": {
+            "trigger": "Sortieren",
+            "asc": "Aufst.",
+            "desc": "Abst."
+        },
+        "nav": {
+            "toggleMenu": "Navigation umschalten",
+            "closeDrawer": "Navigation schließen"
         }
     }
 }

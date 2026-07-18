@@ -1,6 +1,12 @@
 export default defineNuxtConfig({
     extends: ['..'],
     modules: ['@nuxtjs/i18n'],
+    vue: {
+        // Story slot content is authored as raw template strings (e.g. `<Column .../>`) and must be
+        // compiled at runtime so component tags inside them actually instantiate. See
+        // playground/pages/story/[id].vue and playground/plugins/story-components.ts.
+        runtimeCompiler: true
+    },
     i18n: {
         defaultLocale: 'en',
         strategy: 'no_prefix',
@@ -10,5 +16,19 @@ export default defineNuxtConfig({
     css: ['~/assets/main.css'],
     postcss: {
         plugins: { '@tailwindcss/postcss': {}, autoprefixer: {} }
+    },
+    nitro: {
+        prerender: {
+            // Story variants demonstrate real component props with illustrative hrefs
+            // (e.g. AlpDetailActions' `editHref="/projects/edge-node-04"`, AlpAppShell's
+            // nav `to: '/settings'`) that describe routes a *consuming app* would have —
+            // not routes that exist in this playground (which only has `/` and
+            // `/story/*`). Nitro's default crawler still walks every rendered
+            // `<a href>`/NuxtLink it finds, including these, and 404s attempting to
+            // prerender them. Rather than disabling `failOnError` globally (which would
+            // also hide genuinely broken links), scope out exactly these fictitious demo
+            // route families; every other route still fails `generate` as normal.
+            ignore: ['/settings', '/projects/', '/fleet/']
+        }
     }
 });

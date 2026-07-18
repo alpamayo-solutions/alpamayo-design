@@ -358,3 +358,14 @@ body {
     background-clip: content-box;
     border: 2px solid transparent;
 }
+
+/* Blur sensitive data toggle — activated by .blur-mode on <html> (see useAlpBlurSensitive) */
+:root.blur-mode .sensitive {
+    filter: blur(5px);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.2s ease;
+}
+:root.blur-mode .sensitive:hover {
+    filter: blur(2px);
+}

@@ -8,6 +8,69 @@
             "clearAll": "Clear all",
             "items": "items",
             "removeFilter": "Remove filter"
+        },
+        "table": {
+            "emptyMessage": "No records found.",
+            "previousPage": "Previous page",
+            "nextPage": "Next page",
+            "pageSizeOption": "{value} / page"
+        },
+        "confirm": {
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "notesPlaceholder": "Optional note"
+        },
+        "actions": {
+            "close": "Close",
+            "delete": "Delete",
+            "edit": "Edit",
+            "more": "More",
+            "next": "Next",
+            "previous": "Previous"
+        },
+        "staleness": {
+            "noData": "No data",
+            "justNow": "just now",
+            "secondsAgo": "{seconds}s ago",
+            "minutesAgo": "{minutes}m ago",
+            "hoursAgo": "{hours}h ago",
+            "refresh": "Refresh monitoring data"
+        },
+        "presence": {
+            "editWarning": "is currently editing this. Saving may overwrite their changes. | are currently editing this. Saving may overwrite their changes.",
+            "viewing": "{count} viewing",
+            "editingSuffix": "(editing)",
+            "workingOn": "Working on",
+            "release": "Release"
+        },
+        "related": {
+            "loading": "Loading…",
+            "previous": "Previous page",
+            "next": "Next page",
+            "emptyDefault": "No related records.",
+            "emptyMessage": "No related records found."
+        },
+        "date": {
+            "trigger": "Due date"
+        },
+        "priority": {
+            "trigger": "Priority",
+            "none": "None",
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High"
+        },
+        "groupBy": {
+            "trigger": "Group by"
+        },
+        "sort": {
+            "trigger": "Sort",
+            "asc": "Asc",
+            "desc": "Desc"
+        },
+        "nav": {
+            "toggleMenu": "Toggle navigation",
+            "closeDrawer": "Close navigation"
         }
     }
 }

@@ -61,6 +61,76 @@ export default defineNuxtConfig({
   adding one without matching subpath patterns (`"./components/*"`, `"./i18n/*"`,
   `"./assets/*"`) breaks every consumer on their next version bump.
 
+- **Nav chrome** (`components/alp/nav/`) — `AlpNavbar`, `AlpIconRail`,
+  `AlpSidebar`, `AlpMobileDrawer`, and `AlpAppShell` (which composes the other
+  four with the same responsive orchestration as a typical app layout — CSS-only
+  `md:` breakpoints baked into the children, zero JS breakpoints in the shell
+  itself). All four data-driven parts share one contract, exported from
+  `AlpSidebar.vue`:
+
+    ```ts
+    export interface NavItem {
+        key: string;
+        label: string;
+        icon?: string;
+        to?: string;
+        badge?: string | number;
+        children?: NavItem[];
+    }
+    export interface NavSection {
+        key: string;
+        label?: string;
+        icon?: string;
+        to?: string;
+        items: NavItem[];
+    }
+    ```
+
+    **Gating is entirely the consuming app's responsibility.** These components
+    render whatever `sections`/`items` they're given — they do not know about
+    roles, permissions, or feature flags, and per the coupling rule (Global
+    Constraints) they never can (`useAuth`/`usePermissions`/`useContextualNav`
+    are app-only, not importable from this package). Pre-filter
+    `sections`/`items` for the current user/role/platform-scope _before_
+    passing them in; the package cannot do that filtering for you and will
+    happily render an item that should have been hidden. `AlpAppShell` takes
+    `sections` (main nav), an optional `railSections` (defaults to `sections`
+    when omitted), `activeKey`, and `activePath`; it owns only the
+    mobile-drawer-open state and the rail-select → sidebar-expand interplay —
+    no auth state of its own.
+
+- **Table shells** (`components/alp/AlpListTable.vue`, `AlpClientTable.vue`) —
+  server/lazy-paginated and client-side `DataTable` wrappers respectively.
+  Same props/emits shape as a typical entity list/table pair (`items`,
+  `lazy`/`paginator`, `loading`, `rows`, `filters`, `globalFilterFields`,
+  `rowTo` + row-click → `navigateTo`, `emptyMessage`). Empty state falls back
+  to `design.table.emptyMessage` when the caller doesn't override it via the
+  `emptyMessage` prop.
+
+- **Confirm dialog** (`components/alp/AlpConfirmDialog.vue`) — generic
+  confirm/cancel modal with an optional notes textarea. Its own copy
+  (`design.confirm.cancel`/`confirm`/`notesPlaceholder`) comes from the
+  package's i18n keys; `entityName`, `message`, `title`, and `confirmLabel`
+  stay caller-supplied props — domain-specific text does not belong in
+  `design.*`.
+
+- **Composables** (`composables/`, auto-imported by the layer the same way as
+  `Volt*`/`Alp*` components) — `useAlpDarkMode`, `useAlpBlurSensitive`,
+  `useAlpAnchoredDropdown`, `useAlpMobileView`, `useAlpMarkdown`,
+  `useAlpExportCsv`, `useAlpPlural`. Notably:
+    - `useAlpBlurSensitive()` returns `{ blurMode, toggle }` and toggles a
+      `.blur-mode` class on `<html>`, persisted via a `blur-sensitive` cookie.
+      **Every element that renders customer-identifiable data must carry
+      `class="sensitive"`** (org/project/machine names, IPs, serial numbers,
+      emails, network CIDRs, hostnames, external IDs) — the package's
+      `assets/css/tokens.css` blurs `:root.blur-mode .sensitive` purely via CSS,
+      so wiring a screen-share/demo toggle to `toggle()` is the entire
+      integration; no per-component blur logic needed.
+    - `useAlpDarkMode()` returns `{ isDark, toggleDarkMode, initDarkMode }` and
+      keeps the same `theme` cookie name and `darkTheme` state key as the common
+      app-side dark-mode pattern it was extracted from, so cutting an app over
+      to this composable does not reset users' theme preference.
+
 ## Component discipline (for agents building UIs)
 
 1. Components over raw HTML — every button/input/card/badge comes from this
