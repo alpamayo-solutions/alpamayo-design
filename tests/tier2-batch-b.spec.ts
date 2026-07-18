@@ -63,7 +63,9 @@ const VoltSelectStub = defineComponent({
         '<div><span class="selected">{{ selectedLabel }}</span><ul><li v-for="opt in options" :key="opt[optionValue]" @click="$emit(\'update:modelValue\', opt[optionValue])">{{ opt[optionLabel] }}</li></ul></div>',
     computed: {
         selectedLabel(): string {
-            const found = (this.options as any[]).find((o) => o[this.optionValue as string] === this.modelValue);
+            const found = (this.options as any[]).find(
+                (o) => o[this.optionValue as string] === this.modelValue
+            );
             return found ? found[this.optionLabel as string] : (this.placeholder ?? '');
         }
     }
@@ -83,7 +85,13 @@ describe('AlpFeed', () => {
     const globalConfig = { plugins: [i18n], components: { NuxtLink: NuxtLinkStub } };
     const items = [
         { id: '1', severity: 'info' as const, severityLabel: 'Info', title: 'Scheduled maintenance' },
-        { id: '2', severity: 'danger' as const, severityLabel: 'Critical', title: 'edge-node-07 offline', href: '/fleet/edge-node-07' }
+        {
+            id: '2',
+            severity: 'danger' as const,
+            severityLabel: 'Critical',
+            title: 'edge-node-07 offline',
+            href: '/fleet/edge-node-07'
+        }
     ];
 
     it('sorts items by severity descending (danger before info) by default', () => {
@@ -139,7 +147,8 @@ describe('AlpRelatedCard', () => {
 describe('AlpRelatedTable', () => {
     const VoltDataTableStub = {
         props: ['value', 'loading'],
-        template: '<div><template v-if="!value.length"><slot name="empty" /></template><div v-for="row in value" :key="row.id" class="row" @click="$emit(\'row-click\', { data: row })">{{ row.name }}</div></div>'
+        template:
+            '<div><template v-if="!value.length"><slot name="empty" /></template><div v-for="row in value" :key="row.id" class="row" @click="$emit(\'row-click\', { data: row })">{{ row.name }}</div></div>'
     };
     const globalConfig = { plugins: [i18n], components: { VoltDataTable: VoltDataTableStub } };
     const items = [
@@ -261,7 +270,11 @@ describe('AlpGroupByMenu', () => {
         { key: 'status', label: 'Status' },
         { key: 'assignee', label: 'Assignee' }
     ];
-    const globalConfig = { plugins: [i18n], components: { VoltSelect: VoltSelectStub }, directives: { tooltip: {} } };
+    const globalConfig = {
+        plugins: [i18n],
+        components: { VoltSelect: VoltSelectStub },
+        directives: { tooltip: {} }
+    };
 
     it('renders every passed option', () => {
         const w = mount(AlpGroupByMenu, { props: { options, modelValue: 'status' }, global: globalConfig });
@@ -288,18 +301,27 @@ describe('AlpSortMenu', () => {
     };
 
     it('renders every passed option', () => {
-        const w = mount(AlpSortMenu, { props: { options, modelValue: '', dir: 'asc' }, global: globalConfig });
+        const w = mount(AlpSortMenu, {
+            props: { options, modelValue: '', dir: 'asc' },
+            global: globalConfig
+        });
         expect(w.findAll('li').map((li) => li.text())).toEqual(['Manual', 'Created', 'Due date']);
     });
 
     it('emits update:modelValue with the selected option key', async () => {
-        const w = mount(AlpSortMenu, { props: { options, modelValue: '', dir: 'asc' }, global: globalConfig });
+        const w = mount(AlpSortMenu, {
+            props: { options, modelValue: '', dir: 'asc' },
+            global: globalConfig
+        });
         await w.findAll('li')[1]!.trigger('click');
         expect(w.emitted('update:modelValue')).toEqual([['created']]);
     });
 
     it('only shows the direction toggle once a field is chosen, and emits update:dir', async () => {
-        const w = mount(AlpSortMenu, { props: { options, modelValue: '', dir: 'asc' }, global: globalConfig });
+        const w = mount(AlpSortMenu, {
+            props: { options, modelValue: '', dir: 'asc' },
+            global: globalConfig
+        });
         expect(w.find('button').exists()).toBe(false);
         await w.setProps({ modelValue: 'created' });
         await w.find('button').trigger('click');

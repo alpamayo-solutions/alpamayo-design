@@ -30,6 +30,7 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpImageLightbox :images="[{ id: \'1\', url: \'/photo.jpg\', filename: \'edge-node-04.jpg\' }]" />',
+    snippet:
+        "<AlpImageLightbox :images=\"[{ id: '1', url: '/photo.jpg', filename: 'edge-node-04.jpg' }]\" />",
     sourcePath: 'components/alp/AlpImageLightbox.vue'
 });

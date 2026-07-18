@@ -21,7 +21,14 @@ function title(user: PresenceUser): string {
     return user.mode === 'edit' ? `${user.name} ${t('design.presence.editingSuffix')}` : user.name;
 }
 
-const COLORS = ['bg-primary-500', 'bg-secondary-500', 'bg-emerald-500', 'bg-violet-500', 'bg-amber-500', 'bg-cyan-500'];
+const COLORS = [
+    'bg-primary-500',
+    'bg-secondary-500',
+    'bg-emerald-500',
+    'bg-violet-500',
+    'bg-amber-500',
+    'bg-cyan-500'
+];
 
 function colorClass(sub: string): string {
     let hash = 0;

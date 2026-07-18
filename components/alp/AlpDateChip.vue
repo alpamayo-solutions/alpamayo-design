@@ -66,7 +66,10 @@ function pick(value: Date | null) {
             text
             size="small"
             class="!h-6 !gap-1 !px-1 !py-0 !text-xs !text-surface-600 dark:!text-surface-300"
-            :class="[!dueDate && '!w-6 !px-0 !text-surface-400', isOverdue && '!text-danger-600 dark:!text-danger-400']"
+            :class="[
+                !dueDate && '!w-6 !px-0 !text-surface-400',
+                isOverdue && '!text-danger-600 dark:!text-danger-400'
+            ]"
             :disabled="disabled"
             :aria-label="t('design.date.trigger')"
             v-tooltip.top="dueDate ? dateLabel : t('design.date.trigger')"

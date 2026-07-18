@@ -15,8 +15,7 @@ export default defineStory({
                 ]
             },
             slots: {
-                default:
-                    '<Column field="name" header="Name" /><Column field="status" header="Status" />'
+                default: '<Column field="name" header="Name" /><Column field="status" header="Status" />'
             }
         },
         {

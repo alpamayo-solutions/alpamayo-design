@@ -72,7 +72,10 @@ describe('AlpRowActions', () => {
     };
 
     it('items-path renders the passed MenuItems verbatim', () => {
-        const items = [{ label: 'Archive', icon: 'pi pi-box' }, { label: 'Duplicate', icon: 'pi pi-copy' }];
+        const items = [
+            { label: 'Archive', icon: 'pi pi-box' },
+            { label: 'Duplicate', icon: 'pi pi-copy' }
+        ];
         const w = mount(AlpRowActions, { props: { items }, global: globalConfig });
         const labels = w.findAll('li').map((li) => li.text());
         expect(labels).toEqual(['Archive', 'Duplicate']);

@@ -55,8 +55,15 @@ function toggle(event: Event) {
             v-tooltip.top="t('design.priority.trigger')"
             @click="toggle"
         >
-            <VoltTag v-if="current" :value="currentLabel" :severity="(severities[current] as any) || 'secondary'" />
-            <span v-else class="inline-flex items-center gap-1 rounded-full border border-dashed border-surface-300 px-1.5 py-0.5 text-xs text-surface-400 dark:border-surface-600">
+            <VoltTag
+                v-if="current"
+                :value="currentLabel"
+                :severity="(severities[current] as any) || 'secondary'"
+            />
+            <span
+                v-else
+                class="inline-flex items-center gap-1 rounded-full border border-dashed border-surface-300 px-1.5 py-0.5 text-xs text-surface-400 dark:border-surface-600"
+            >
                 <i class="pi pi-flag text-[10px]" />
                 {{ t('design.priority.trigger') }}
             </span>

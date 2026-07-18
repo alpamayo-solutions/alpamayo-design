@@ -31,6 +31,7 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpMobilePagination :page="page" :page-size="pageSize" :total-records="total" @page="onPage" />',
+    snippet:
+        '<AlpMobilePagination :page="page" :page-size="pageSize" :total-records="total" @page="onPage" />',
     sourcePath: 'components/alp/AlpMobilePagination.vue'
 });

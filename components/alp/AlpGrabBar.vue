@@ -18,7 +18,9 @@ const { t } = useI18n();
         class="flex items-center gap-3 px-4 py-2 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg mb-4"
     >
         <i class="pi pi-bolt text-green-600 dark:text-green-400 animate-pulse" />
-        <span class="text-xs font-medium text-green-700 dark:text-green-300">{{ t('design.presence.workingOn') }}</span>
+        <span class="text-xs font-medium text-green-700 dark:text-green-300">{{
+            t('design.presence.workingOn')
+        }}</span>
         <div class="flex flex-wrap gap-1.5">
             <span
                 v-for="grab in grabs"

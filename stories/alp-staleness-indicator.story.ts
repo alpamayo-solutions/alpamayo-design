@@ -4,7 +4,8 @@ export default defineStory({
     component: 'AlpStalenessIndicator',
     group: 'Components',
     title: 'Staleness Indicator',
-    description: 'Relative "last updated" time with a refresh button; turns warning-colored past a staleness threshold.',
+    description:
+        'Relative "last updated" time with a refresh button; turns warning-colored past a staleness threshold.',
     variants: [
         {
             name: 'fresh',
@@ -35,6 +36,7 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpStalenessIndicator :last-fetched-at="lastFetchedAt" :loading="loading" @refresh="onRefresh" />',
+    snippet:
+        '<AlpStalenessIndicator :last-fetched-at="lastFetchedAt" :loading="loading" @refresh="onRefresh" />',
     sourcePath: 'components/alp/AlpStalenessIndicator.vue'
 });

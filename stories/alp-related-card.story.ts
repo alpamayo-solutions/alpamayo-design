@@ -51,6 +51,7 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpRelatedCard title="Related devices" :count="42" :page="page" :page-size="10" @page="onPage" />',
+    snippet:
+        '<AlpRelatedCard title="Related devices" :count="42" :page="page" :page-size="10" @page="onPage" />',
     sourcePath: 'components/alp/AlpRelatedCard.vue'
 });

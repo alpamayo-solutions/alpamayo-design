@@ -50,7 +50,6 @@ export default defineStory({
             }
         }
     ],
-    snippet:
-        '<AlpFeed :items="alerts" empty-message="No alerts." />',
+    snippet: '<AlpFeed :items="alerts" empty-message="No alerts." />',
     sourcePath: 'components/alp/AlpFeed.vue'
 });

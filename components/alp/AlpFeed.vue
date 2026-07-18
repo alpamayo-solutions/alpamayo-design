@@ -76,12 +76,19 @@ function sourceBadgeLabel(item: AlpFeedItem): string | null {
             <div class="flex-1 min-w-0">
                 <div class="flex items-start justify-between gap-2">
                     <p class="text-sm font-medium text-surface-800 dark:text-surface-100">{{ item.title }}</p>
-                    <span v-if="item.time" class="inline-flex items-center gap-1 text-xs text-surface-400 shrink-0 tabular-nums" :title="`Triggered ${item.time} ago`">
+                    <span
+                        v-if="item.time"
+                        class="inline-flex items-center gap-1 text-xs text-surface-400 shrink-0 tabular-nums"
+                        :title="`Triggered ${item.time} ago`"
+                    >
                         <i class="pi pi-clock text-xs" />
                         <span>{{ item.time }}</span>
                     </span>
                 </div>
-                <p v-if="item.sub || sourceBadgeLabel(item)" class="text-xs text-surface-400 mt-0.5 flex items-center gap-1.5 flex-wrap">
+                <p
+                    v-if="item.sub || sourceBadgeLabel(item)"
+                    class="text-xs text-surface-400 mt-0.5 flex items-center gap-1.5 flex-wrap"
+                >
                     <span
                         v-if="sourceBadgeLabel(item)"
                         class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300"

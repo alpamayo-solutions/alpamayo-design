@@ -4,7 +4,8 @@ export default defineStory({
     component: 'AlpBadgeRow',
     group: 'Components',
     title: 'Badge Row',
-    description: 'Inline row of small severity-colored badges, e.g. for integration/connection status next to an entity name.',
+    description:
+        'Inline row of small severity-colored badges, e.g. for integration/connection status next to an entity name.',
     variants: [
         {
             name: 'mixed-severity',
@@ -29,6 +30,6 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpBadgeRow :badges="[{ label: \'GitHub\', severity: \'success\', icon: \'pi pi-github\' }]" />',
+    snippet: "<AlpBadgeRow :badges=\"[{ label: 'GitHub', severity: 'success', icon: 'pi pi-github' }]\" />",
     sourcePath: 'components/alp/AlpBadgeRow.vue'
 });

@@ -91,7 +91,7 @@ export default defineNuxtConfig({
     roles, permissions, or feature flags, and per the coupling rule (Global
     Constraints) they never can (`useAuth`/`usePermissions`/`useContextualNav`
     are app-only, not importable from this package). Pre-filter
-    `sections`/`items` for the current user/role/platform-scope *before*
+    `sections`/`items` for the current user/role/platform-scope _before_
     passing them in; the package cannot do that filtering for you and will
     happily render an item that should have been hidden. `AlpAppShell` takes
     `sections` (main nav), an optional `railSections` (defaults to `sections`
@@ -118,18 +118,18 @@ export default defineNuxtConfig({
   `Volt*`/`Alp*` components) — `useAlpDarkMode`, `useAlpBlurSensitive`,
   `useAlpAnchoredDropdown`, `useAlpMobileView`, `useAlpMarkdown`,
   `useAlpExportCsv`, `useAlpPlural`. Notably:
-  - `useAlpBlurSensitive()` returns `{ blurMode, toggle }` and toggles a
-    `.blur-mode` class on `<html>`, persisted via a `blur-sensitive` cookie.
-    **Every element that renders customer-identifiable data must carry
-    `class="sensitive"`** (org/project/machine names, IPs, serial numbers,
-    emails, network CIDRs, hostnames, external IDs) — the package's
-    `assets/css/tokens.css` blurs `:root.blur-mode .sensitive` purely via CSS,
-    so wiring a screen-share/demo toggle to `toggle()` is the entire
-    integration; no per-component blur logic needed.
-  - `useAlpDarkMode()` returns `{ isDark, toggleDarkMode, initDarkMode }` and
-    keeps the same `theme` cookie name and `darkTheme` state key as the common
-    app-side dark-mode pattern it was extracted from, so cutting an app over
-    to this composable does not reset users' theme preference.
+    - `useAlpBlurSensitive()` returns `{ blurMode, toggle }` and toggles a
+      `.blur-mode` class on `<html>`, persisted via a `blur-sensitive` cookie.
+      **Every element that renders customer-identifiable data must carry
+      `class="sensitive"`** (org/project/machine names, IPs, serial numbers,
+      emails, network CIDRs, hostnames, external IDs) — the package's
+      `assets/css/tokens.css` blurs `:root.blur-mode .sensitive` purely via CSS,
+      so wiring a screen-share/demo toggle to `toggle()` is the entire
+      integration; no per-component blur logic needed.
+    - `useAlpDarkMode()` returns `{ isDark, toggleDarkMode, initDarkMode }` and
+      keeps the same `theme` cookie name and `darkTheme` state key as the common
+      app-side dark-mode pattern it was extracted from, so cutting an app over
+      to this composable does not reset users' theme preference.
 
 ## Component discipline (for agents building UIs)
 

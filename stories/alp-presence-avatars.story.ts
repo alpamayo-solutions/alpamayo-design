@@ -4,7 +4,8 @@ export default defineStory({
     component: 'AlpPresenceAvatars',
     group: 'Components',
     title: 'Presence Avatars',
-    description: 'Stacked initials avatars for users currently viewing/editing a record, with an editing indicator dot.',
+    description:
+        'Stacked initials avatars for users currently viewing/editing a record, with an editing indicator dot.',
     variants: [
         {
             name: 'viewing',

@@ -4,7 +4,8 @@ export default defineStory({
     component: 'AlpGrabBar',
     group: 'Components',
     title: 'Grab Bar',
-    description: 'Banner listing cards the current user has "grabbed" (claimed) and is actively working on, each releasable individually.',
+    description:
+        'Banner listing cards the current user has "grabbed" (claimed) and is actively working on, each releasable individually.',
     variants: [
         {
             name: 'single-grab',

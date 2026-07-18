@@ -60,8 +60,12 @@ defineExpose({ open });
             @click="open(img)"
         >
             <img :src="img.url" :alt="img.filename" class="w-full h-full object-cover" loading="lazy" />
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
-                <i class="pi pi-search-plus text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs" />
+            <div
+                class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center"
+            >
+                <i
+                    class="pi pi-search-plus text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                />
             </div>
         </VoltButton>
     </div>
@@ -129,7 +133,9 @@ defineExpose({ open });
                 />
                 <div class="absolute bottom-4 text-white/60 text-sm">
                     <span class="sensitive">{{ images[lightboxIndex]?.filename }}</span>
-                    <span v-if="images.length > 1" class="ml-2">{{ lightboxIndex + 1 }} / {{ images.length }}</span>
+                    <span v-if="images.length > 1" class="ml-2"
+                        >{{ lightboxIndex + 1 }} / {{ images.length }}</span
+                    >
                 </div>
             </div>
         </Transition>

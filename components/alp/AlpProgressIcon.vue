@@ -62,10 +62,21 @@ const dash = computed(() => {
 </script>
 
 <template>
-    <span :class="['inline-flex items-center justify-center shrink-0 leading-none', sizeClass]" :style="{ color: tint }">
+    <span
+        :class="['inline-flex items-center justify-center shrink-0 leading-none', sizeClass]"
+        :style="{ color: tint }"
+    >
         <!-- Progress ring: track + clockwise fill, tinted by currentColor -->
         <svg v-if="isProgress" viewBox="0 0 36 36" class="w-full h-full" aria-hidden="true">
-            <circle cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" stroke-width="4" stroke-opacity="0.25" />
+            <circle
+                cx="18"
+                cy="18"
+                r="15.9155"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-opacity="0.25"
+            />
             <circle
                 cx="18"
                 cy="18"

@@ -26,20 +26,49 @@ const resolvedEmptyText = computed(() => props.emptyText ?? t('design.related.em
 </script>
 
 <template>
-    <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col">
-        <div class="px-5 py-3.5 border-b border-surface-100 dark:border-surface-700 flex items-center justify-between gap-3">
+    <div
+        class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 flex flex-col"
+    >
+        <div
+            class="px-5 py-3.5 border-b border-surface-100 dark:border-surface-700 flex items-center justify-between gap-3"
+        >
             <div class="min-w-0">
                 <p class="text-sm font-semibold text-surface-800 dark:text-surface-100">
                     {{ title }}
                     <span class="text-surface-400 font-normal">({{ count }})</span>
                 </p>
-                <p v-if="showPagination" class="text-xs text-surface-400 tabular-nums">{{ rangeStart }}–{{ rangeEnd }} of {{ count }}</p>
+                <p v-if="showPagination" class="text-xs text-surface-400 tabular-nums">
+                    {{ rangeStart }}–{{ rangeEnd }} of {{ count }}
+                </p>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-                <div v-if="showPagination" class="flex items-center gap-1.5 text-xs text-surface-500 dark:text-surface-400 tabular-nums">
-                    <VoltButton type="button" severity="ghost" text size="small" icon="pi pi-chevron-left" class="!h-8 !w-8 !p-0" :disabled="page <= 1" :aria-label="t('design.related.previous')" @click="emit('page', page - 1)" />
+                <div
+                    v-if="showPagination"
+                    class="flex items-center gap-1.5 text-xs text-surface-500 dark:text-surface-400 tabular-nums"
+                >
+                    <VoltButton
+                        type="button"
+                        severity="ghost"
+                        text
+                        size="small"
+                        icon="pi pi-chevron-left"
+                        class="!h-8 !w-8 !p-0"
+                        :disabled="page <= 1"
+                        :aria-label="t('design.related.previous')"
+                        @click="emit('page', page - 1)"
+                    />
                     <span>{{ page }} / {{ totalPages }}</span>
-                    <VoltButton type="button" severity="ghost" text size="small" icon="pi pi-chevron-right" class="!h-8 !w-8 !p-0" :disabled="page >= totalPages" :aria-label="t('design.related.next')" @click="emit('page', page + 1)" />
+                    <VoltButton
+                        type="button"
+                        severity="ghost"
+                        text
+                        size="small"
+                        icon="pi pi-chevron-right"
+                        class="!h-8 !w-8 !p-0"
+                        :disabled="page >= totalPages"
+                        :aria-label="t('design.related.next')"
+                        @click="emit('page', page + 1)"
+                    />
                 </div>
                 <slot name="actions" />
             </div>

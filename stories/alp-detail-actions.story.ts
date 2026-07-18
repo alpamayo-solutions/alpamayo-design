@@ -30,6 +30,7 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpDetailActions show-edit edit-href="/projects/edge-node-04" destructive-label="Delete project" @delete="onDelete" />',
+    snippet:
+        '<AlpDetailActions show-edit edit-href="/projects/edge-node-04" destructive-label="Delete project" @delete="onDelete" />',
     sourcePath: 'components/alp/AlpDetailActions.vue'
 });
