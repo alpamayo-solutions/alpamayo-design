@@ -86,6 +86,16 @@
         "nav": {
             "toggleMenu": "Toggle navigation",
             "closeDrawer": "Close navigation"
+        },
+        "share": {
+            "trigger": "Share",
+            "copied": "Copied!",
+            "ttlLabel": "Link expires in (days)",
+            "passwordLabel": "Password (optional)",
+            "createButton": "Create link",
+            "urlLabel": "Share link",
+            "copyButton": "Copy link",
+            "revokeButton": "Revoke link"
         }
     }
 }

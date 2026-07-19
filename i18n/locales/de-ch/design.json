@@ -86,6 +86,16 @@
         "nav": {
             "toggleMenu": "Navigation umschalten",
             "closeDrawer": "Navigation schliessen"
+        },
+        "share": {
+            "trigger": "Teilen",
+            "copied": "Kopiert!",
+            "ttlLabel": "Ablauf in Tagen",
+            "passwordLabel": "Passwort (optional)",
+            "createButton": "Link erstellen",
+            "urlLabel": "Freigabelink",
+            "copyButton": "Link kopieren",
+            "revokeButton": "Link widerrufen"
         }
     }
 }
