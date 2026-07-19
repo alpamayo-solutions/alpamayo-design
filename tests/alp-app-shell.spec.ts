@@ -170,6 +170,21 @@ describe('AlpAppShell', () => {
         expect(w.findAll('[data-testid="sidebar-section"]').length).toBe(3);
     });
 
+    it('renders #above-content pinned above the scrollable main', () => {
+        const w = mount(AlpAppShell, {
+            props: { sections, railSections: [] },
+            slots: { 'above-content': '<div data-testid="banner">BANNER</div>', default: '<p>page</p>' },
+            global: globalConfig
+        });
+        const banner = w.find('[data-testid="banner"]');
+        expect(banner.exists()).toBe(true);
+        // banner must be a sibling BEFORE <main>, not inside it (so it doesn't scroll)
+        const main = w.find('main').element;
+        const bannerEl = banner.element;
+        expect(main.contains(bannerEl)).toBe(false);
+        expect(bannerEl.compareDocumentPosition(main) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
     it('expands the matching sidebar section when a rail item without a direct match is selected', async () => {
         const w = mount(AlpAppShell, { props: { sections }, global: globalConfig });
         expect(w.find('a[href="/fleet/devices"]').exists()).toBe(false);
