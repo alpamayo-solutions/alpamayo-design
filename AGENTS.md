@@ -114,6 +114,71 @@ export default defineNuxtConfig({
   stay caller-supplied props — domain-specific text does not belong in
   `design.*`.
 
+- **Shell + wrapper components (tier 3)** — four presentational shells added in
+  phase 3c. All four are emit-only: no network, no persistence, no app-specific
+  types. They render whatever plain-data props they're given and let the caller
+  (or a thin app-side wrapper) own I/O and app-type mapping — same discipline as
+  the nav-chrome gating rule above.
+    - `AlpMemberPicker.vue` — inline single-select member dropdown (avatar/label
+      chip → popup menu). Exports the shared `MemberOption` type
+      (`{ id, label, avatar?, sublabel? }`); takes `options: MemberOption[]`,
+      `modelValue: string | null`, optional `placeholder`/`disabled`; emits
+      `update:modelValue`. An explicit "unassigned" entry is always offered.
+    - `AlpMemberFilter.vue` — multi-select member filter (board-toolbar style).
+      Same `MemberOption[]` shape via `options`, `modelValue: string[]`; emits
+      `update:modelValue`. Selected value renders as up to 3 stacked
+      avatars/initials plus a `+N` overflow marker — **never names** in the
+      collapsed value, regardless of `MemberOption.label`.
+    - `AlpQuickCreateCard.vue` — title input + inline assignee/type/label/
+      project pickers, mirroring a typical inline task-quick-create layout.
+      Props: `assigneeOptions?: MemberOption[]`, `labelOptions?`,
+      `typeOptions?`, `projectOptions?` (>1 entries switch the project field
+      from static text to a picker), `projectName?`, `creating?`. Emits
+      `create` with the resolved payload (`title`, `assigneeId`, `labelIds`,
+      `typeKey?`, `projectSlug?`) and `cancel`. Label creation is app-domain —
+      the wrapper resolves `labelOptions`; this shell only ever selects from
+      that list. Exposes a **`controls-extra` slot** in the inline-controls
+      row as the extensibility point for app-specific controls (e.g. priority,
+      due-date pickers) — the consumer owns any injected control's state and
+      merges it into its own `create` payload; the shell stays payload-agnostic
+      about anything placed there.
+    - `AlpShareButton.vue` — trigger button + anchored popover share-link flow
+      (TTL-days input, optional password, create/copy/revoke). Props:
+      `shareUrl?`, `loading?`, `copied?`, `error?`, `maxTtlDays?` (default 7).
+      Emits `create` (`{ ttlDays, password }`), `copy`, `revoke`. No network, no
+      clipboard access, no `copied`-reset timer — the wrapper owns link
+      creation, the clipboard write, and resetting `copied`, then reflects
+      `loading`/`copied`/`error`/`shareUrl` back down as props. The two popover
+      states are driven purely by whether `shareUrl` is set. Form-field ids are
+      generated per-instance with Vue's `useId()` so two instances on one page
+      never collide on `<label for>` association.
+    - `useAlpServerTable` (`composables/useAlpServerTable.ts`) — framework-
+      agnostic server-table state machine. Takes a caller-supplied
+      `fetch: (params: ServerTableFetchParams) => Promise<{ items: T[]; total: number }>`
+      (page/pageSize/sort/filters in, items/total out) plus optional
+      `pageSize`/`initialSort`; holds no knowledge of any particular API
+      client — `fetch` is the only I/O boundary. Owns `page`/`pageSize`/`sort`/
+      `filters`/`loading`/`error`/`items`/`total` and drives `fetch` on mount
+      and on every state change: immediately for `setPage`/`setSort`,
+      debounced (~250ms) for `setFilter` (which also resets to page 1). A
+      monotonic request token discards stale responses from a superseded
+      fetch, and a failed refresh leaves prior `items`/`total` untouched
+      rather than blanking the table. Clears its pending debounce timer on
+      unmount so a stale filter-debounce fetch can't fire after the consuming
+      component is gone.
+    - `AlpAppShell` (`components/alp/nav/AlpAppShell.vue`) gained an
+      **`#above-content` slot**, rendered above `<main>` inside the shell's
+      content column (only mounted when the slot is used) — for callers that
+      need a pinned banner/toolbar (e.g. a stale-data notice, a bulk-action
+      bar) above the routed page content without it scrolling away with the
+      page.
+    - **Consumption pattern:** consumers either use these shells directly with
+      plain-data props, or wrap them the same way as the phase-3
+      `EntityActionMenu` → `AlpRowActions` pattern — the app wrapper keeps its
+      own file name/props/emits, imports the shell, and maps its own app types
+      (e.g. an app's `Member`/`User` model) onto the shell's prop shape (e.g.
+      `MemberOption`) at the call boundary, forwarding emits back out.
+
 - **Composables** (`composables/`, auto-imported by the layer the same way as
   `Volt*`/`Alp*` components) — `useAlpDarkMode`, `useAlpBlurSensitive`,
   `useAlpAnchoredDropdown`, `useAlpMobileView`, `useAlpMarkdown`,

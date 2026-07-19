@@ -1,4 +1,4 @@
-import { onMounted, ref, type Ref } from 'vue';
+import { onMounted, onUnmounted, ref, type Ref } from 'vue';
 
 export interface SortState {
     field: string;
@@ -100,6 +100,10 @@ export function useAlpServerTable<T>(opts: {
 
     onMounted(() => {
         void doFetch();
+    });
+
+    onUnmounted(() => {
+        if (debounceHandle) clearTimeout(debounceHandle);
     });
 
     return {

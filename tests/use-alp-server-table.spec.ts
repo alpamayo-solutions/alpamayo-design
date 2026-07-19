@@ -136,6 +136,20 @@ describe('useAlpServerTable', () => {
         expect(fetchFn).toHaveBeenCalledWith({ page: 1, pageSize: 50, sort: null, filters: {} });
     });
 
+    it('clears a pending debounced fetch on unmount', async () => {
+        const fetchFn = vi.fn().mockResolvedValue({ items: [], total: 0 });
+        const { result, wrapper } = withSetup(() => useAlpServerTable({ fetch: fetchFn }));
+        await flushPromises();
+        fetchFn.mockClear();
+
+        result.setFilter('q', 'x');
+        wrapper.unmount();
+
+        await flushDebounce();
+
+        expect(fetchFn).not.toHaveBeenCalled();
+    });
+
     it('respects custom pageSize and initialSort options', async () => {
         const fetchFn = vi.fn().mockResolvedValue({ items: [], total: 0 });
         withSetup(() =>

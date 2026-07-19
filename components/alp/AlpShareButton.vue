@@ -6,7 +6,7 @@
 // `loading`/`copied`/`error`/`shareUrl` back down as props. Two popover
 // states driven purely by `shareUrl`: a create form when unset, a
 // copy/revoke result view once a link exists.
-import { ref, watch } from 'vue';
+import { ref, useId, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAlpAnchoredDropdown } from '../../composables/useAlpAnchoredDropdown';
 
@@ -31,6 +31,10 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 const { open, triggerRef, panelRef, pos, toggle } = useAlpAnchoredDropdown();
+
+const ttlInputId = useId();
+const passwordInputId = useId();
+const urlInputId = useId();
 
 function clampTtl(value: number | null | undefined): number {
     const raw = Number(value ?? 1);
@@ -94,12 +98,12 @@ function revoke() {
                 <template v-if="!shareUrl">
                     <label
                         class="block text-xs font-medium text-surface-600 dark:text-surface-300"
-                        for="alp-share-ttl"
+                        :for="ttlInputId"
                     >
                         {{ t('design.share.ttlLabel') }}
                     </label>
                     <VoltInputNumber
-                        id="alp-share-ttl"
+                        :id="ttlInputId"
                         :modelValue="ttlDays"
                         :min="1"
                         :max="maxTtlDays"
@@ -109,12 +113,12 @@ function revoke() {
                     />
                     <label
                         class="mt-3 block text-xs font-medium text-surface-600 dark:text-surface-300"
-                        for="alp-share-password"
+                        :for="passwordInputId"
                     >
                         {{ t('design.share.passwordLabel') }}
                     </label>
                     <VoltInputText
-                        id="alp-share-password"
+                        :id="passwordInputId"
                         v-model="password"
                         type="password"
                         autocomplete="new-password"
@@ -133,12 +137,12 @@ function revoke() {
                 <template v-else>
                     <label
                         class="block text-xs font-medium text-surface-600 dark:text-surface-300"
-                        for="alp-share-url"
+                        :for="urlInputId"
                     >
                         {{ t('design.share.urlLabel') }}
                     </label>
                     <VoltInputText
-                        id="alp-share-url"
+                        :id="urlInputId"
                         :modelValue="shareUrl"
                         readonly
                         class="sensitive mt-1 w-full"
