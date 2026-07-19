@@ -88,9 +88,10 @@ function toggle(event: Event) {
                         @error="onImgError"
                     />
                 </span>
-                <span class="max-w-[120px] truncate text-xs text-surface-600 dark:text-surface-300">{{
-                    selected.label
-                }}</span>
+                <span
+                    class="sensitive max-w-[120px] truncate text-xs text-surface-600 dark:text-surface-300"
+                    >{{ selected.label }}</span
+                >
             </template>
             <template v-else>
                 <span
@@ -125,9 +126,10 @@ function toggle(event: Event) {
                             />
                         </span>
                         <span class="min-w-0">
-                            <span :class="item.isUnassigned ? 'text-surface-500' : 'truncate block'">{{
-                                item.label
-                            }}</span>
+                            <span
+                                :class="item.isUnassigned ? 'text-surface-500' : 'sensitive truncate block'"
+                                >{{ item.label }}</span
+                            >
                             <span v-if="item.sublabel" class="block truncate text-[10px] text-surface-400">{{
                                 item.sublabel
                             }}</span>

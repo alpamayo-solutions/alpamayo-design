@@ -104,6 +104,13 @@ describe('AlpMemberPicker', () => {
         expect(kimRow.find('img').exists()).toBe(false);
         expect(kimRow.text()).toContain('K');
     });
+
+    it('carries the sensitive blur class on the member-name label (screen-share convention)', () => {
+        const w = mount(AlpMemberPicker, { props: { options, modelValue: null }, global: globalConfig });
+        const rows = w.findAll('li');
+        const alexRow = rows.find((r) => r.text().includes('Alex Doe'))!;
+        expect(alexRow.find('span.sensitive').text()).toBe('Alex Doe');
+    });
 });
 
 describe('AlpMemberFilter', () => {
@@ -141,5 +148,12 @@ describe('AlpMemberFilter', () => {
         const valueSlot = w.find('.value-slot');
         expect(valueSlot.findAll('img, span.rounded-full').length).toBeGreaterThanOrEqual(3);
         expect(valueSlot.text()).toContain('+1');
+    });
+
+    it('carries the sensitive blur class on the option-row label (screen-share convention)', () => {
+        const w = mount(AlpMemberFilter, { props: { options, modelValue: [] }, global: globalConfig });
+        const rows = w.findAll('ul li');
+        const alexRow = rows.find((r) => r.text().includes('Alex Doe'))!;
+        expect(alexRow.find('span.sensitive').text()).toBe('Alex Doe');
     });
 });

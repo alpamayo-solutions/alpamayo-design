@@ -96,7 +96,7 @@ const label = computed(() => props.placeholder ?? t('design.member.filterLabel')
                         @error="onImgError"
                     />
                 </span>
-                <span class="truncate">{{ option.label }}</span>
+                <span class="sensitive truncate">{{ option.label }}</span>
             </div>
         </template>
     </VoltMultiSelect>
