@@ -145,6 +145,17 @@ describe('AlpQuickCreateCard', () => {
         expect(one.find('.volt-select').exists()).toBe(false);
     });
 
+    it('renders content passed to the controls-extra slot inline in the card', () => {
+        const w = mount(AlpQuickCreateCard, {
+            global: globalConfig,
+            slots: {
+                'controls-extra': '<button class="priority-picker">Priority</button>'
+            }
+        });
+        expect(w.find('.priority-picker').exists()).toBe(true);
+        expect(w.find('.priority-picker').text()).toBe('Priority');
+    });
+
     it('shows a project picker when projectOptions.length > 1', () => {
         const w = mount(AlpQuickCreateCard, {
             props: {

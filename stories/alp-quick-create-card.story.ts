@@ -39,6 +39,20 @@ export default defineStory({
                 ],
                 creating: false
             }
+        },
+        {
+            name: 'with-controls-extra',
+            props: {
+                assigneeOptions: [
+                    { id: 'u1', label: 'Alex Doe' },
+                    { id: 'u2', label: 'Kim Muster' }
+                ],
+                labelOptions: [{ id: 'l1', label: 'Bug', color: '#ef4444' }],
+                projectName: 'Demo Project'
+            },
+            slots: {
+                'controls-extra': '<button class="text-xs">Priority</button>'
+            }
         }
     ],
     snippet:

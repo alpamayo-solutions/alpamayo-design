@@ -134,6 +134,10 @@ function submit() {
                     <span class="truncate">{{ option.label }}</span>
                 </template>
             </VoltMultiSelect>
+            <!-- Extensibility point for app-specific inline controls (e.g. priority,
+                 due-date pickers). The consumer owns any injected controls' state and
+                 merges it into its own create payload — this shell stays payload-agnostic. -->
+            <slot name="controls-extra" />
         </div>
         <div v-if="selectedLabelChips.length" class="mt-2 flex flex-wrap items-center gap-1">
             <span
