@@ -68,6 +68,12 @@
             "asc": "Aufst.",
             "desc": "Abst."
         },
+        "member": {
+            "trigger": "Mitglied",
+            "unassigned": "Nicht zugewiesen",
+            "filterLabel": "Mitglieder",
+            "filterEmpty": "Keine Mitglieder"
+        },
         "nav": {
             "toggleMenu": "Navigation umschalten",
             "closeDrawer": "Navigation schliessen"

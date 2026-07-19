@@ -68,6 +68,12 @@
             "asc": "Asc",
             "desc": "Desc"
         },
+        "member": {
+            "trigger": "Member",
+            "unassigned": "Unassigned",
+            "filterLabel": "Members",
+            "filterEmpty": "No members"
+        },
         "nav": {
             "toggleMenu": "Toggle navigation",
             "closeDrawer": "Close navigation"
