@@ -74,6 +74,15 @@
             "filterLabel": "Mitglieder",
             "filterEmpty": "Keine Mitglieder"
         },
+        "quickCreate": {
+            "titlePlaceholder": "Titel",
+            "selectProject": "Projekt auswählen",
+            "selectType": "Typ auswählen",
+            "addLabels": "Labels hinzufügen",
+            "removeLabel": "Label entfernen",
+            "cancel": "Abbrechen",
+            "create": "Erstellen"
+        },
         "nav": {
             "toggleMenu": "Navigation umschalten",
             "closeDrawer": "Navigation schliessen"
