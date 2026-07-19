@@ -101,6 +101,10 @@ async function handleRailSelect(key: string) {
                 <div
                     class="flex flex-col flex-1 min-w-0 dark:text-surface-100 overflow-hidden bg-white dark:bg-surface-900"
                 >
+                    <div v-if="$slots['above-content']" class="flex-shrink-0">
+                        <slot name="above-content" />
+                    </div>
+
                     <main class="flex-1 overflow-y-auto overflow-x-clip p-4 sm:p-6">
                         <slot />
                     </main>
