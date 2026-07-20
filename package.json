@@ -1,6 +1,6 @@
 {
     "name": "@alpamayo-solutions/design",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Alpamayo design system — tokens, Volt/PrimeVue wrappers, Alp components, brand assets. Source-shipped Nuxt layer.",
     "type": "module",
     "main": "./nuxt.config.ts",
