@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-// Real NuxtLink component — the string `:is="'NuxtLink'"` renders an inert
-// <nuxtlink> at runtime (NuxtLink is a compile-time auto-import, not a global).
-import { NuxtLink } from '#components';
 import AlpStatusDot from './AlpStatusDot.vue';
 import AlpStatusPill from './AlpStatusPill.vue';
 import AlpEmptySection from './AlpEmptySection.vue';
@@ -67,42 +64,74 @@ function sourceBadgeLabel(item: AlpFeedItem): string | null {
 
 <template>
     <div v-if="sortedItems.length" class="divide-y divide-surface-100 dark:divide-surface-700">
-        <component
-            :is="item.href ? NuxtLink : 'div'"
-            v-for="item in sortedItems"
-            :key="item.id"
-            :to="item.href ?? undefined"
-            class="flex items-start gap-3 px-4 py-3"
-            :class="item.href ? 'hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors' : ''"
-        >
-            <AlpStatusDot :severity="item.severity" size="w-2 h-2" class="mt-1.5" />
-            <div class="flex-1 min-w-0">
-                <div class="flex items-start justify-between gap-2">
-                    <p class="text-sm font-medium text-surface-800 dark:text-surface-100">{{ item.title }}</p>
-                    <span
-                        v-if="item.time"
-                        class="inline-flex items-center gap-1 text-xs text-surface-400 shrink-0 tabular-nums"
-                        :title="`Triggered ${item.time} ago`"
+        <template v-for="item in sortedItems" :key="item.id">
+            <NuxtLink
+                v-if="item.href"
+                :to="item.href"
+                class="flex items-start gap-3 px-4 py-3 hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors"
+            >
+                <AlpStatusDot :severity="item.severity" size="w-2 h-2" class="mt-1.5" />
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-2">
+                        <p class="text-sm font-medium text-surface-800 dark:text-surface-100">
+                            {{ item.title }}
+                        </p>
+                        <span
+                            v-if="item.time"
+                            class="inline-flex items-center gap-1 text-xs text-surface-400 shrink-0 tabular-nums"
+                            :title="`Triggered ${item.time} ago`"
+                        >
+                            <i class="pi pi-clock text-xs" />
+                            <span>{{ item.time }}</span>
+                        </span>
+                    </div>
+                    <p
+                        v-if="item.sub || sourceBadgeLabel(item)"
+                        class="text-xs text-surface-400 mt-0.5 flex items-center gap-1.5 flex-wrap"
                     >
-                        <i class="pi pi-clock text-xs" />
-                        <span>{{ item.time }}</span>
-                    </span>
+                        <span
+                            v-if="sourceBadgeLabel(item)"
+                            class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300"
+                            :title="`Source: ${sourceBadgeLabel(item)}`"
+                            >{{ sourceBadgeLabel(item) }}</span
+                        >
+                        <span v-if="item.sub" class="sensitive truncate">{{ item.sub }}</span>
+                    </p>
                 </div>
-                <p
-                    v-if="item.sub || sourceBadgeLabel(item)"
-                    class="text-xs text-surface-400 mt-0.5 flex items-center gap-1.5 flex-wrap"
-                >
-                    <span
-                        v-if="sourceBadgeLabel(item)"
-                        class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300"
-                        :title="`Source: ${sourceBadgeLabel(item)}`"
-                        >{{ sourceBadgeLabel(item) }}</span
+                <AlpStatusPill :label="item.severityLabel" :severity="item.severity" class="shrink-0" />
+            </NuxtLink>
+            <div v-else class="flex items-start gap-3 px-4 py-3">
+                <AlpStatusDot :severity="item.severity" size="w-2 h-2" class="mt-1.5" />
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-2">
+                        <p class="text-sm font-medium text-surface-800 dark:text-surface-100">
+                            {{ item.title }}
+                        </p>
+                        <span
+                            v-if="item.time"
+                            class="inline-flex items-center gap-1 text-xs text-surface-400 shrink-0 tabular-nums"
+                            :title="`Triggered ${item.time} ago`"
+                        >
+                            <i class="pi pi-clock text-xs" />
+                            <span>{{ item.time }}</span>
+                        </span>
+                    </div>
+                    <p
+                        v-if="item.sub || sourceBadgeLabel(item)"
+                        class="text-xs text-surface-400 mt-0.5 flex items-center gap-1.5 flex-wrap"
                     >
-                    <span v-if="item.sub" class="sensitive truncate">{{ item.sub }}</span>
-                </p>
+                        <span
+                            v-if="sourceBadgeLabel(item)"
+                            class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300"
+                            :title="`Source: ${sourceBadgeLabel(item)}`"
+                            >{{ sourceBadgeLabel(item) }}</span
+                        >
+                        <span v-if="item.sub" class="sensitive truncate">{{ item.sub }}</span>
+                    </p>
+                </div>
+                <AlpStatusPill :label="item.severityLabel" :severity="item.severity" class="shrink-0" />
             </div>
-            <AlpStatusPill :label="item.severityLabel" :severity="item.severity" class="shrink-0" />
-        </component>
+        </template>
     </div>
     <div v-else class="px-4 py-6">
         <AlpEmptySection :icon="emptyIcon ?? 'pi pi-bell'" :message="emptyMessage" />

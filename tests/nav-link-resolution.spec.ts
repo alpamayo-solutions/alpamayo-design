@@ -7,27 +7,31 @@ import AlpEntityRow from '../components/alp/AlpEntityRow.vue';
 import AlpStatTile from '../components/alp/AlpStatTile.vue';
 import AlpFeed from '../components/alp/AlpFeed.vue';
 import type { NavSection } from '../components/alp/nav/AlpSidebar.vue';
+import { NuxtLink } from './stubs/nuxt-components';
 
 /**
  * Regression tests for the "inert <nuxtlink>" production bug.
  *
- * The buggy code used `<component :is="cond ? 'NuxtLink' : 'div'">` — a STRING.
- * NuxtLink is a Nuxt compile-time auto-import, NOT a runtime-registered global,
- * so the string never resolved and Vue rendered an inert <nuxtlink> element with
- * no href. Nav sub-links (and other link tiles) were dead.
+ * The originally-buggy code used `<component :is="cond ? 'NuxtLink' : 'div'">` — a
+ * STRING. NuxtLink is a Nuxt compile-time auto-import, NOT a runtime-registered
+ * global, so the string never resolved and Vue rendered an inert <nuxtlink>
+ * element with no href. Nav sub-links (and other link tiles) were dead.
  *
- * Crucially, these tests DO NOT register a global `NuxtLink` stub. That is what
- * lets them catch the bug: with the old string form and no global registration,
- * the link branch renders a <nuxtlink> element (tagName !== 'A'). The fix imports
- * the real component from `#components` (aliased to a stub in vitest.config.ts),
- * so the link branch renders a genuine <a href>. Against the pre-fix source these
- * assertions FAIL; against the fixed source they PASS.
+ * The components now render a literal `<NuxtLink v-if="...">` tag (no
+ * `#components` import — that broke consumer `vue-tsc` typechecking). In real
+ * Nuxt apps, `<NuxtLink>` resolves via compile-time auto-import; under vitest
+ * there is no Nuxt build step, so the literal tag only resolves if `NuxtLink` is
+ * registered as a global component for the mount. `globalConfig.components`
+ * below registers the same anchor-rendering stub used by the old `#components`
+ * alias so the link branch still renders a genuine `<a href>`. Against a build
+ * that fails to render a real link (or falls back to an unresolved custom
+ * element) these assertions FAIL; against the fixed source they PASS.
  */
 
 const VoltBadgeStub = { props: ['value', 'severity'], template: '<span class="badge">{{ value }}</span>' };
 
 const globalConfig = {
-    components: { VoltBadge: VoltBadgeStub }
+    components: { VoltBadge: VoltBadgeStub, NuxtLink }
 };
 
 const sections: NavSection[] = [

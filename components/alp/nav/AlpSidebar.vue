@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
-// Import the real NuxtLink component. Using the string `:is="'NuxtLink'"` fails at
-// runtime because NuxtLink is a compile-time auto-import, not a runtime-registered
-// global — the string renders an inert <nuxtlink> with no href.
-import { NuxtLink } from '#components';
 
 export interface NavItem {
     key: string;
@@ -143,8 +139,8 @@ function toggleSection(section: NavSection) {
                         >
                             <template v-for="item in section.items" :key="item.key">
                                 <slot name="item" :item="item" :active="isItemActive(item, section)">
-                                    <component
-                                        :is="item.to ? NuxtLink : 'div'"
+                                    <NuxtLink
+                                        v-if="item.to"
                                         :to="item.to"
                                         class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
                                         :class="
@@ -167,7 +163,31 @@ function toggleSection(section: NavSection) {
                                             severity="secondary"
                                             class="flex-shrink-0"
                                         />
-                                    </component>
+                                    </NuxtLink>
+                                    <div
+                                        v-else
+                                        class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
+                                        :class="
+                                            isItemActive(item, section)
+                                                ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300 font-medium'
+                                                : 'text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 hover:text-surface-900 dark:hover:text-surface-100'
+                                        "
+                                        data-testid="sidebar-item"
+                                    >
+                                        <i
+                                            :class="[
+                                                item.icon || 'pi pi-circle',
+                                                'text-xs w-4 text-center flex-shrink-0'
+                                            ]"
+                                        />
+                                        <span class="flex-1 truncate">{{ item.label }}</span>
+                                        <VoltBadge
+                                            v-if="item.badge !== undefined"
+                                            :value="item.badge"
+                                            severity="secondary"
+                                            class="flex-shrink-0"
+                                        />
+                                    </div>
                                 </slot>
                             </template>
                         </div>
