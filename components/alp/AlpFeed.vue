@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+// Real NuxtLink component — the string `:is="'NuxtLink'"` renders an inert
+// <nuxtlink> at runtime (NuxtLink is a compile-time auto-import, not a global).
+import { NuxtLink } from '#components';
 import AlpStatusDot from './AlpStatusDot.vue';
 import AlpStatusPill from './AlpStatusPill.vue';
 import AlpEmptySection from './AlpEmptySection.vue';
@@ -65,7 +68,7 @@ function sourceBadgeLabel(item: AlpFeedItem): string | null {
 <template>
     <div v-if="sortedItems.length" class="divide-y divide-surface-100 dark:divide-surface-700">
         <component
-            :is="item.href ? 'NuxtLink' : 'div'"
+            :is="item.href ? NuxtLink : 'div'"
             v-for="item in sortedItems"
             :key="item.id"
             :to="item.href ?? undefined"

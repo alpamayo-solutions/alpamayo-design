@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { NavSection } from './AlpSidebar.vue';
+// Real NuxtLink component — the string `:is="'NuxtLink'"` renders an inert
+// <nuxtlink> at runtime (NuxtLink is a compile-time auto-import, not a global).
+import { NuxtLink } from '#components';
 
 const props = defineProps<{
     sections: NavSection[];
@@ -22,7 +25,7 @@ function isActive(section: NavSection): boolean {
     >
         <nav class="flex flex-col items-center gap-1 flex-1 w-full px-2">
             <component
-                :is="section.to ? 'NuxtLink' : 'button'"
+                :is="section.to ? NuxtLink : 'button'"
                 v-for="section in sections"
                 :key="section.key"
                 :type="section.to ? undefined : 'button'"

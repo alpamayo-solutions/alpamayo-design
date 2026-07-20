@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
+// Import the real NuxtLink component. Using the string `:is="'NuxtLink'"` fails at
+// runtime because NuxtLink is a compile-time auto-import, not a runtime-registered
+// global — the string renders an inert <nuxtlink> with no href.
+import { NuxtLink } from '#components';
 
 export interface NavItem {
     key: string;
@@ -140,7 +144,7 @@ function toggleSection(section: NavSection) {
                             <template v-for="item in section.items" :key="item.key">
                                 <slot name="item" :item="item" :active="isItemActive(item, section)">
                                     <component
-                                        :is="item.to ? 'NuxtLink' : 'div'"
+                                        :is="item.to ? NuxtLink : 'div'"
                                         :to="item.to"
                                         class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
                                         :class="

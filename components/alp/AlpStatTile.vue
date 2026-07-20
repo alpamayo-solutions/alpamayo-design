@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// Real NuxtLink component — the string `:is="'NuxtLink'"` renders an inert
+// <nuxtlink> at runtime (NuxtLink is a compile-time auto-import, not a global).
+import { NuxtLink } from '#components';
+
 withDefaults(
     defineProps<{
         label: string;
@@ -15,7 +19,7 @@ withDefaults(
 
 <template>
     <component
-        :is="href ? 'NuxtLink' : 'div'"
+        :is="href ? NuxtLink : 'div'"
         :to="href"
         class="rounded-lg border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 px-3 py-2 block"
         :class="[

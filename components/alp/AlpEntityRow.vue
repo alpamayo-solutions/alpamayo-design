@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// Real NuxtLink component — the string `:is="'NuxtLink'"` renders an inert
+// <nuxtlink> at runtime (NuxtLink is a compile-time auto-import, not a global).
+import { NuxtLink } from '#components';
+
 defineProps<{
     to?: string;
 }>();
@@ -6,7 +10,7 @@ defineProps<{
 
 <template>
     <component
-        :is="to ? 'NuxtLink' : 'div'"
+        :is="to ? NuxtLink : 'div'"
         :to="to"
         class="flex items-center justify-between gap-3 px-5 py-3 transition-colors"
         :class="to && 'hover:bg-surface-50 dark:hover:bg-surface-700/30'"
