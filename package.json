@@ -4,6 +4,11 @@
     "description": "Alpamayo design system — tokens, Volt/PrimeVue wrappers, Alp components, brand assets. Source-shipped Nuxt layer.",
     "type": "module",
     "main": "./nuxt.config.ts",
+    "exports": {
+        ".": "./nuxt.config.ts",
+        "./layers/workbench": "./layers/workbench/nuxt.config.ts",
+        "./*": "./*"
+    },
     "license": "UNLICENSED",
     "repository": {
         "type": "git",
