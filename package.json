@@ -13,6 +13,7 @@
         "components",
         "composables",
         "presets",
+        "layers",
         "assets",
         "public",
         "plugins",

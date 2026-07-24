@@ -1,0 +1,64 @@
+/*
+ * Optional tokens for dense, IDE-style workbenches.
+ *
+ * Apply .alp-workbench to the application shell. Keeping every override under
+ * that class lets consumers opt in without changing the default Alpamayo theme.
+ */
+.alp-workbench {
+    --alp-workbench-app-bar-height: 2.625rem;
+    --alp-workbench-activity-rail-width: 3rem;
+    --alp-workbench-explorer-width: 17rem;
+    --alp-workbench-explorer-min-width: 13rem;
+    --alp-workbench-explorer-max-width: 32rem;
+    --alp-workbench-tree-row-height: 1.625rem;
+    --alp-workbench-tab-height: 2rem;
+    --alp-workbench-panel-header-height: 1.875rem;
+    --alp-workbench-splitter-size: 0.1875rem;
+    --alp-workbench-pane-min-width: 18rem;
+    --alp-workbench-pane-min-height: 12rem;
+    --alp-workbench-card-radius: 0.25rem;
+    --alp-workbench-pane-radius: 0;
+    --alp-workbench-compact-gap: 0.5rem;
+
+    --alp-workbench-surface: var(--p-surface-0);
+    --alp-workbench-surface-raised: var(--p-surface-0);
+    --alp-workbench-chrome: var(--p-surface-50);
+    --alp-workbench-border: var(--p-surface-200);
+    --alp-workbench-text: var(--p-surface-900);
+    --alp-workbench-text-muted: var(--p-surface-500);
+    --alp-workbench-hover: var(--p-surface-100);
+    --alp-workbench-selection: var(--p-primary-50);
+    --alp-workbench-focus: var(--p-primary-500);
+
+    color: var(--alp-workbench-text);
+    background: var(--alp-workbench-surface);
+    font-size: 0.8125rem;
+    line-height: 1.35;
+}
+
+.dark .alp-workbench,
+.alp-workbench.dark {
+    --alp-workbench-surface: var(--p-surface-900);
+    --alp-workbench-surface-raised: var(--p-surface-800);
+    --alp-workbench-chrome: var(--p-surface-950);
+    --alp-workbench-border: var(--p-surface-700);
+    --alp-workbench-text: var(--p-surface-0);
+    --alp-workbench-text-muted: var(--p-surface-400);
+    --alp-workbench-hover: var(--p-surface-800);
+    --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
+    --alp-workbench-focus: var(--p-primary-400);
+}
+
+@media (prefers-color-scheme: dark) {
+    .alp-workbench:not(.light) {
+        --alp-workbench-surface: var(--p-surface-900);
+        --alp-workbench-surface-raised: var(--p-surface-800);
+        --alp-workbench-chrome: var(--p-surface-950);
+        --alp-workbench-border: var(--p-surface-700);
+        --alp-workbench-text: var(--p-surface-0);
+        --alp-workbench-text-muted: var(--p-surface-400);
+        --alp-workbench-hover: var(--p-surface-800);
+        --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
+        --alp-workbench-focus: var(--p-primary-400);
+    }
+}
