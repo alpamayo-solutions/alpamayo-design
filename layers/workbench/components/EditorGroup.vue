@@ -14,6 +14,7 @@ withDefaults(
         draggable?: boolean;
         dragActive?: boolean;
         showSplitActions?: boolean;
+        showCloseAction?: boolean;
     }>(),
     {
         activeId: undefined,
@@ -21,7 +22,8 @@ withDefaults(
         focused: false,
         draggable: false,
         dragActive: false,
-        showSplitActions: true
+        showSplitActions: true,
+        showCloseAction: false
     }
 );
 
@@ -29,6 +31,7 @@ const emit = defineEmits<{
     focus: [groupId: string];
     select: [tabId: string];
     close: [tabId: string];
+    'close-group': [];
     split: [direction: EditorSplitDirection];
     'drag-start': [tabId: string, event: DragEvent];
     'drop-tab': [beforeTabId: string | undefined, event: DragEvent];
@@ -68,16 +71,27 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 @drop-tab="(beforeTabId, event) => $emit('drop-tab', beforeTabId, event)"
                 @drag-end="$emit('drag-end', $event)"
             />
-            <div v-if="showSplitActions" class="alp-workbench-editor-group-actions">
+            <div
+                v-if="showSplitActions || showCloseAction"
+                class="alp-workbench-editor-group-actions"
+            >
                 <AlpWorkbenchIconButton
+                    v-if="showSplitActions"
                     label="Split editor right"
-                    icon="pi pi-arrow-right"
+                    icon="pi pi-objects-column alp-workbench-split-icon--vertical"
                     @click="$emit('split', 'horizontal')"
                 />
                 <AlpWorkbenchIconButton
+                    v-if="showSplitActions"
                     label="Split editor down"
-                    icon="pi pi-arrow-down"
+                    icon="pi pi-objects-column alp-workbench-split-icon--horizontal"
                     @click="$emit('split', 'vertical')"
+                />
+                <AlpWorkbenchIconButton
+                    v-if="showCloseAction"
+                    label="Close editor group"
+                    icon="pi pi-times"
+                    @click="$emit('close-group')"
                 />
             </div>
         </header>

@@ -194,6 +194,27 @@ describe('workbench components', () => {
         expect(wrapper.emitted('drop-tab')?.[0]?.[0]).toBeUndefined();
     });
 
+    it('uses split-orientation glyphs and emits close-group', async () => {
+        const wrapper = mount(EditorGroup, {
+            props: {
+                groupId: 'group-2',
+                tabs: [{ id: 'one', label: 'Fill level' }],
+                showCloseAction: true
+            },
+            global
+        });
+
+        expect(wrapper.get('[aria-label="Split editor right"] i').classes()).toContain(
+            'alp-workbench-split-icon--vertical'
+        );
+        expect(wrapper.get('[aria-label="Split editor down"] i').classes()).toContain(
+            'alp-workbench-split-icon--horizontal'
+        );
+
+        await wrapper.get('[aria-label="Close editor group"]').trigger('click');
+        expect(wrapper.emitted('close-group')).toHaveLength(1);
+    });
+
     it('hides group split and edge-drop actions when disabled', () => {
         const wrapper = mount(EditorGroup, {
             props: {

@@ -13,6 +13,7 @@ export default defineStory({
                 activeId: 'fill-level',
                 focused: true,
                 draggable: true,
+                showCloseAction: true,
                 tabs: [
                     { id: 'fill-level', label: 'Fill level', icon: 'pi pi-chart-line' },
                     { id: 'alarm', label: 'New alarm', icon: 'pi pi-bell', dirty: true }
@@ -25,6 +26,6 @@ export default defineStory({
         }
     ],
     snippet:
-        '<AlpWorkbenchEditorGroup group-id="editor-group-1" :tabs="tabs" active-id="fill-level" focused />',
+        '<AlpWorkbenchEditorGroup group-id="editor-group-1" :tabs="tabs" active-id="fill-level" focused show-close-action />',
     sourcePath: 'layers/workbench/components/EditorGroup.vue'
 });

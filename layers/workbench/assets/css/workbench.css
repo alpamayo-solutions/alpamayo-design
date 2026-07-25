@@ -149,10 +149,14 @@
     background: var(--alp-workbench-chrome);
 }
 
+.alp-workbench-tab-strip [data-pc-name='tablist'],
+.alp-workbench-tab-strip [data-pc-section='content'],
 .alp-workbench-tab-strip [role='tablist'] {
     display: flex;
     height: 100%;
+    min-height: 100%;
     overflow-x: auto;
+    border-bottom-width: 0;
     background: transparent;
 }
 
@@ -262,6 +266,10 @@
     gap: 0.125rem;
     padding: 0 0.25rem;
     border-bottom: 1px solid var(--alp-workbench-border);
+}
+
+.alp-workbench-split-icon--horizontal {
+    transform: rotate(90deg);
 }
 
 .alp-workbench-editor-group-content {
