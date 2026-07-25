@@ -30,6 +30,7 @@ withDefaults(
 const emit = defineEmits<{
     focus: [groupId: string];
     select: [tabId: string];
+    pin: [tabId: string];
     close: [tabId: string];
     'close-group': [];
     split: [direction: EditorSplitDirection];
@@ -66,6 +67,7 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 :active-id="activeId"
                 :draggable="draggable"
                 @select="$emit('select', $event)"
+                @pin="$emit('pin', $event)"
                 @close="$emit('close', $event)"
                 @drag-start="(tabId, event) => $emit('drag-start', tabId, event)"
                 @drop-tab="(beforeTabId, event) => $emit('drop-tab', beforeTabId, event)"

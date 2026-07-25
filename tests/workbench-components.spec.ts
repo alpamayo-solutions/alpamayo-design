@@ -81,6 +81,8 @@ describe('workbench components', () => {
         });
         await wrapper.get('[data-testid="workbench-tab"]').trigger('click');
         expect(wrapper.emitted('select')?.[0]).toEqual(['one']);
+        await wrapper.get('[data-testid="workbench-tab"]').trigger('dblclick');
+        expect(wrapper.emitted('pin')?.[0]).toEqual(['one']);
         await wrapper.get('[aria-label="Close Fill level"]').trigger('click');
         expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
     });
@@ -184,6 +186,8 @@ describe('workbench components', () => {
 
         await wrapper.get('[data-testid="workbench-tab"]').trigger('click');
         expect(wrapper.emitted('select')?.[0]).toEqual(['one']);
+        await wrapper.get('[data-testid="workbench-tab"]').trigger('dblclick');
+        expect(wrapper.emitted('pin')?.[0]).toEqual(['one']);
         await wrapper.get('[aria-label="Close Fill level"]').trigger('click');
         expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
 

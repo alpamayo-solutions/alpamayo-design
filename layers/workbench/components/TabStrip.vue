@@ -23,6 +23,7 @@ const props = withDefaults(
 
 const emit = defineEmits<{
     select: [id: string];
+    pin: [id: string];
     close: [id: string];
     'drag-start': [tabId: string, event: DragEvent];
     'drop-tab': [beforeTabId: string | undefined, event: DragEvent];
@@ -85,6 +86,7 @@ function onDragEnd(event: DragEvent) {
                     data-testid="workbench-tab"
                     :draggable="draggable"
                     @click="$emit('select', tab.id)"
+                    @dblclick="$emit('pin', tab.id)"
                     @dragstart="onDragStart(tab.id, $event)"
                     @dragend="onDragEnd"
                 >
