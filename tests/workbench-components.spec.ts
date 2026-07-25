@@ -206,12 +206,8 @@ describe('workbench components', () => {
 
         const splitRight = wrapper.get('[aria-label="Split editor right"]');
         const splitDown = wrapper.get('[aria-label="Split editor down"]');
-        expect(splitRight.get('.material-symbols-outlined').text()).toBe(
-            'splitscreen_right'
-        );
-        expect(splitDown.get('.material-symbols-outlined').text()).toBe(
-            'splitscreen_bottom'
-        );
+        expect(splitRight.get('.material-symbols-outlined').text()).toBe('splitscreen_right');
+        expect(splitDown.get('.material-symbols-outlined').text()).toBe('splitscreen_bottom');
 
         await wrapper.get('[aria-label="Close editor group"]').trigger('click');
         expect(wrapper.emitted('close-group')).toHaveLength(1);

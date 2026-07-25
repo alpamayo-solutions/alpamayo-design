@@ -71,29 +71,20 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 @drop-tab="(beforeTabId, event) => $emit('drop-tab', beforeTabId, event)"
                 @drag-end="$emit('drag-end', $event)"
             />
-            <div
-                v-if="showSplitActions || showCloseAction"
-                class="alp-workbench-editor-group-actions"
-            >
+            <div v-if="showSplitActions || showCloseAction" class="alp-workbench-editor-group-actions">
                 <AlpWorkbenchIconButton
                     v-if="showSplitActions"
                     label="Split editor right"
                     @click="$emit('split', 'horizontal')"
                 >
-                    <span
-                        class="material-symbols-outlined"
-                        aria-hidden="true"
-                    >splitscreen_right</span>
+                    <span class="material-symbols-outlined" aria-hidden="true">splitscreen_right</span>
                 </AlpWorkbenchIconButton>
                 <AlpWorkbenchIconButton
                     v-if="showSplitActions"
                     label="Split editor down"
                     @click="$emit('split', 'vertical')"
                 >
-                    <span
-                        class="material-symbols-outlined"
-                        aria-hidden="true"
-                    >splitscreen_bottom</span>
+                    <span class="material-symbols-outlined" aria-hidden="true">splitscreen_bottom</span>
                 </AlpWorkbenchIconButton>
                 <AlpWorkbenchIconButton
                     v-if="showCloseAction"

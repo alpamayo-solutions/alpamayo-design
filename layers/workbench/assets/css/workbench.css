@@ -240,8 +240,13 @@
     background: var(--alp-workbench-surface);
 }
 
-.alp-workbench-editor-group--focused {
-    box-shadow: inset 0 0 0 1px var(--alp-workbench-focus);
+.alp-workbench-editor-group--focused::after {
+    position: absolute;
+    z-index: 10;
+    border: 1px solid var(--alp-workbench-focus);
+    content: '';
+    inset: 0;
+    pointer-events: none;
 }
 
 .alp-workbench-editor-group-header {
