@@ -85,6 +85,24 @@ describe('workbench components', () => {
         expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
     });
 
+    it('keeps dirty tabs keyboard closable while showing the unsaved indicator', async () => {
+        const wrapper = mount(TabStrip, {
+            props: {
+                activeId: 'one',
+                tabs: [{ id: 'one', label: 'New alarm', dirty: true }]
+            },
+            global
+        });
+
+        expect(wrapper.find('[aria-label="Unsaved changes"]').exists()).toBe(true);
+        const close = wrapper.get('[aria-label="Close New alarm"]');
+        expect(close.attributes('role')).toBe('button');
+        expect(close.attributes('tabindex')).toBe('0');
+
+        await close.trigger('keydown', { key: 'Enter' });
+        expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
+    });
+
     it('emits draggable tab placement', async () => {
         const wrapper = mount(TabStrip, {
             props: {

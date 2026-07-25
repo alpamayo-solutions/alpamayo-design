@@ -74,6 +74,7 @@ function onDragEnd(event: DragEvent) {
                 :class="{
                     'alp-workbench-tab--active': tab.id === activeId,
                     'alp-workbench-tab--preview': tab.preview,
+                    'alp-workbench-tab--dirty': tab.dirty,
                     'alp-workbench-tab--dragging': tab.id === draggingId
                 }"
                 data-testid="workbench-tab"
@@ -88,7 +89,6 @@ function onDragEnd(event: DragEvent) {
                 <span class="alp-workbench-tab-label">{{ tab.label }}</span>
                 <span v-if="tab.dirty" class="alp-workbench-tab-dirty" aria-label="Unsaved changes" />
                 <span
-                    v-else
                     role="button"
                     tabindex="0"
                     :aria-label="`Close ${tab.label}`"
