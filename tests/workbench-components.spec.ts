@@ -1,9 +1,11 @@
 import { mount } from '@vue/test-utils';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import ActivityRail from '../layers/workbench/components/ActivityRail.vue';
 import BottomPanel from '../layers/workbench/components/BottomPanel.vue';
 import ContextMenu from '../layers/workbench/components/ContextMenu.vue';
+import EditorGroup from '../layers/workbench/components/EditorGroup.vue';
+import EditorSplit from '../layers/workbench/components/EditorSplit.vue';
 import IconButton from '../layers/workbench/components/IconButton.vue';
 import ResizeHandle from '../layers/workbench/components/ResizeHandle.vue';
 import TabStrip from '../layers/workbench/components/TabStrip.vue';
@@ -37,7 +39,9 @@ const global = {
         VoltTabList,
         VoltTab,
         VoltMenu,
-        AlpWorkbenchIconButton: IconButton
+        AlpWorkbenchIconButton: IconButton,
+        AlpWorkbenchResizeHandle: ResizeHandle,
+        AlpWorkbenchTabStrip: TabStrip
     }
 };
 
@@ -81,6 +85,33 @@ describe('workbench components', () => {
         expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
     });
 
+    it('emits draggable tab placement', async () => {
+        const wrapper = mount(TabStrip, {
+            props: {
+                activeId: 'one',
+                draggable: true,
+                tabs: [
+                    { id: 'one', label: 'Fill level' },
+                    { id: 'two', label: 'New alarm' }
+                ]
+            },
+            global
+        });
+        const tabs = wrapper.findAll('[data-testid="workbench-tab"]');
+        await tabs[0]!.trigger('dragstart');
+        expect(wrapper.emitted('drag-start')?.[0]?.[0]).toBe('one');
+        expect(tabs[0]!.attributes('draggable')).toBe('true');
+
+        await tabs[1]!.trigger('drop');
+        expect(wrapper.emitted('drop-tab')?.[0]?.[0]).toBe('two');
+
+        await wrapper.get('.alp-workbench-tab-strip').trigger('drop');
+        expect(wrapper.emitted('drop-tab')?.[1]?.[0]).toBeUndefined();
+
+        await tabs[0]!.trigger('dragend');
+        expect(wrapper.emitted('drag-end')).toHaveLength(1);
+    });
+
     it('activates a panel mode and exposes the animated content wrapper', async () => {
         const wrapper = mount(BottomPanel, {
             props: { open: false, mode: 'terminal' },
@@ -95,6 +126,124 @@ describe('workbench components', () => {
         const wrapper = mount(ResizeHandle, { props: { value: 292 } });
         await wrapper.get('[role="separator"]').trigger('keydown', { key: 'ArrowRight' });
         expect(wrapper.emitted('resize')?.[0]).toEqual([16]);
+    });
+
+    it('uses vertical arrows for a horizontal separator', async () => {
+        const wrapper = mount(ResizeHandle, {
+            props: { value: 50, orientation: 'horizontal', step: 5 }
+        });
+        const separator = wrapper.get('[role="separator"]');
+        expect(separator.attributes('aria-orientation')).toBe('horizontal');
+        await separator.trigger('keydown', { key: 'ArrowDown' });
+        expect(wrapper.emitted('resize')?.[0]).toEqual([5]);
+        await separator.trigger('keydown', { key: 'ArrowRight' });
+        expect(wrapper.emitted('resize')).toHaveLength(1);
+    });
+
+    it('emits group focus, split, tab, and edge-drop intents', async () => {
+        const wrapper = mount(EditorGroup, {
+            props: {
+                groupId: 'group-1',
+                tabs: [{ id: 'one', label: 'Fill level' }],
+                activeId: 'one',
+                focused: true,
+                draggable: true,
+                dragActive: true
+            },
+            slots: { default: '<div data-testid="editor-content">Editor</div>' },
+            global
+        });
+
+        expect(wrapper.find('[role="region"]').exists()).toBe(true);
+        await wrapper.get('[role="region"]').trigger('pointerdown');
+        expect(wrapper.emitted('focus')?.[0]).toEqual(['group-1']);
+
+        await wrapper.get('[aria-label="Split editor right"]').trigger('click');
+        expect(wrapper.emitted('split')?.[0]).toEqual(['horizontal']);
+        await wrapper.get('[aria-label="Split editor down"]').trigger('click');
+        expect(wrapper.emitted('split')?.[1]).toEqual(['vertical']);
+
+        await wrapper.get('[data-testid="workbench-tab"]').trigger('click');
+        expect(wrapper.emitted('select')?.[0]).toEqual(['one']);
+        await wrapper.get('[aria-label="Close Fill level"]').trigger('click');
+        expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
+
+        await wrapper.get('[data-testid="workbench-tab"]').trigger('dragstart');
+        expect(wrapper.emitted('drag-start')?.[0]?.[0]).toBe('one');
+        await wrapper.get('[data-edge="right"]').trigger('drop');
+        expect(wrapper.emitted('edge-drop')?.[0]?.[0]).toBe('right');
+        await wrapper.get('[data-testid="editor-group-content"]').trigger('drop');
+        expect(wrapper.emitted('drop-tab')?.[0]?.[0]).toBeUndefined();
+    });
+
+    it('hides group split and edge-drop actions when disabled', () => {
+        const wrapper = mount(EditorGroup, {
+            props: {
+                groupId: 'group-1',
+                tabs: [],
+                showSplitActions: false,
+                dragActive: false
+            },
+            global
+        });
+        expect(wrapper.find('[aria-label="Split editor right"]').exists()).toBe(false);
+        expect(wrapper.find('[data-edge]').exists()).toBe(false);
+    });
+
+    it('clamps keyboard split ratios and maps handle orientation', async () => {
+        const wrapper = mount(EditorSplit, {
+            props: { splitId: 'split-1', direction: 'horizontal', ratio: 0.5 },
+            slots: { first: '<div>First</div>', second: '<div>Second</div>' },
+            global
+        });
+        expect(wrapper.findComponent(ResizeHandle).exists()).toBe(true);
+        const handle = wrapper.getComponent(ResizeHandle);
+        expect(handle.props('orientation')).toBe('vertical');
+
+        handle.vm.$emit('resize', 10);
+        expect(wrapper.emitted('update:ratio')?.[0]?.[0]).toBeCloseTo(0.55);
+
+        await wrapper.setProps({ ratio: 0.79 });
+        handle.vm.$emit('resize', 10);
+        expect(wrapper.emitted('update:ratio')?.[1]?.[0]).toBe(0.8);
+
+        const vertical = mount(EditorSplit, {
+            props: { splitId: 'split-2', direction: 'vertical', ratio: 0.5 },
+            slots: { first: '<div>First</div>', second: '<div>Second</div>' },
+            global
+        });
+        expect(vertical.getComponent(ResizeHandle).props('orientation')).toBe('horizontal');
+    });
+
+    it('converts pointer movement into a clamped split ratio', () => {
+        const wrapper = mount(EditorSplit, {
+            props: { splitId: 'split-1', direction: 'horizontal', ratio: 0.5 },
+            slots: { first: '<div>First</div>', second: '<div>Second</div>' },
+            global
+        });
+        expect(wrapper.find('[data-testid="workbench-editor-split"]').exists()).toBe(true);
+        vi.spyOn(
+            wrapper.get('[data-testid="workbench-editor-split"]').element,
+            'getBoundingClientRect'
+        ).mockReturnValue({
+            width: 1000,
+            height: 600,
+            top: 0,
+            right: 1000,
+            bottom: 600,
+            left: 0,
+            x: 0,
+            y: 0,
+            toJSON: () => ({})
+        });
+
+        wrapper.getComponent(ResizeHandle).vm.$emit('start', {
+            clientX: 500,
+            clientY: 300
+        } as PointerEvent);
+        window.dispatchEvent(new PointerEvent('pointermove', { clientX: 900, clientY: 300 }));
+        expect(wrapper.emitted('update:ratio')?.[0]?.[0]).toBe(0.8);
+        window.dispatchEvent(new PointerEvent('pointerup'));
     });
 
     it('maps workbench actions into the Volt menu', async () => {

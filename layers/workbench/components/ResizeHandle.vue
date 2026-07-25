@@ -6,12 +6,14 @@ const props = withDefaults(
         min?: number;
         max?: number;
         step?: number;
+        orientation?: 'vertical' | 'horizontal';
     }>(),
     {
         label: 'Resize panel',
         min: 0,
         max: 1000,
-        step: 16
+        step: 16,
+        orientation: 'vertical'
     }
 );
 
@@ -21,11 +23,14 @@ const emit = defineEmits<{
 }>();
 
 function onKeydown(event: KeyboardEvent) {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+    const decrementKey = props.orientation === 'vertical' ? 'ArrowLeft' : 'ArrowUp';
+    const incrementKey = props.orientation === 'vertical' ? 'ArrowRight' : 'ArrowDown';
+
+    if (event.key === decrementKey) {
         event.preventDefault();
         emit('resize', -props.step);
     }
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+    if (event.key === incrementKey) {
         event.preventDefault();
         emit('resize', props.step);
     }
@@ -38,7 +43,7 @@ function onKeydown(event: KeyboardEvent) {
         role="separator"
         tabindex="0"
         :aria-label="label"
-        aria-orientation="vertical"
+        :aria-orientation="orientation"
         :aria-valuemin="min"
         :aria-valuemax="max"
         :aria-valuenow="value"

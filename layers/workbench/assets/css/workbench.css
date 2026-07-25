@@ -14,8 +14,8 @@
     --alp-workbench-tab-height: 2rem;
     --alp-workbench-panel-header-height: 1.875rem;
     --alp-workbench-splitter-size: 0.1875rem;
-    --alp-workbench-pane-min-width: 18rem;
-    --alp-workbench-pane-min-height: 12rem;
+    --alp-workbench-pane-min-width: 20rem;
+    --alp-workbench-pane-min-height: 13.75rem;
     --alp-workbench-card-radius: 0.25rem;
     --alp-workbench-pane-radius: 0;
     --alp-workbench-compact-gap: 0.5rem;
@@ -216,6 +216,130 @@
     background: var(--alp-workbench-focus);
 }
 
+.alp-workbench-tab--dragging {
+    opacity: 0.5;
+}
+
+.alp-workbench-editor-group {
+    position: relative;
+    display: flex;
+    min-width: var(--alp-workbench-pane-min-width);
+    min-height: var(--alp-workbench-pane-min-height);
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--alp-workbench-border);
+    background: var(--alp-workbench-surface);
+}
+
+.alp-workbench-editor-group--focused {
+    box-shadow: inset 0 0 0 1px var(--alp-workbench-focus);
+}
+
+.alp-workbench-editor-group-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-width: 0;
+    flex: 0 0 auto;
+    background: var(--alp-workbench-chrome);
+}
+
+.alp-workbench-editor-group-header .alp-workbench-tab-strip {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.alp-workbench-editor-group-actions {
+    display: flex;
+    height: 2.0625rem;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0 0.25rem;
+    border-bottom: 1px solid var(--alp-workbench-border);
+}
+
+.alp-workbench-editor-group-content {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.alp-workbench-editor-group-edge-drop {
+    position: absolute;
+    z-index: 3;
+    border: 1px solid color-mix(in srgb, var(--alp-workbench-focus), transparent 35%);
+    background: color-mix(in srgb, var(--alp-workbench-focus), transparent 88%);
+}
+
+.alp-workbench-editor-group-edge-drop:hover {
+    background: color-mix(in srgb, var(--alp-workbench-focus), transparent 78%);
+}
+
+.alp-workbench-editor-group-edge-drop--left,
+.alp-workbench-editor-group-edge-drop--right {
+    inset-block: 0.5rem;
+    width: min(18%, 4rem);
+}
+
+.alp-workbench-editor-group-edge-drop--left {
+    left: 0.5rem;
+}
+
+.alp-workbench-editor-group-edge-drop--right {
+    right: 0.5rem;
+}
+
+.alp-workbench-editor-group-edge-drop--top,
+.alp-workbench-editor-group-edge-drop--bottom {
+    inset-inline: 0.5rem;
+    height: min(18%, 4rem);
+}
+
+.alp-workbench-editor-group-edge-drop--top {
+    top: 0.5rem;
+}
+
+.alp-workbench-editor-group-edge-drop--bottom {
+    bottom: 0.5rem;
+}
+
+.alp-workbench-editor-split {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    background: var(--alp-workbench-border);
+}
+
+.alp-workbench-editor-split--horizontal {
+    flex-direction: row;
+}
+
+.alp-workbench-editor-split--vertical {
+    flex-direction: column;
+}
+
+.alp-workbench-editor-split-pane {
+    min-width: var(--alp-workbench-pane-min-width);
+    min-height: var(--alp-workbench-pane-min-height);
+    overflow: hidden;
+    background: var(--alp-workbench-surface);
+}
+
+.alp-workbench-editor-split-pane--first {
+    flex: 0 0 var(--alp-workbench-split-ratio);
+}
+
+.alp-workbench-editor-split-pane--second {
+    flex: 1 1 auto;
+}
+
 .alp-workbench-bottom-panel {
     border-top: 1px solid var(--alp-workbench-border);
     background: var(--alp-workbench-surface);
@@ -273,7 +397,18 @@
 
 .alp-workbench-resize-handle {
     width: 0.3125rem;
+    min-width: 0.3125rem;
+    flex: 0 0 0.3125rem;
     cursor: col-resize;
+}
+
+.alp-workbench-resize-handle[aria-orientation='horizontal'] {
+    width: auto;
+    min-width: 0;
+    height: 0.3125rem;
+    min-height: 0.3125rem;
+    flex-basis: 0.3125rem;
+    cursor: row-resize;
 }
 
 .alp-workbench-resize-handle:hover,
