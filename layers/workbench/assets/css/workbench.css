@@ -268,8 +268,8 @@
     border-bottom: 1px solid var(--alp-workbench-border);
 }
 
-.alp-workbench-split-icon--horizontal {
-    transform: rotate(90deg);
+.alp-workbench-editor-group-actions .material-symbols-outlined {
+    font-size: 1rem;
 }
 
 .alp-workbench-editor-group-content {

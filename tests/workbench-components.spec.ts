@@ -194,7 +194,7 @@ describe('workbench components', () => {
         expect(wrapper.emitted('drop-tab')?.[0]?.[0]).toBeUndefined();
     });
 
-    it('uses split-orientation glyphs and emits close-group', async () => {
+    it('uses Material Symbols split-screen glyphs and emits close-group', async () => {
         const wrapper = mount(EditorGroup, {
             props: {
                 groupId: 'group-2',
@@ -204,11 +204,13 @@ describe('workbench components', () => {
             global
         });
 
-        expect(wrapper.get('[aria-label="Split editor right"] i').classes()).toContain(
-            'alp-workbench-split-icon--vertical'
+        const splitRight = wrapper.get('[aria-label="Split editor right"]');
+        const splitDown = wrapper.get('[aria-label="Split editor down"]');
+        expect(splitRight.get('.material-symbols-outlined').text()).toBe(
+            'splitscreen_right'
         );
-        expect(wrapper.get('[aria-label="Split editor down"] i').classes()).toContain(
-            'alp-workbench-split-icon--horizontal'
+        expect(splitDown.get('.material-symbols-outlined').text()).toBe(
+            'splitscreen_bottom'
         );
 
         await wrapper.get('[aria-label="Close editor group"]').trigger('click');
