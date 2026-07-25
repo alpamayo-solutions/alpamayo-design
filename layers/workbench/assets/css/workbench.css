@@ -160,19 +160,29 @@
     background: transparent;
 }
 
-.alp-workbench-tab {
+.alp-workbench-tab-frame {
     display: flex;
     min-width: 0;
     max-width: 13.125rem;
     height: 100%;
     flex: 0 1 auto;
     align-items: center;
-    gap: 0.4375rem;
-    padding: 0 0.5625rem;
-    border: 0;
     border-right: 1px solid var(--alp-workbench-border);
-    border-radius: 0;
     color: var(--alp-workbench-text-muted);
+    background: transparent;
+}
+
+.alp-workbench-tab {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 0.4375rem;
+    padding: 0 0.25rem 0 0.5625rem;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
     background: transparent;
     font: inherit;
     cursor: default;
@@ -195,14 +205,21 @@
 }
 
 .alp-workbench-tab-close {
-    margin-left: auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 auto;
+    margin-right: 0.25rem;
     padding: 0.1875rem;
+    border: 0;
     border-radius: 0.125rem;
+    color: inherit;
+    background: transparent;
     font-size: 0.625rem;
     opacity: 0;
+    cursor: pointer;
 }
 
-.alp-workbench-tab:hover .alp-workbench-tab-close,
+.alp-workbench-tab-frame:hover .alp-workbench-tab-close,
 .alp-workbench-tab--active .alp-workbench-tab-close,
 .alp-workbench-tab-close:focus-visible {
     opacity: 1;
@@ -218,10 +235,6 @@
     margin-left: auto;
     border-radius: 50%;
     background: var(--alp-workbench-focus);
-}
-
-.alp-workbench-tab--dirty .alp-workbench-tab-close {
-    margin-left: 0;
 }
 
 .alp-workbench-tab--dragging {

@@ -66,38 +66,39 @@ function onDragEnd(event: DragEvent) {
         @drop="onDropStrip"
     >
         <VoltTabList>
-            <VoltTab
+            <div
                 v-for="tab in tabs"
                 :key="tab.id"
-                :value="tab.id"
-                class="alp-workbench-tab"
+                class="alp-workbench-tab-frame"
                 :class="{
                     'alp-workbench-tab--active': tab.id === activeId,
                     'alp-workbench-tab--preview': tab.preview,
                     'alp-workbench-tab--dirty': tab.dirty,
                     'alp-workbench-tab--dragging': tab.id === draggingId
                 }"
-                data-testid="workbench-tab"
-                :draggable="draggable"
-                @click="$emit('select', tab.id)"
-                @dragstart="onDragStart(tab.id, $event)"
                 @dragover.prevent
                 @drop="onDropTab(tab.id, $event)"
-                @dragend="onDragEnd"
             >
-                <i v-if="tab.icon" :class="tab.icon" aria-hidden="true" />
-                <span class="alp-workbench-tab-label">{{ tab.label }}</span>
-                <span v-if="tab.dirty" class="alp-workbench-tab-dirty" aria-label="Unsaved changes" />
-                <span
-                    role="button"
-                    tabindex="0"
+                <VoltTab
+                    :value="tab.id"
+                    class="alp-workbench-tab"
+                    data-testid="workbench-tab"
+                    :draggable="draggable"
+                    @click="$emit('select', tab.id)"
+                    @dragstart="onDragStart(tab.id, $event)"
+                    @dragend="onDragEnd"
+                >
+                    <i v-if="tab.icon" :class="tab.icon" aria-hidden="true" />
+                    <span class="alp-workbench-tab-label">{{ tab.label }}</span>
+                    <span v-if="tab.dirty" class="alp-workbench-tab-dirty" aria-label="Unsaved changes" />
+                </VoltTab>
+                <button
+                    type="button"
                     :aria-label="`Close ${tab.label}`"
                     class="alp-workbench-tab-close pi pi-times"
-                    @click.stop="$emit('close', tab.id)"
-                    @keydown.enter.stop="$emit('close', tab.id)"
-                    @keydown.space.prevent.stop="$emit('close', tab.id)"
+                    @click="$emit('close', tab.id)"
                 />
-            </VoltTab>
+            </div>
         </VoltTabList>
     </VoltTabs>
 </template>

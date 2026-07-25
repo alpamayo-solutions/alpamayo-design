@@ -96,10 +96,11 @@ describe('workbench components', () => {
 
         expect(wrapper.find('[aria-label="Unsaved changes"]').exists()).toBe(true);
         const close = wrapper.get('[aria-label="Close New alarm"]');
-        expect(close.attributes('role')).toBe('button');
-        expect(close.attributes('tabindex')).toBe('0');
+        const tab = wrapper.get('[data-testid="workbench-tab"]');
+        expect(close.element.tagName).toBe('BUTTON');
+        expect(tab.element.contains(close.element)).toBe(false);
 
-        await close.trigger('keydown', { key: 'Enter' });
+        await close.trigger('click');
         expect(wrapper.emitted('close')?.[0]).toEqual(['one']);
     });
 
@@ -206,8 +207,8 @@ describe('workbench components', () => {
 
         const splitRight = wrapper.get('[aria-label="Split editor right"]');
         const splitDown = wrapper.get('[aria-label="Split editor down"]');
-        expect(splitRight.get('.material-symbols-outlined').text()).toBe('splitscreen_right');
-        expect(splitDown.get('.material-symbols-outlined').text()).toBe('splitscreen_bottom');
+        expect(splitRight.get('.material-symbols-outlined').text()).toBe('splitscreen_vertical_add');
+        expect(splitDown.get('.material-symbols-outlined').text()).toBe('splitscreen_add');
 
         await wrapper.get('[aria-label="Close editor group"]').trigger('click');
         expect(wrapper.emitted('close-group')).toHaveLength(1);
