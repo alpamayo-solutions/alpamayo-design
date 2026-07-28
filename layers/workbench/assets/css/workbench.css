@@ -98,10 +98,10 @@
     position: relative;
     display: grid;
     width: var(--alp-workbench-activity-rail-width);
-    height: 2.875rem;
+    aspect-ratio: 1;
     flex: 0 0 auto;
     place-items: center;
-    padding: 0;
+    padding: 0 0.5rem;
     border: 0;
     border-radius: 0;
     color: var(--alp-workbench-text-muted);
@@ -116,11 +116,21 @@
     background: var(--alp-workbench-hover);
 }
 
+/* The rail marks focus with the same left bar it uses for the active app.
+   The button preset's all-round focus ring is a box-shadow, and on a
+   full-bleed rail item it reads as a stray outline rather than as focus. */
+.alp-workbench-activity-item:focus,
+.alp-workbench-activity-item:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
 .alp-workbench-activity-item--active {
     color: var(--alp-workbench-focus);
 }
 
-.alp-workbench-activity-item--active::before {
+.alp-workbench-activity-item--active::before,
+.alp-workbench-activity-item:focus-visible::before {
     content: '';
     position: absolute;
     inset: 0.4375rem auto 0.4375rem 0;
