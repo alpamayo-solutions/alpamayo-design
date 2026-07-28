@@ -65,24 +65,32 @@ const mountTable = (props: Record<string, unknown> = {}) =>
     });
 
 describe('AlpWorkbenchCatalogTable', () => {
-    it('derives its grid track count from the number of columns', () => {
+    it('derives its grid track template from the number of columns', () => {
         const w = mountTable();
 
-        expect(
-            w.get('.alp-workbench-catalog-table').element.style.getPropertyValue(
-                '--alp-workbench-catalog-columns'
-            )
-        ).toBe('2');
+        expect(w.get('.alp-workbench-catalog-header').element.style.gridTemplateColumns).toBe(
+            'repeat(2, minmax(0, 1fr)) 112px'
+        );
     });
 
-    it('recomputes the track count for a different column set', () => {
+    it('recomputes the track template for a different column set', () => {
         const w = mountTable({ columns: selectColumns, rows: selectRows });
 
-        expect(
-            w.get('.alp-workbench-catalog-table').element.style.getPropertyValue(
-                '--alp-workbench-catalog-columns'
-            )
-        ).toBe('1');
+        expect(w.get('.alp-workbench-catalog-header').element.style.gridTemplateColumns).toBe(
+            'repeat(1, minmax(0, 1fr)) 112px'
+        );
+    });
+
+    it('gives the header and every row the identical column track template, whether or not a row carries a blocked-delete reason', () => {
+        const w = mountTable();
+
+        const header = w.get('.alp-workbench-catalog-header').element.style.gridTemplateColumns;
+        const blockedRow = w.get('[data-catalog-row="a"]').element.style.gridTemplateColumns;
+        const unblockedRow = w.get('[data-catalog-row="b"]').element.style.gridTemplateColumns;
+
+        expect(header).toBe('repeat(2, minmax(0, 1fr)) 112px');
+        expect(blockedRow).toBe(header);
+        expect(unblockedRow).toBe(header);
     });
 
     it('renders one editable row per catalog entry', () => {

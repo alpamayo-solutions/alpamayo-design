@@ -34,11 +34,26 @@ const emit = defineEmits<{ 'update:rows': [WorkbenchCatalogRow[]] }>();
 /**
  * `repeat(auto-fit, minmax(0, 1fr))` has no definite track minimum, so
  * auto-fit collapses to a single repetition instead of one column per
- * catalog column. The component derives its own track count from
- * `columns.length` rather than depending on a custom property no consumer
- * ever sets.
+ * catalog column. Fixing only the repeat count (a custom property inherited
+ * from the root) was not enough on its own: the trailing actions track was
+ * still sized with `auto`, which measures each row's own content
+ * independently. A row with a `deleteBlockedReason` renders wider action
+ * content than one without, so its data columns compressed to make room and
+ * the whole table visibly drifted out of alignment row to row.
+ *
+ * The full track template is computed once, from `columns.length` alone —
+ * never from any row's own content — and bound as an explicit inline
+ * `grid-template-columns` on the header and on every row. Because every row
+ * and the header evaluate the exact same expression, they are provably
+ * identical regardless of which rows carry a blocked-delete reason. The
+ * actions column is a fixed width rather than `auto`; the blocked-delete
+ * reason wraps within that fixed width instead of widening it.
  */
-const trackCount = computed(() => Math.max(props.columns.length, 1));
+const ACTIONS_COLUMN_WIDTH = '112px';
+
+const trackTemplate = computed(
+    () => `repeat(${Math.max(props.columns.length, 1)}, minmax(0, 1fr)) ${ACTIONS_COLUMN_WIDTH}`
+);
 
 function isLocked(column: WorkbenchCatalogColumn, row: WorkbenchCatalogRow): boolean {
     if (props.readonly) return true;
@@ -86,16 +101,23 @@ function addRow(): void {
 </script>
 
 <template>
-    <div
-        class="alp-workbench-catalog-table"
-        :style="{ '--alp-workbench-catalog-columns': trackCount }"
-    >
-        <div class="alp-workbench-catalog-header" role="presentation">
+    <div class="alp-workbench-catalog-table">
+        <div
+            class="alp-workbench-catalog-header"
+            role="presentation"
+            :style="{ gridTemplateColumns: trackTemplate }"
+        >
             <span v-for="column in columns" :key="column.key">{{ column.label }}</span>
             <span v-if="!readonly" />
         </div>
 
-        <div v-for="row in rows" :key="row.id" :data-catalog-row="row.id" class="alp-workbench-catalog-row">
+        <div
+            v-for="row in rows"
+            :key="row.id"
+            :data-catalog-row="row.id"
+            class="alp-workbench-catalog-row"
+            :style="{ gridTemplateColumns: trackTemplate }"
+        >
             <div
                 v-for="column in columns"
                 :key="column.key"
