@@ -29,11 +29,13 @@ const props = withDefaults(
 
 const emit = defineEmits<{ 'update:rows': [WorkbenchCatalogRow[]] }>();
 
-let nextRowOrdinal = 0;
-
 function isLocked(column: WorkbenchCatalogColumn, row: WorkbenchCatalogRow): boolean {
     if (props.readonly) return true;
     return Boolean(column.lockedAfterCreate) && !row.isNew;
+}
+
+function cellId(row: WorkbenchCatalogRow, column: WorkbenchCatalogColumn): string {
+    return `catalog-cell-${row.id}-${column.key}`;
 }
 
 function setCell(rowId: string, columnKey: string, value: string): void {
@@ -52,12 +54,19 @@ function removeRow(rowId: string): void {
     );
 }
 
+function nextRowId(): string {
+    let ordinal = 1;
+    while (props.rows.some((row) => row.id === `catalog-row-new-${ordinal}`)) {
+        ordinal += 1;
+    }
+    return `catalog-row-new-${ordinal}`;
+}
+
 function addRow(): void {
-    nextRowOrdinal += 1;
     emit('update:rows', [
         ...props.rows,
         {
-            id: `catalog-row-new-${nextRowOrdinal}`,
+            id: nextRowId(),
             isNew: true,
             values: Object.fromEntries(props.columns.map((column) => [column.key, '']))
         }
@@ -73,15 +82,18 @@ function addRow(): void {
         </div>
 
         <div v-for="row in rows" :key="row.id" :data-catalog-row="row.id" class="alp-workbench-catalog-row">
-            <label
+            <div
                 v-for="column in columns"
                 :key="column.key"
                 :data-catalog-cell="column.key"
                 class="alp-workbench-catalog-cell"
             >
-                <span class="alp-workbench-catalog-cell-label">{{ column.label }}</span>
+                <label :for="cellId(row, column)" class="alp-workbench-catalog-cell-label">
+                    {{ column.label }}
+                </label>
                 <VoltSelect
                     v-if="column.kind === 'select'"
+                    :id="cellId(row, column)"
                     :model-value="row.values[column.key]"
                     :options="column.options ?? []"
                     option-label="label"
@@ -91,20 +103,19 @@ function addRow(): void {
                 />
                 <VoltInputText
                     v-else
+                    :id="cellId(row, column)"
                     :model-value="row.values[column.key]"
                     :disabled="isLocked(column, row)"
                     @update:model-value="setCell(row.id, column.key, String($event))"
                 />
-            </label>
+            </div>
 
             <div v-if="!readonly" class="alp-workbench-catalog-actions">
                 <AlpWorkbenchIconButton
                     data-catalog-delete
                     icon="pi pi-trash"
                     :label="
-                        row.deleteBlockedReason
-                            ? `Delete blocked: ${row.deleteBlockedReason}`
-                            : 'Delete row'
+                        row.deleteBlockedReason ? `Delete blocked: ${row.deleteBlockedReason}` : 'Delete row'
                     "
                     :disabled="Boolean(row.deleteBlockedReason)"
                     @click="removeRow(row.id)"
