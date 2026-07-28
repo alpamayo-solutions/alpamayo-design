@@ -1,0 +1,536 @@
+/*
+ * Optional tokens for dense, IDE-style workbenches.
+ *
+ * Apply .alp-workbench to the application shell. Keeping every override under
+ * that class lets consumers opt in without changing the default Alpamayo theme.
+ */
+.alp-workbench {
+    --alp-workbench-app-bar-height: 2.625rem;
+    --alp-workbench-activity-rail-width: 3rem;
+    --alp-workbench-explorer-width: 17rem;
+    --alp-workbench-explorer-min-width: 13rem;
+    --alp-workbench-explorer-max-width: 32rem;
+    --alp-workbench-tree-row-height: 1.625rem;
+    --alp-workbench-tab-height: 2rem;
+    --alp-workbench-panel-header-height: 1.875rem;
+    --alp-workbench-splitter-size: 0.1875rem;
+    --alp-workbench-pane-min-width: 20rem;
+    --alp-workbench-pane-min-height: 13.75rem;
+    --alp-workbench-card-radius: 0.25rem;
+    --alp-workbench-pane-radius: 0;
+    --alp-workbench-compact-gap: 0.5rem;
+
+    --alp-workbench-surface: var(--p-surface-0);
+    --alp-workbench-surface-raised: var(--p-surface-0);
+    --alp-workbench-chrome: var(--p-surface-50);
+    --alp-workbench-border: var(--p-surface-200);
+    --alp-workbench-text: var(--p-surface-900);
+    --alp-workbench-text-muted: var(--p-surface-500);
+    --alp-workbench-hover: var(--p-surface-100);
+    --alp-workbench-selection: var(--p-primary-50);
+    --alp-workbench-focus: var(--p-primary-500);
+
+    color: var(--alp-workbench-text);
+    background: var(--alp-workbench-surface);
+    font-size: 0.8125rem;
+    line-height: 1.35;
+}
+
+.dark .alp-workbench,
+.alp-workbench.dark {
+    --alp-workbench-surface: var(--p-surface-900);
+    --alp-workbench-surface-raised: var(--p-surface-800);
+    --alp-workbench-chrome: var(--p-surface-950);
+    --alp-workbench-border: var(--p-surface-700);
+    --alp-workbench-text: var(--p-surface-0);
+    --alp-workbench-text-muted: var(--p-surface-400);
+    --alp-workbench-hover: var(--p-surface-800);
+    --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
+    --alp-workbench-focus: var(--p-primary-400);
+}
+
+@media (prefers-color-scheme: dark) {
+    .alp-workbench:not(.light) {
+        --alp-workbench-surface: var(--p-surface-900);
+        --alp-workbench-surface-raised: var(--p-surface-800);
+        --alp-workbench-chrome: var(--p-surface-950);
+        --alp-workbench-border: var(--p-surface-700);
+        --alp-workbench-text: var(--p-surface-0);
+        --alp-workbench-text-muted: var(--p-surface-400);
+        --alp-workbench-hover: var(--p-surface-800);
+        --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
+        --alp-workbench-focus: var(--p-primary-400);
+    }
+}
+
+.alp-workbench-icon-button {
+    display: inline-grid;
+    width: 1.625rem;
+    height: 1.625rem;
+    flex: 0 0 auto;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 0.1875rem;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+}
+
+.alp-workbench-icon-button:hover,
+.alp-workbench-icon-button:focus-visible,
+.alp-workbench-icon-button--active {
+    color: var(--alp-workbench-text);
+    background: var(--alp-workbench-hover);
+}
+
+.alp-workbench-activity-rail {
+    display: flex;
+    width: var(--alp-workbench-activity-rail-width);
+    min-height: 0;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid var(--alp-workbench-border);
+    background: var(--alp-workbench-chrome);
+}
+
+.alp-workbench-activity-item {
+    position: relative;
+    display: grid;
+    width: var(--alp-workbench-activity-rail-width);
+    height: 2.875rem;
+    flex: 0 0 auto;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    color: var(--alp-workbench-text-muted);
+    background: transparent;
+    font-size: 1.0625rem;
+    cursor: pointer;
+}
+
+.alp-workbench-activity-item:hover,
+.alp-workbench-activity-item:focus-visible {
+    color: var(--alp-workbench-text);
+    background: var(--alp-workbench-hover);
+}
+
+.alp-workbench-activity-item--active {
+    color: var(--alp-workbench-focus);
+}
+
+.alp-workbench-activity-item--active::before {
+    content: '';
+    position: absolute;
+    inset: 0.4375rem auto 0.4375rem 0;
+    width: 0.125rem;
+    background: currentColor;
+}
+
+.alp-workbench-activity-logomark {
+    width: 1.6875rem;
+    height: 1.6875rem;
+    background: currentColor;
+    mask: var(--alp-workbench-logomark) center / contain no-repeat;
+}
+
+.alp-workbench-activity-footer {
+    display: grid;
+    width: 100%;
+    margin-top: auto;
+    place-items: center;
+}
+
+.alp-workbench-tab-strip {
+    height: 2.0625rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--alp-workbench-border);
+    background: var(--alp-workbench-chrome);
+}
+
+.alp-workbench-tab-strip [data-pc-name='tablist'],
+.alp-workbench-tab-strip [data-pc-section='content'],
+.alp-workbench-tab-strip [role='tablist'] {
+    display: flex;
+    height: 100%;
+    min-height: 100%;
+    overflow-x: auto;
+    border-bottom-width: 0;
+    background: transparent;
+}
+
+.alp-workbench-tab-frame {
+    display: flex;
+    min-width: 0;
+    max-width: 13.125rem;
+    height: 100%;
+    flex: 0 1 auto;
+    align-items: center;
+    border-right: 1px solid var(--alp-workbench-border);
+    color: var(--alp-workbench-text-muted);
+    background: transparent;
+}
+
+.alp-workbench-tab {
+    display: flex;
+    min-width: 0;
+    height: 100%;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 0.4375rem;
+    padding: 0 0.25rem 0 0.5625rem;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    background: transparent;
+    font: inherit;
+    cursor: default;
+}
+
+.alp-workbench-tab--active {
+    color: var(--alp-workbench-text);
+    background: var(--alp-workbench-surface);
+}
+
+.alp-workbench-tab--preview .alp-workbench-tab-label {
+    font-style: italic;
+}
+
+.alp-workbench-tab-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.alp-workbench-tab-close {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 auto;
+    margin-right: 0.25rem;
+    padding: 0.1875rem;
+    border: 0;
+    border-radius: 0.125rem;
+    color: inherit;
+    background: transparent;
+    font-size: 0.625rem;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.alp-workbench-tab-frame:hover .alp-workbench-tab-close,
+.alp-workbench-tab--active .alp-workbench-tab-close,
+.alp-workbench-tab-close:focus-visible {
+    opacity: 1;
+}
+
+.alp-workbench-tab-close:hover {
+    background: var(--alp-workbench-hover);
+}
+
+.alp-workbench-tab-dirty {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: auto;
+    border-radius: 50%;
+    background: var(--alp-workbench-focus);
+}
+
+.alp-workbench-tab--dragging {
+    opacity: 0.5;
+}
+
+.alp-workbench-editor-group {
+    position: relative;
+    display: flex;
+    min-width: var(--alp-workbench-pane-min-width);
+    min-height: var(--alp-workbench-pane-min-height);
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--alp-workbench-border);
+    background: var(--alp-workbench-surface);
+}
+
+.alp-workbench-editor-group--focused::after {
+    position: absolute;
+    z-index: 10;
+    border: 1px solid var(--alp-workbench-focus);
+    content: '';
+    inset: 0;
+    pointer-events: none;
+}
+
+.alp-workbench-editor-group-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-width: 0;
+    flex: 0 0 auto;
+    background: var(--alp-workbench-chrome);
+}
+
+.alp-workbench-editor-group-header .alp-workbench-tab-strip {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.alp-workbench-editor-group-actions {
+    display: flex;
+    height: 2.0625rem;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0 0.25rem;
+    border-bottom: 1px solid var(--alp-workbench-border);
+}
+
+.alp-workbench-editor-group-actions .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+.alp-workbench-editor-group-content {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.alp-workbench-editor-group-edge-drop {
+    position: absolute;
+    z-index: 3;
+    border: 1px solid color-mix(in srgb, var(--alp-workbench-focus), transparent 35%);
+    background: color-mix(in srgb, var(--alp-workbench-focus), transparent 88%);
+}
+
+.alp-workbench-editor-group-edge-drop:hover {
+    background: color-mix(in srgb, var(--alp-workbench-focus), transparent 78%);
+}
+
+.alp-workbench-editor-group-edge-drop--left,
+.alp-workbench-editor-group-edge-drop--right {
+    inset-block: 0.5rem;
+    width: min(18%, 4rem);
+}
+
+.alp-workbench-editor-group-edge-drop--left {
+    left: 0.5rem;
+}
+
+.alp-workbench-editor-group-edge-drop--right {
+    right: 0.5rem;
+}
+
+.alp-workbench-editor-group-edge-drop--top,
+.alp-workbench-editor-group-edge-drop--bottom {
+    inset-inline: 0.5rem;
+    height: min(18%, 4rem);
+}
+
+.alp-workbench-editor-group-edge-drop--top {
+    top: 0.5rem;
+}
+
+.alp-workbench-editor-group-edge-drop--bottom {
+    bottom: 0.5rem;
+}
+
+.alp-workbench-editor-split {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    background: var(--alp-workbench-border);
+}
+
+.alp-workbench-editor-split--horizontal {
+    flex-direction: row;
+}
+
+.alp-workbench-editor-split--vertical {
+    flex-direction: column;
+}
+
+.alp-workbench-editor-split-pane {
+    min-width: var(--alp-workbench-pane-min-width);
+    min-height: var(--alp-workbench-pane-min-height);
+    overflow: hidden;
+    background: var(--alp-workbench-surface);
+}
+
+.alp-workbench-editor-split-pane--first {
+    flex: 0 0 var(--alp-workbench-split-ratio);
+}
+
+.alp-workbench-editor-split-pane--second {
+    flex: 1 1 auto;
+}
+
+.alp-workbench-bottom-panel {
+    border-top: 1px solid var(--alp-workbench-border);
+    background: var(--alp-workbench-surface);
+}
+
+.alp-workbench-bottom-panel-header {
+    display: flex;
+    height: var(--alp-workbench-panel-header-height);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.375rem 0 0.625rem;
+}
+
+.alp-workbench-bottom-panel-modes {
+    display: flex;
+    height: 100%;
+    align-items: stretch;
+    gap: 0.875rem;
+}
+
+.alp-workbench-bottom-panel-modes > button {
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+    color: var(--alp-workbench-text-muted);
+    background: transparent;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+}
+
+.alp-workbench-bottom-panel-modes > .alp-workbench-bottom-panel-mode--active {
+    border-bottom-color: var(--alp-workbench-focus);
+    color: var(--alp-workbench-text);
+}
+
+.alp-workbench-bottom-panel-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+        grid-template-rows 160ms ease,
+        opacity 120ms ease;
+}
+
+.alp-workbench-bottom-panel--open .alp-workbench-bottom-panel-content {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+.alp-workbench-bottom-panel-content-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.alp-workbench-resize-handle {
+    width: 0.3125rem;
+    min-width: 0.3125rem;
+    flex: 0 0 0.3125rem;
+    cursor: col-resize;
+}
+
+.alp-workbench-resize-handle[aria-orientation='horizontal'] {
+    width: auto;
+    min-width: 0;
+    height: 0.3125rem;
+    min-height: 0.3125rem;
+    flex-basis: 0.3125rem;
+    cursor: row-resize;
+}
+
+.alp-workbench-resize-handle:hover,
+.alp-workbench-resize-handle:focus-visible {
+    background: var(--alp-workbench-focus);
+}
+
+.alp-workbench-context-menu {
+    min-width: 11.875rem;
+    max-height: min(26.25rem, calc(100vh - 1.25rem));
+    overflow: auto;
+    border: 1px solid var(--alp-workbench-border);
+    border-radius: 0.3125rem;
+    background: var(--alp-workbench-surface-raised);
+}
+
+.alp-workbench-context-menu-item--destructive {
+    color: var(--p-red-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .alp-workbench-bottom-panel-content {
+        transition: none;
+    }
+}
+
+.alp-workbench-catalog-table {
+    display: grid;
+    gap: 10px;
+}
+.alp-workbench-catalog-header,
+.alp-workbench-catalog-row {
+    /* grid-template-columns is set inline by the component (identical
+       expression on the header and every row, derived only from
+       columns.length) so header and rows can never drift out of alignment
+       based on a row's own content. See CatalogTable.vue's trackTemplate. */
+    display: grid;
+    align-items: end;
+    gap: 10px;
+}
+.alp-workbench-catalog-header {
+    color: var(--p-text-muted-color);
+    font-size: 10px;
+    font-weight: 500;
+}
+.alp-workbench-catalog-cell {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+}
+/* The per-cell label repeats the header for screen readers and for the
+   single-column mobile layout, where the header row is hidden. */
+.alp-workbench-catalog-cell-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+.alp-workbench-catalog-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+}
+.alp-workbench-catalog-blocked {
+    display: block;
+    width: 100%;
+    color: var(--p-text-muted-color);
+    font-size: 9px;
+    line-height: 1.3;
+}
+
+@media (max-width: 760px) {
+    .alp-workbench-catalog-header {
+        display: none;
+    }
+    .alp-workbench-catalog-row {
+        /* Overrides the component's inline grid-template-columns, which
+           always wins over a normal-priority stylesheet rule regardless of
+           specificity — !important is required here, not optional. */
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+    .alp-workbench-catalog-cell-label {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip-path: none;
+        color: var(--p-text-muted-color);
+        font-size: 10px;
+        font-weight: 500;
+    }
+}

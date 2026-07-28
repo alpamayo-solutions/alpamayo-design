@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-    extends: ['..'],
+    extends: ['..', '../layers/workbench'],
     modules: ['@nuxtjs/i18n'],
     vue: {
         // Story slot content is authored as raw template strings (e.g. `<Column .../>`) and must be

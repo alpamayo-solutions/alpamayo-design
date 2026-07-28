@@ -9,12 +9,20 @@ import en from '../i18n/locales/en/design.json';
 import type { Story } from '../stories/_types';
 
 const stories = import.meta.glob<{ default: Story }>('../stories/*.story.ts', { eager: true });
-const comps = import.meta.glob<{ default: unknown }>('../components/{volt,alp}/**/*.vue', { eager: true });
+const comps = {
+    ...import.meta.glob<{ default: unknown }>('../components/{volt,alp}/**/*.vue', { eager: true }),
+    ...import.meta.glob<{ default: unknown }>('../layers/workbench/components/*.vue', { eager: true })
+};
+
+function registeredName(path: string) {
+    const file = path.split('/').pop()!.replace('.vue', '');
+    if (path.includes('/layers/workbench/')) return `AlpWorkbench${file}`;
+    return path.includes('/volt/') ? `Volt${file}` : file;
+}
 
 function resolveComp(name: string) {
     for (const [path, mod] of Object.entries(comps)) {
-        const file = path.split('/').pop()!.replace('.vue', '');
-        if ((path.includes('/volt/') ? `Volt${file}` : file) === name) return (mod as any).default;
+        if (registeredName(path) === name) return (mod as any).default;
     }
     return null;
 }
@@ -33,8 +41,7 @@ const globalConfig = {
     stubs: { NuxtLink: { template: '<a><slot /></a>' }, teleport: true },
     components: Object.fromEntries(
         Object.entries(comps).map(([path, mod]) => {
-            const file = path.split('/').pop()!.replace('.vue', '');
-            return [path.includes('/volt/') ? `Volt${file}` : file, (mod as any).default];
+            return [registeredName(path), (mod as any).default];
         })
     )
 };

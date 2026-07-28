@@ -12,15 +12,23 @@ const story = computed<Story | null>(() => {
 
 // Runtime component registry: import.meta.glob over both component dirs (recursive — components/alp
 // has nested subdirectories, e.g. components/alp/nav/)
-const comps = import.meta.glob<{ default: unknown }>('../../../components/{volt,alp}/**/*.vue', {
-    eager: true
-});
+const comps = {
+    ...import.meta.glob<{ default: unknown }>('../../../components/{volt,alp}/**/*.vue', {
+        eager: true
+    }),
+    ...import.meta.glob<{ default: unknown }>('../../../layers/workbench/components/*.vue', {
+        eager: true
+    })
+};
+function registeredName(path: string) {
+    const file = path.split('/').pop()!.replace('.vue', '');
+    if (path.includes('/layers/workbench/')) return `AlpWorkbench${file}`;
+    return path.includes('/volt/') ? `Volt${file}` : file;
+}
 function resolve(name: string | null) {
     if (!name) return null;
     for (const [path, mod] of Object.entries(comps)) {
-        const file = path.split('/').pop()!.replace('.vue', '');
-        const registered = path.includes('/volt/') ? `Volt${file}` : file;
-        if (registered === name) return (mod as { default: unknown }).default;
+        if (registeredName(path) === name) return (mod as { default: unknown }).default;
     }
     return null;
 }
@@ -29,9 +37,7 @@ function resolve(name: string | null) {
 // registered story name) plus PrimeVue's Column (used for table column declarations).
 const tagComponents: Record<string, unknown> = { Column };
 for (const [path, mod] of Object.entries(comps)) {
-    const file = path.split('/').pop()!.replace('.vue', '');
-    const registered = path.includes('/volt/') ? `Volt${file}` : file;
-    tagComponents[registered] = (mod as { default: unknown }).default;
+    tagComponents[registeredName(path)] = (mod as { default: unknown }).default;
 }
 
 // Story `slots` are authored as raw template-string markup (e.g. `<Column field="name" .../>`) so
