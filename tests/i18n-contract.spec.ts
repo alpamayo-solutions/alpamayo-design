@@ -37,7 +37,7 @@ function referencedDesignKeys(dirs: string[], extensions: string[]): Set<string>
         if (!statSync(join(root, dir), { throwIfNoEntry: false })?.isDirectory()) continue;
         for (const file of findFiles(join(root, dir), extensions)) {
             const src = readFileSync(file, 'utf8');
-            for (const match of src.matchAll(/design\.[a-zA-Z]+\.[a-zA-Z]+/g)) {
+            for (const match of src.matchAll(/design(?:\.[a-zA-Z]+){2,}/g)) {
                 keys.add(match[0]);
             }
         }

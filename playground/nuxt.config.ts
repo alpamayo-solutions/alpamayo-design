@@ -1,3 +1,5 @@
+import { useNuxt } from '@nuxt/kit';
+
 export default defineNuxtConfig({
     extends: ['..', '../layers/workbench'],
     modules: ['@nuxtjs/i18n'],
@@ -6,6 +8,23 @@ export default defineNuxtConfig({
         // compiled at runtime so component tags inside them actually instantiate. See
         // playground/pages/story/[id].vue and playground/plugins/story-components.ts.
         runtimeCompiler: true
+    },
+    hooks: {
+        // Nuxt's pages module registers vue-router's Volar plugin for `<route>` SFC blocks
+        // during its own `modules:done`/setup phase. This layer doesn't depend on vue-router
+        // directly, so npm hoists it under nuxt's own node_modules, where @vue/language-core
+        // can't resolve it from the root and `vue-tsc` prints a MODULE_NOT_FOUND stack on
+        // every typecheck. Deregister the plugin instead of taking a direct dependency on
+        // vue-router purely to satisfy hoisting. Must run from `modules:done` — a plain
+        // `prepare:types` hook here runs before the pages module pushes the entry.
+        'modules:done'() {
+            useNuxt().hook('prepare:types', ({ tsConfig }) => {
+                const vco = tsConfig.vueCompilerOptions;
+                if (vco && Array.isArray(vco.plugins)) {
+                    vco.plugins = vco.plugins.filter((p) => p !== 'vue-router/volar/sfc-route-blocks');
+                }
+            });
+        }
     },
     i18n: {
         defaultLocale: 'en',

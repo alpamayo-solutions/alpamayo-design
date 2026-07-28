@@ -92,7 +92,7 @@ const confirmI18n = createI18n({
 // contracts (props + v-model style events) to drive the merged component's
 // own behavior without pulling in PrimeVue's Teleport/focus-trap machinery.
 const VoltDialogStub = {
-    props: ['visible', 'header', 'closable'],
+    props: ['visible', 'header', 'closable', 'closeOnEscape'],
     emits: ['update:visible'],
     template:
         '<div v-if="visible">' +
@@ -167,6 +167,23 @@ describe('AlpConfirmDialog', () => {
         await w.find('[data-testid="dialog-x"]').trigger('click');
         expect(w.emitted('update:visible')).toBeUndefined();
         expect(w.emitted('cancel')).toBeUndefined();
+    });
+
+    it('disables Escape-to-close while loading, alongside the X button', () => {
+        // closable only gates PrimeVue Dialog's X button; closeOnEscape is a separate prop
+        // (defaults to true) that gates the Escape key. Both must be tied to !loading, or a
+        // confirm action in flight can still be dismissed with Escape.
+        const idle = mount(AlpConfirmDialog, {
+            props: { visible: true, title: 'Delete device' },
+            global: confirmGlobal
+        });
+        expect(idle.findComponent(VoltDialogStub).props('closeOnEscape')).toBe(true);
+
+        const loading = mount(AlpConfirmDialog, {
+            props: { visible: true, title: 'Delete device', loading: true },
+            global: confirmGlobal
+        });
+        expect(loading.findComponent(VoltDialogStub).props('closeOnEscape')).toBe(false);
     });
 
     it('renders the error message via VoltMessage severity="error"', () => {

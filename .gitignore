@@ -5,3 +5,6 @@ dist
 design-sync/dist
 *.log
 .DS_Store
+
+# Agent worktrees: separate branch checkouts nested inside this repo.
+.worktrees/

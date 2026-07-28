@@ -220,6 +220,28 @@ export default defineNuxtConfig({
    `/design-upsert` in Claude Code.
 5. Never hand-edit `design-sync/dist/`.
 
+### Tests that test nothing
+
+A passing test suite only means something if each test can actually fail. Watch
+for these patterns — all have shipped here before:
+
+1. Assertions wrapped in `if (…) { expect(…) }` that silently skip when the
+   condition is false.
+2. Tests that call a `defineExpose`'d internal instead of driving the real
+   template binding, so a typo in the binding still passes.
+3. A test name that claims one assertion while the body checks something
+   weaker.
+4. A stub that emits exactly the value the assertion expects (e.g. a mock
+   emitting `null` where the real component emits `undefined`), so the
+   component's own normalization is never exercised.
+5. A `v-if` guard with a positive-path test but no negative one, so deleting
+   the guard breaks layout and nothing notices.
+
+Before trusting a new test, mutate the code it's supposed to protect —
+delete the binding, invert the guard, break the prop — and run the suite. If
+it still passes, the test isn't testing that thing; fix the test, not just the
+code.
+
 ## The mirror rule (IMPORTANT)
 
 **claude.ai/design is a generated mirror; this repo is the source of truth.**

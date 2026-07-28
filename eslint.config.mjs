@@ -12,6 +12,9 @@ export default [
             'playground/.nuxt/',
             'playground/.output/',
             'playground/dist/',
+            // Agent worktrees: separate branch checkouts nested inside this repo. They are
+            // linted on their own branch, not from this one.
+            '.worktrees/',
             '**/*.vue',
             '**/*.ts',
             // vendored PrimeVue pass-through presets follow upstream conventions (unused ctx params)

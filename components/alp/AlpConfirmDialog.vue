@@ -62,6 +62,7 @@ function confirm() {
         :header="title"
         class="w-full max-w-md"
         :closable="!loading"
+        :close-on-escape="!loading"
         @update:visible="
             (value: boolean) => {
                 if (!value) close();

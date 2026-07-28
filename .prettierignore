@@ -1,0 +1,3 @@
+# Agent worktrees: separate branch checkouts nested inside this repo. They are
+# linted and formatted on their own branch, not from this one.
+.worktrees/
