@@ -6,6 +6,9 @@ import type {
     WorkbenchCatalogRow
 } from '../layers/workbench/components/CatalogTable.vue';
 
+const getGridTemplateColumns = (element: Element): string =>
+    (element as HTMLElement).style.gridTemplateColumns;
+
 const columns: WorkbenchCatalogColumn[] = [
     { key: 'key', label: 'Key', lockedAfterCreate: true },
     { key: 'displayName', label: 'Display name' }
@@ -68,7 +71,7 @@ describe('AlpWorkbenchCatalogTable', () => {
     it('derives its grid track template from the number of columns', () => {
         const w = mountTable();
 
-        expect(w.get('.alp-workbench-catalog-header').element.style.gridTemplateColumns).toBe(
+        expect(getGridTemplateColumns(w.get('.alp-workbench-catalog-header').element)).toBe(
             'repeat(2, minmax(0, 1fr)) 112px'
         );
     });
@@ -76,7 +79,7 @@ describe('AlpWorkbenchCatalogTable', () => {
     it('recomputes the track template for a different column set', () => {
         const w = mountTable({ columns: selectColumns, rows: selectRows });
 
-        expect(w.get('.alp-workbench-catalog-header').element.style.gridTemplateColumns).toBe(
+        expect(getGridTemplateColumns(w.get('.alp-workbench-catalog-header').element)).toBe(
             'repeat(1, minmax(0, 1fr)) 112px'
         );
     });
@@ -84,9 +87,9 @@ describe('AlpWorkbenchCatalogTable', () => {
     it('gives the header and every row the identical column track template, whether or not a row carries a blocked-delete reason', () => {
         const w = mountTable();
 
-        const header = w.get('.alp-workbench-catalog-header').element.style.gridTemplateColumns;
-        const blockedRow = w.get('[data-catalog-row="a"]').element.style.gridTemplateColumns;
-        const unblockedRow = w.get('[data-catalog-row="b"]').element.style.gridTemplateColumns;
+        const header = getGridTemplateColumns(w.get('.alp-workbench-catalog-header').element);
+        const blockedRow = getGridTemplateColumns(w.get('[data-catalog-row="a"]').element);
+        const unblockedRow = getGridTemplateColumns(w.get('[data-catalog-row="b"]').element);
 
         expect(header).toBe('repeat(2, minmax(0, 1fr)) 112px');
         expect(blockedRow).toBe(header);
