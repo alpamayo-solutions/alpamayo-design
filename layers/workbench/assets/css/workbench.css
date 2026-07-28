@@ -472,7 +472,7 @@
 .alp-workbench-catalog-header,
 .alp-workbench-catalog-row {
     display: grid;
-    grid-template-columns: var(--alp-workbench-catalog-columns, repeat(auto-fit, minmax(0, 1fr))) auto;
+    grid-template-columns: repeat(var(--alp-workbench-catalog-columns, 1), minmax(0, 1fr)) auto;
     align-items: end;
     gap: 10px;
 }

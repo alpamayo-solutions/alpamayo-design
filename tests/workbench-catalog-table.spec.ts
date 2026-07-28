@@ -65,6 +65,26 @@ const mountTable = (props: Record<string, unknown> = {}) =>
     });
 
 describe('AlpWorkbenchCatalogTable', () => {
+    it('derives its grid track count from the number of columns', () => {
+        const w = mountTable();
+
+        expect(
+            w.get('.alp-workbench-catalog-table').element.style.getPropertyValue(
+                '--alp-workbench-catalog-columns'
+            )
+        ).toBe('2');
+    });
+
+    it('recomputes the track count for a different column set', () => {
+        const w = mountTable({ columns: selectColumns, rows: selectRows });
+
+        expect(
+            w.get('.alp-workbench-catalog-table').element.style.getPropertyValue(
+                '--alp-workbench-catalog-columns'
+            )
+        ).toBe('1');
+    });
+
     it('renders one editable row per catalog entry', () => {
         const w = mountTable();
 

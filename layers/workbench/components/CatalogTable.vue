@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 export interface WorkbenchCatalogColumn {
     key: string;
     label: string;
@@ -28,6 +30,15 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{ 'update:rows': [WorkbenchCatalogRow[]] }>();
+
+/**
+ * `repeat(auto-fit, minmax(0, 1fr))` has no definite track minimum, so
+ * auto-fit collapses to a single repetition instead of one column per
+ * catalog column. The component derives its own track count from
+ * `columns.length` rather than depending on a custom property no consumer
+ * ever sets.
+ */
+const trackCount = computed(() => Math.max(props.columns.length, 1));
 
 function isLocked(column: WorkbenchCatalogColumn, row: WorkbenchCatalogRow): boolean {
     if (props.readonly) return true;
@@ -75,7 +86,10 @@ function addRow(): void {
 </script>
 
 <template>
-    <div class="alp-workbench-catalog-table">
+    <div
+        class="alp-workbench-catalog-table"
+        :style="{ '--alp-workbench-catalog-columns': trackCount }"
+    >
         <div class="alp-workbench-catalog-header" role="presentation">
             <span v-for="column in columns" :key="column.key">{{ column.label }}</span>
             <span v-if="!readonly" />
