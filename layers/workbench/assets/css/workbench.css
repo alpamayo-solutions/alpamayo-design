@@ -464,3 +464,62 @@
         transition: none;
     }
 }
+
+.alp-workbench-catalog-table {
+    display: grid;
+    gap: 10px;
+}
+.alp-workbench-catalog-header,
+.alp-workbench-catalog-row {
+    display: grid;
+    grid-template-columns: var(--alp-workbench-catalog-columns, repeat(auto-fit, minmax(0, 1fr))) auto;
+    align-items: end;
+    gap: 10px;
+}
+.alp-workbench-catalog-header {
+    color: var(--p-text-muted-color);
+    font-size: 10px;
+    font-weight: 500;
+}
+.alp-workbench-catalog-cell {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+}
+/* The per-cell label repeats the header for screen readers and for the
+   single-column mobile layout, where the header row is hidden. */
+.alp-workbench-catalog-cell-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+.alp-workbench-catalog-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.alp-workbench-catalog-blocked {
+    color: var(--p-text-muted-color);
+    font-size: 9px;
+}
+
+@media (max-width: 760px) {
+    .alp-workbench-catalog-header {
+        display: none;
+    }
+    .alp-workbench-catalog-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .alp-workbench-catalog-cell-label {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip-path: none;
+        color: var(--p-text-muted-color);
+        font-size: 10px;
+        font-weight: 500;
+    }
+}
