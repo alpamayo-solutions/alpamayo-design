@@ -98,10 +98,10 @@
     position: relative;
     display: grid;
     width: var(--alp-workbench-activity-rail-width);
-    height: 2.875rem;
+    aspect-ratio: 1;
     flex: 0 0 auto;
     place-items: center;
-    padding: 0;
+    padding: 0 0.5rem;
     border: 0;
     border-radius: 0;
     color: var(--alp-workbench-text-muted);
@@ -116,11 +116,21 @@
     background: var(--alp-workbench-hover);
 }
 
+/* The rail marks focus with the same left bar it uses for the active app.
+   The button preset's all-round focus ring is a box-shadow, and on a
+   full-bleed rail item it reads as a stray outline rather than as focus. */
+.alp-workbench-activity-item:focus,
+.alp-workbench-activity-item:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
 .alp-workbench-activity-item--active {
     color: var(--alp-workbench-focus);
 }
 
-.alp-workbench-activity-item--active::before {
+.alp-workbench-activity-item--active::before,
+.alp-workbench-activity-item:focus-visible::before {
     content: '';
     position: absolute;
     inset: 0.4375rem auto 0.4375rem 0;
@@ -533,4 +543,86 @@
         font-size: 10px;
         font-weight: 500;
     }
+}
+
+.alp-workbench-sidebar-sections {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+}
+.alp-workbench-sidebar-section {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+}
+/* Collapsed: header only. Expanded: an equal share of the free height. */
+.alp-workbench-sidebar-section[data-expanded='false'] {
+    flex: 0 0 auto;
+}
+.alp-workbench-sidebar-section[data-expanded='true'] {
+    flex: 1 1 0;
+}
+.alp-workbench-sidebar-section + .alp-workbench-sidebar-section {
+    border-top: 1px solid var(--alp-workbench-border);
+}
+.alp-workbench-sidebar-section-heading {
+    display: flex;
+    height: 31px;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 4px;
+    padding-right: 4px;
+}
+.alp-workbench-sidebar-section-header {
+    display: flex;
+    overflow: hidden;
+    min-width: 0;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 6px;
+    padding: 0 4px 0 10px;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.alp-workbench-sidebar-section-header:hover {
+    background: var(--alp-workbench-hover);
+}
+.alp-workbench-sidebar-section-header:focus-visible {
+    outline: 1px solid var(--alp-workbench-focus);
+    outline-offset: -1px;
+}
+.alp-workbench-sidebar-section-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.alp-workbench-sidebar-section-body {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.alp-workbench-virtual-list {
+    min-height: 0;
+    height: 100%;
+    overflow: auto;
+}
+.alp-workbench-virtual-list-spacer {
+    position: relative;
+}
+.alp-workbench-virtual-list-window {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+.alp-workbench-virtual-list-row {
+    overflow: hidden;
 }
