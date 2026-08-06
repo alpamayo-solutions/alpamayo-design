@@ -143,4 +143,83 @@ describe('AlpClientTable', () => {
         expect(empty.exists()).toBe(true);
         expect(empty.props('message')).toBe('No records found.');
     });
+
+    it('renders the expansion slot for the expanded row only', () => {
+        const w = mount(AlpClientTable, {
+            props: { items: rows, expandedRows: [rows[0]] },
+            slots: {
+                default: '<Column expander /><Column field="name" header="Name" />',
+                expansion: '<p>detail for {{ params.data.name }}</p>'
+            },
+            global: globalConfig as any
+        });
+
+        expect(w.text()).toContain('detail for edge-node-01');
+        expect(w.text()).not.toContain('detail for edge-node-02');
+    });
+
+    it('renders no row detail while nothing is expanded', () => {
+        const w = mount(AlpClientTable, {
+            props: { items: rows, expandedRows: [] },
+            slots: {
+                default: '<Column expander /><Column field="name" header="Name" />',
+                expansion: '<p>detail for {{ params.data.name }}</p>'
+            },
+            global: globalConfig as any
+        });
+
+        expect(w.text()).not.toContain('detail for');
+    });
+
+    it('emits the expanded row set as an array so callers can drive it with v-model', async () => {
+        const w = mount(AlpClientTable, {
+            props: { items: rows, expandedRows: [] },
+            slots: { default: '<Column expander /><Column field="name" header="Name" />' },
+            global: globalConfig as any
+        });
+
+        // PrimeVue reports expansion as a dataKey-indexed object; callers get rows back.
+        await w.findComponent(DataTable).vm.$emit('update:expandedRows', { '2': true });
+
+        expect(w.emitted('update:expandedRows')).toEqual([[[rows[1]]]]);
+    });
+
+    it('passes an array of rows to PrimeVue as a dataKey-indexed map', () => {
+        const w = mount(AlpClientTable, {
+            props: { items: rows, expandedRows: [rows[0]] },
+            slots: { default: '<Column expander /><Column field="name" header="Name" />' },
+            global: globalConfig as any
+        });
+
+        // An array reaches PrimeVue unusable when dataKey is set — it must be a map.
+        expect(w.findComponent(DataTable).props('expandedRows')).toEqual({ '1': true });
+    });
+
+    it('leaves an object map untouched in both directions', async () => {
+        const w = mount(AlpClientTable, {
+            props: { items: rows, expandedRows: { '1': true } },
+            slots: { default: '<Column expander /><Column field="name" header="Name" />' },
+            global: globalConfig as any
+        });
+
+        expect(w.findComponent(DataTable).props('expandedRows')).toEqual({ '1': true });
+
+        await w.findComponent(DataTable).vm.$emit('update:expandedRows', { '2': true });
+
+        expect(w.emitted('update:expandedRows')).toEqual([[{ '2': true }]]);
+    });
+
+    it('forwards expand and collapse events so callers can lazy-load row detail', async () => {
+        const w = mount(AlpClientTable, {
+            props: { items: rows, expandedRows: [] },
+            slots: { default: '<Column expander /><Column field="name" header="Name" />' },
+            global: globalConfig as any
+        });
+
+        await w.findComponent(DataTable).vm.$emit('row-expand', { data: rows[0] });
+        await w.findComponent(DataTable).vm.$emit('row-collapse', { data: rows[0] });
+
+        expect(w.emitted('rowExpand')).toEqual([[{ data: rows[0] }]]);
+        expect(w.emitted('rowCollapse')).toEqual([[{ data: rows[0] }]]);
+    });
 });
