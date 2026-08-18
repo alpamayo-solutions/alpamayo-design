@@ -38,7 +38,7 @@ vi.stubGlobal('navigateTo', vi.fn());
 const globalConfig = {
     plugins: [[PrimeVue, { unstyled: true }], ToastService, ConfirmationService, i18n],
     directives: { tooltip: Tooltip, badge: {}, styleclass: {}, animateonscroll: {} },
-    stubs: { NuxtLink: { template: '<a><slot /></a>' }, teleport: true },
+    stubs: { teleport: true },
     components: Object.fromEntries(
         Object.entries(comps).map(([path, mod]) => {
             return [registeredName(path), (mod as any).default];

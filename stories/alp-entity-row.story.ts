@@ -1,11 +1,15 @@
 import { defineStory } from './_types';
 
+// AlpLink has no visual identity of its own — it is the router-agnostic anchor
+// every linked Alp* component delegates to, and this row is the plainest
+// rendering of it.
+// also-covers: AlpLink
 export default defineStory({
     component: 'AlpEntityRow',
     group: 'Signature',
     title: 'Entity Row',
     description:
-        'Generic clickable row wrapper (renders as NuxtLink when `to` is set) with a left slot and an optional right slot.',
+        'Generic clickable row wrapper (renders as a link when `to` is set) with a left slot and an optional right slot.',
     variants: [
         {
             name: 'default',

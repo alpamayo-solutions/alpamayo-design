@@ -5,33 +5,33 @@ import AlpSidebar from '../components/alp/nav/AlpSidebar.vue';
 import AlpIconRail from '../components/alp/nav/AlpIconRail.vue';
 import AlpEntityRow from '../components/alp/AlpEntityRow.vue';
 import AlpStatTile from '../components/alp/AlpStatTile.vue';
+import AlpEmptySection from '../components/alp/AlpEmptySection.vue';
 import AlpFeed from '../components/alp/AlpFeed.vue';
 import type { NavSection } from '../components/alp/nav/AlpSidebar.vue';
-import { NuxtLink } from './stubs/nuxt-components';
+import { RouterLink } from './stubs/router-components';
 
 /**
- * Regression tests for the "inert <nuxtlink>" production bug.
+ * Regression tests for the "inert <nuxtlink>" production bug, in the shape it
+ * takes outside Nuxt.
  *
- * The originally-buggy code used `<component :is="cond ? 'NuxtLink' : 'div'">` — a
- * STRING. NuxtLink is a Nuxt compile-time auto-import, NOT a runtime-registered
- * global, so the string never resolved and Vue rendered an inert <nuxtlink>
- * element with no href. Nav sub-links (and other link tiles) were dead.
+ * Every link here used to be a literal `<NuxtLink>` tag. That resolves only
+ * through Nuxt's compile-time component auto-import, so a plain Vue 3 + Vite
+ * consumer got an inert `<nuxtlink>` element with no href — every CTA looked
+ * right and did nothing. These components now go through `AlpLink`, which
+ * resolves a globally registered `RouterLink` at runtime and otherwise renders
+ * a plain anchor.
  *
- * The components now render a literal `<NuxtLink v-if="...">` tag (no
- * `#components` import — that broke consumer `vue-tsc` typechecking). In real
- * Nuxt apps, `<NuxtLink>` resolves via compile-time auto-import; under vitest
- * there is no Nuxt build step, so the literal tag only resolves if `NuxtLink` is
- * registered as a global component for the mount. `globalConfig.components`
- * below registers the same anchor-rendering stub used by the old `#components`
- * alias so the link branch still renders a genuine `<a href>`. Against a build
- * that fails to render a real link (or falls back to an unresolved custom
- * element) these assertions FAIL; against the fixed source they PASS.
+ * The mounts below therefore register NO link component at all: that is exactly
+ * the non-Nuxt consumer, and the assertions fail against any build that renders
+ * an unresolved custom element instead of a real `<a href>`. The last block
+ * registers a `RouterLink` and asserts AlpLink prefers it, so SPA navigation is
+ * not silently downgraded to a full page load wherever a router does exist.
  */
 
 const VoltBadgeStub = { props: ['value', 'severity'], template: '<span class="badge">{{ value }}</span>' };
 
 const globalConfig = {
-    components: { VoltBadge: VoltBadgeStub, NuxtLink }
+    components: { VoltBadge: VoltBadgeStub }
 };
 
 const sections: NavSection[] = [
@@ -44,7 +44,7 @@ const sections: NavSection[] = [
     { key: 'dashboard', label: 'Dashboard', icon: 'pi pi-home', to: '/', items: [] }
 ];
 
-describe('NuxtLink runtime resolution (regression)', () => {
+describe('link resolution without Nuxt (regression)', () => {
     beforeEach(() => {
         vi.stubGlobal('useRoute', () => ({ path: '/' }));
     });
@@ -89,6 +89,21 @@ describe('NuxtLink runtime resolution (regression)', () => {
         expect(w.attributes('href')).toBe('/fleet/devices');
     });
 
+    it('AlpEmptySection renders its CTA as a real <a href> anchor', () => {
+        const w = mount(AlpEmptySection, {
+            props: {
+                message: 'No machines linked yet',
+                actionLabel: 'Link a machine',
+                actionHref: '/machines/new'
+            },
+            global: globalConfig
+        });
+        const anchor = w.find('a');
+        expect(anchor.exists()).toBe(true);
+        expect(anchor.attributes('href')).toBe('/machines/new');
+        expect(anchor.text()).toBe('Link a machine');
+    });
+
     it('AlpFeed renders an item with `href` as a real <a href> anchor', () => {
         const w = mount(AlpFeed, {
             props: {
@@ -108,5 +123,24 @@ describe('NuxtLink runtime resolution (regression)', () => {
         const anchor = w.find('a[href="/alerts/1"]');
         expect(anchor.exists()).toBe(true);
         expect(anchor.element.tagName).toBe('A');
+    });
+
+    it('routes through a registered RouterLink instead of the plain-anchor fallback', () => {
+        const w = mount(AlpEntityRow, {
+            props: { to: '/orgs/acme' },
+            global: { components: { ...globalConfig.components, RouterLink } }
+        });
+        expect(w.attributes('data-router-link')).toBeDefined();
+        expect(w.attributes('href')).toBe('/orgs/acme');
+    });
+
+    it('keeps external targets on a plain anchor, which a router cannot resolve', () => {
+        const w = mount(AlpEntityRow, {
+            props: { to: 'https://alpamayo.ch/docs' },
+            global: { components: { ...globalConfig.components, RouterLink } }
+        });
+        expect(w.attributes('data-router-link')).toBeUndefined();
+        expect(w.element.tagName).toBe('A');
+        expect(w.attributes('href')).toBe('https://alpamayo.ch/docs');
     });
 });

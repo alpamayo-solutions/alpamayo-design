@@ -29,11 +29,10 @@ const VoltButtonStub = {
         '<button type="button" :aria-label="$attrs[\'aria-label\']" @click="$emit(\'click\')"><slot />{{ label }}</button>'
 };
 const VoltBadgeStub = { props: ['value', 'severity'], template: '<span class="badge">{{ value }}</span>' };
-const NuxtLinkStub = { props: ['to'], template: '<a :href="to"><slot /></a>' };
 
 const globalConfig = {
     plugins: [i18n],
-    components: { VoltButton: VoltButtonStub, VoltBadge: VoltBadgeStub, NuxtLink: NuxtLinkStub },
+    components: { VoltButton: VoltButtonStub, VoltBadge: VoltBadgeStub },
     stubs: { teleport: true }
 };
 

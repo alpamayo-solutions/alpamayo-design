@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AlpLink from '../AlpLink.vue';
 import type { NavSection } from './AlpSidebar.vue';
 
 const props = defineProps<{
@@ -22,7 +23,7 @@ function isActive(section: NavSection): boolean {
     >
         <nav class="flex flex-col items-center gap-1 flex-1 w-full px-2">
             <template v-for="section in sections" :key="section.key">
-                <NuxtLink
+                <AlpLink
                     v-if="section.to"
                     :to="section.to"
                     class="flex flex-col items-center gap-1 w-full px-1 py-2 rounded-lg transition-colors"
@@ -36,7 +37,7 @@ function isActive(section: NavSection): boolean {
                 >
                     <i :class="[section.icon || 'pi pi-circle', 'text-base']" />
                     <span class="text-[10px] leading-none font-semibold">{{ section.label }}</span>
-                </NuxtLink>
+                </AlpLink>
                 <button
                     v-else
                     type="button"
