@@ -108,7 +108,9 @@ export default {
 
             // Colors
             {
-                'text-white dark:text-surface-950': context.checked,
+                // The box stays `bg-primary-400` in both themes, so the tick must
+                // too — a dark-mode-only near-black tick was unreadable on it.
+                'text-white': context.checked,
                 'text-primary': state.d_indeterminate
             },
 

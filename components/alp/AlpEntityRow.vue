@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import AlpLink from './AlpLink.vue';
+
 defineProps<{
     to?: string;
 }>();
 </script>
 
 <template>
-    <NuxtLink
+    <AlpLink
         v-if="to"
         :to="to"
         class="flex items-center justify-between gap-3 px-5 py-3 transition-colors"
@@ -17,7 +19,7 @@ defineProps<{
         <div v-if="$slots.right" class="shrink-0 flex items-center gap-2">
             <slot name="right" />
         </div>
-    </NuxtLink>
+    </AlpLink>
     <div
         v-else
         class="flex items-center justify-between gap-3 px-5 py-3 transition-colors"

@@ -66,8 +66,7 @@ describe('AlpMetricBar', () => {
 describe('AlpEmptySection', () => {
     it('renders message and severity icon color', () => {
         const w = mount(AlpEmptySection, {
-            props: { message: 'No deployments yet', icon: 'pi pi-inbox', severity: 'info' },
-            global: { stubs: { NuxtLink: true } }
+            props: { message: 'No deployments yet', icon: 'pi pi-inbox', severity: 'info' }
         });
         expect(w.text()).toContain('No deployments yet');
         expect(w.html()).toContain('text-info-500');

@@ -1,102 +1,80 @@
+/*
+ * Popover placement, and why the arrow is driven by these two signals only.
+ *
+ * PrimeVue's Popover positions itself in `alignOverlay()`: the panel goes
+ * directly below the trigger, or directly above it when it would overflow the
+ * viewport. The only placement facts it publishes are `data-p-popover-flipped`
+ * (set when it went above) and the `--p-popover-arrow-left` custom property
+ * (how far the arrow has to move to stay on the trigger when the panel was
+ * pushed sideways to fit). It never emits `data-pc-position` — that attribute
+ * does not exist anywhere in PrimeVue 4, so the earlier left/right rules keyed
+ * on it never matched, leaving the arrow's geometry and colour unconditional
+ * and painting a stray triangle at the panel's left edge on every popover.
+ *
+ * The gutter equals the arrow height so the arrow exactly bridges trigger and
+ * panel. Structure mirrors PrimeVue's own theme: `before` is the border-colour
+ * triangle, `after` the 2px-smaller background-colour triangle drawn over it,
+ * which is what gives the arrow the panel's 1px border.
+ *
+ * Every class below has to stay a literal: Tailwind scans this file as raw text
+ * (`@source "../../presets/**\/*.js"`), so an interpolated class name is never
+ * generated.
+ */
 export default {
     root: {
         class: [
             // Position
             'absolute left-0 top-0',
             'z-40 transform origin-center',
-            '-mt-8',
-            'data-[pc-position="right"]:ml-12!',
-            '[&[data-pc-position="left"]>[data-pc-section="content"]]:mr-12',
-            'data-[p-popover-flipped="true"]:mt-[2.4rem]!',
+
+            // Gutter: below the trigger by default, above it when flipped.
+            'mt-2.5',
+            'data-[p-popover-flipped="true"]:-mt-2.5',
 
             // Color
             'bg-transparent',
             'text-surface-700 dark:text-surface-0/80',
 
-            // Arrow
+            // Arrow — border colour
             `
-      data-[pc-position="left"]:before:right-[2.4rem]
-      data-[pc-position="right"]:before:-left-[0.7rem]
-
-      data-[pc-position="left"]:before:rotate-180!
-
       before:absolute
-      before:translate-y-[-50%]
-      before:w-0
-      before:top-[1.1rem]
       before:h-0
-      before:border-transparent
+      before:w-0
+      before:border-10
       before:border-solid
-      before:border-y-10
-      before:border-r-10
-      before:border-l-0
-      before:border-r-surface-200
-      dark:before:border-r-surface-800
+      before:border-transparent
+      before:bottom-full
+      before:left-[calc(1.25rem_+_var(--p-popover-arrow-left,0px))]
+      before:-ml-[10px]
+      before:border-b-surface-200
+      dark:before:border-b-surface-800
+
+      data-[p-popover-flipped="true"]:before:bottom-auto
+      data-[p-popover-flipped="true"]:before:top-full
+      data-[p-popover-flipped="true"]:before:border-b-transparent
+      data-[p-popover-flipped="true"]:before:border-t-surface-200
+      dark:data-[p-popover-flipped="true"]:before:border-t-surface-800
       `,
 
+            // Arrow — panel surface, inset by the 2px border
             `
-      data-[pc-position="left"]:after:right-[2.55rem]
-      data-[pc-position="right"]:after:-left-[0.55rem]
-      
-      data-[pc-position="left"]:after:rotate-180!
-
       after:absolute
-      after:translate-y-[-50%]
-      after:w-0
-      after:top-[1.1rem]
       after:h-0
-      after:border-transparent
+      after:w-0
+      after:border-8
       after:border-solid
-      after:border-y-8
-      after:border-r-8
-      after:border-l-0
-      after:border-r-surface-0
-      dark:after:border-r-surface-900
-      `,
+      after:border-transparent
+      after:bottom-full
+      after:left-[calc(1.25rem_+_var(--p-popover-arrow-left,0px))]
+      after:-ml-[8px]
+      after:border-b-surface-0
+      dark:after:border-b-surface-900
 
-            // Flipped: Arrow
-            `
-      [&[data-p-popover-flipped="true"][data-pc-position="left"]]:before:right-[2.4rem]
-      [&[data-p-popover-flipped="true"][data-pc-position="right"]]:before:-left-[0.7rem]
-
-      [&[data-p-popover-flipped="true"][data-pc-position="left"]]:before:rotate-180!
-
-      data-[p-popover-flipped="true"]:before:absolute
-      data-[p-popover-flipped="true"]:before:w-0
-      data-[p-popover-flipped="true"]:before:mt-auto
-      data-[p-popover-flipped="true"]:before:mb-5
-      data-[p-popover-flipped="true"]:before:-bottom-[1.2rem]
-      data-[p-popover-flipped="true"]:before:translate-y-[-50%]
-      data-[p-popover-flipped="true"]:before:h-0
-      data-[p-popover-flipped="true"]:before:border-transparent
-      data-[p-popover-flipped="true"]:before:border-solid
-      data-[p-popover-flipped="true"]:before:border-y-10
-      data-[p-popover-flipped="true"]:before:border-r-10
-      data-[p-popover-flipped="true"]:before:border-l-0
-      data-[p-popover-flipped="true"]:before:border-r-surface-200
-      dark:data-[p-popover-flipped="true"]:before:border-r-surface-800
-      `,
-
-            `
-      [&[data-p-popover-flipped="true"][data-pc-position="left"]]:after:right-[2.55rem]
-      [&[data-p-popover-flipped="true"][data-pc-position="right"]]:after:-left-[0.55rem]
-
-      [&[data-p-popover-flipped="true"][data-pc-position="left"]]:after:rotate-180!
-
-      data-[p-popover-flipped="true"]:after:absolute
-      data-[p-popover-flipped="true"]:after:w-0
-      data-[p-popover-flipped="true"]:after:-bottom-[1.2rem]
-      data-[p-popover-flipped="true"]:after:mt-auto
-      data-[p-popover-flipped="true"]:after:mb-6
-      data-[p-popover-flipped="true"]:after:translate-y-[-50%]
-      data-[p-popover-flipped="true"]:after:h-0
-      data-[p-popover-flipped="true"]:after:border-transparent
-      data-[p-popover-flipped="true"]:after:border-solid
-      data-[p-popover-flipped="true"]:after:border-y-8
-      data-[p-popover-flipped="true"]:after:border-r-8
-      data-[p-popover-flipped="true"]:after:border-l-0
-      data-[p-popover-flipped="true"]:after:border-r-surface-0
-      dark:data-[p-popover-flipped="true"]:after:border-r-surface-900
+      data-[p-popover-flipped="true"]:after:bottom-auto
+      data-[p-popover-flipped="true"]:after:top-full
+      data-[p-popover-flipped="true"]:after:border-b-transparent
+      data-[p-popover-flipped="true"]:after:border-t-surface-0
+      dark:data-[p-popover-flipped="true"]:after:border-t-surface-900
       `
         ]
     },
@@ -106,7 +84,9 @@ export default {
             'rounded-lg shadow-lg',
             'bg-surface-0 dark:bg-surface-900',
 
-            '-ml-0.5 -mt-1 p-5 items-center flex',
+            // No offset from the root: the arrow is anchored to the root's edges,
+            // so any nudge here opens a gap between the arrow and the panel.
+            'p-5 items-center flex',
             'border border-surface-200 dark:border-surface-700'
         ]
     },

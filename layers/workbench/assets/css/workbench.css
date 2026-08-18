@@ -1,10 +1,20 @@
 /*
  * Optional tokens for dense, IDE-style workbenches.
  *
- * Apply .alp-workbench to the application shell. Keeping every override under
- * that class lets consumers opt in without changing the default Alpamayo theme.
+ * Apply .alp-workbench to the application shell. Keeping every *visual*
+ * override under that class lets consumers opt in without changing the default
+ * Alpamayo theme.
+ *
+ * The token definitions themselves live on :root rather than on .alp-workbench.
+ * PrimeVue overlays — context menus, popovers, dialogs, tooltips — teleport to
+ * document.body, which is outside the workbench element in any app where the
+ * workbench is a nested route. A workbench-scoped token then resolves to
+ * nothing there, `background: var(--alp-workbench-surface)` becomes an invalid
+ * declaration, and the overlay renders fully transparent. Custom properties are
+ * inert until something uses them, so defining them at the document root costs
+ * the default theme nothing.
  */
-.alp-workbench {
+:root {
     --alp-workbench-app-bar-height: 2.625rem;
     --alp-workbench-activity-rail-width: 3rem;
     --alp-workbench-explorer-width: 17rem;
@@ -29,14 +39,12 @@
     --alp-workbench-hover: var(--p-surface-100);
     --alp-workbench-selection: var(--p-primary-50);
     --alp-workbench-focus: var(--p-primary-500);
-
-    color: var(--alp-workbench-text);
-    background: var(--alp-workbench-surface);
-    font-size: 0.8125rem;
-    line-height: 1.35;
+    --alp-workbench-danger: var(--danger-500);
 }
 
-.dark .alp-workbench,
+/* Dark on the document root so teleported overlays inherit it too; the
+   element-scoped form stays for workbenches that carry their own theme class. */
+.dark,
 .alp-workbench.dark {
     --alp-workbench-surface: var(--p-surface-900);
     --alp-workbench-surface-raised: var(--p-surface-800);
@@ -47,10 +55,11 @@
     --alp-workbench-hover: var(--p-surface-800);
     --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
     --alp-workbench-focus: var(--p-primary-400);
+    --alp-workbench-danger: var(--danger-400);
 }
 
 @media (prefers-color-scheme: dark) {
-    .alp-workbench:not(.light) {
+    :root:not(.light) {
         --alp-workbench-surface: var(--p-surface-900);
         --alp-workbench-surface-raised: var(--p-surface-800);
         --alp-workbench-chrome: var(--p-surface-950);
@@ -60,7 +69,15 @@
         --alp-workbench-hover: var(--p-surface-800);
         --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
         --alp-workbench-focus: var(--p-primary-400);
+        --alp-workbench-danger: var(--danger-400);
     }
+}
+
+.alp-workbench {
+    color: var(--alp-workbench-text);
+    background: var(--alp-workbench-surface);
+    font-size: 0.8125rem;
+    line-height: 1.35;
 }
 
 .alp-workbench-icon-button {
@@ -84,7 +101,12 @@
     background: var(--alp-workbench-hover);
 }
 
-.alp-workbench-activity-rail {
+/* :where() drops this rule to zero specificity so a consumer can hide the rail
+   from a media query. Media queries add no specificity of their own, so against
+   a plain single-class rule they could only win on stylesheet order — and
+   losing that race leaves the rail visible with no grid area to sit in, which
+   auto-places it into an implicit row below the layout. */
+:where(.alp-workbench-activity-rail) {
     display: flex;
     width: var(--alp-workbench-activity-rail-width);
     min-height: 0;
@@ -170,6 +192,16 @@
     background: transparent;
 }
 
+/* PrimeVue's ink bar is positioned in pixels and only recomputed by a
+   ResizeObserver on the tab list. Editor tabs have a fixed width and the strip
+   scrolls, so closing a tab leaves the list's box the same size, the observer
+   never fires, and the bar stays under the tab that used to be active. The
+   active frame draws its own indicator below instead — no measurement, nothing
+   to go stale. */
+.alp-workbench-tab-strip [data-pc-section='activebar'] {
+    display: none;
+}
+
 .alp-workbench-tab-frame {
     display: flex;
     min-width: 0;
@@ -199,8 +231,20 @@
 }
 
 .alp-workbench-tab--active {
+    position: relative;
     color: var(--alp-workbench-text);
     background: var(--alp-workbench-surface);
+}
+
+/* Replaces PrimeVue's measured ink bar — same 2px secondary rule, but tied to
+   the element that is actually active. */
+.alp-workbench-tab--active::after {
+    position: absolute;
+    z-index: 1;
+    height: 2px;
+    background: var(--secondary-500);
+    content: '';
+    inset: auto 0 0 0;
 }
 
 .alp-workbench-tab--preview .alp-workbench-tab-label {
@@ -400,7 +444,11 @@
     gap: 0.875rem;
 }
 
+/* The button preset sets a fixed per-size height (2.6rem) that is taller than
+   this header, so the mode buttons stood ~11px proud of it: the active
+   underline hung below the content pane's border instead of meeting it. */
 .alp-workbench-bottom-panel-modes > button {
+    height: 100%;
     padding: 0;
     border: 0;
     border-bottom: 1px solid transparent;
@@ -465,8 +513,14 @@
     background: var(--alp-workbench-surface-raised);
 }
 
-.alp-workbench-context-menu-item--destructive {
-    color: var(--p-red-500);
+/* --p-red-500 is a PrimeVue theme token this package never defines, so `color`
+   fell back to currentColor and Delete looked identical to Open. The menu
+   preset also colours the link and icon explicitly, so setting `color` on the
+   item alone never reaches the glyph — both descendants have to be named. */
+.alp-workbench-context-menu-item--destructive,
+.alp-workbench-context-menu-item--destructive [data-pc-section='itemlink'],
+.alp-workbench-context-menu-item--destructive [data-pc-section='itemicon'] {
+    color: var(--alp-workbench-danger);
 }
 
 @media (prefers-reduced-motion: reduce) {
