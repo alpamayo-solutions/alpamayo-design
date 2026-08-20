@@ -4,6 +4,17 @@ export default {
             // Display and Position
             'inline-flex',
             'relative',
+
+            // Size — the same explicit scale the button and inputtext presets
+            // use, so a select, an input, and a button in one row are the same
+            // height. The label section keeps its own padding for the horizontal
+            // box; border-box means it cannot fight the height set here.
+            'box-border',
+            {
+                'h-[1.75rem]': props.size === 'small',
+                'h-[2.875rem]': props.size === 'large',
+                'h-[2.125rem]': props.size !== 'small' && props.size !== 'large'
+            },
             // Shape
             { 'rounded-md': parent.instance.$name !== 'InputGroup' },
             {
