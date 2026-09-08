@@ -62,7 +62,10 @@ export function navigateSidebar(event: KeyboardEvent): void {
     const entries = Array.from(
         root.querySelectorAll<HTMLElement>(`${header}, [role="treeitem"], ${primary}`)
     ).filter((entry) => {
-        if (entry.matches(':disabled, [aria-disabled="true"]') || entry.closest('[hidden], [inert]'))
+        if (
+            entry.matches(':disabled, [aria-disabled="true"]') ||
+            entry.closest('[hidden], [inert], [data-sidebar-action]')
+        )
             return false;
         for (
             let parent: HTMLElement | null = entry;

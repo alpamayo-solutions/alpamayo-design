@@ -54,3 +54,27 @@ it('navigates real section headers, expanded virtual lists, and category boundar
     expect(document.activeElement).toBe(header.element);
     w.unmount();
 });
+
+it('keeps secondary actions in the Tab order and out of the sidebar arrow path', async () => {
+    const w = mount(
+        {
+            components: { SidebarSections, SidebarSection },
+            template: `<SidebarSections>
+          <SidebarSection title="Open editors" :expanded="true">
+            <button data-editor>Editor</button><button data-sidebar-action>Close editor</button>
+          </SidebarSection>
+          <SidebarSection title="Namespace" :expanded="false" />
+        </SidebarSections>`
+        },
+        { attachTo: document.body }
+    );
+    await w.get('[data-editor]').trigger('keydown', { key: 'ArrowDown' });
+    expect(document.activeElement?.textContent).toContain('Namespace');
+    await w.findAll('.alp-workbench-sidebar-section-header')[1]!.trigger('keydown', { key: 'ArrowUp' });
+    expect(document.activeElement?.textContent).toBe('Editor');
+    const close = w.get('[data-sidebar-action]').element as HTMLButtonElement;
+    close.focus();
+    expect(document.activeElement).toBe(close);
+    expect(close.getAttribute('tabindex')).toBeNull();
+    w.unmount();
+});
