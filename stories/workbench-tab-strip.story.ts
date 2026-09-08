@@ -4,7 +4,8 @@ export default defineStory({
     component: 'AlpWorkbenchTabStrip',
     group: 'Components',
     title: 'Workbench Tab Strip',
-    description: 'Closable editor tabs with preview and unsaved-state treatments.',
+    description:
+        'Closable editor tabs with preview and unsaved-state treatments. Arrow keys, Home/End and Shift+Tab activate tabs; Delete requests close.',
     variants: [
         {
             name: 'editor-tabs',
@@ -17,6 +18,7 @@ export default defineStory({
             }
         }
     ],
-    snippet: '<AlpWorkbenchTabStrip :tabs="tabs" active-id="fill-level" />',
+    snippet:
+        '<AlpWorkbenchTabStrip :tabs="tabs" active-id="fill-level" @select="activateTab" @close="requestClose" />',
     sourcePath: 'layers/workbench/components/TabStrip.vue'
 });

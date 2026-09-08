@@ -60,6 +60,7 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
         :data-group-id="groupId"
         role="region"
         @pointerdown="$emit('focus', groupId)"
+        @focusin="$emit('focus', groupId)"
     >
         <header class="alp-workbench-editor-group-header">
             <AlpWorkbenchTabStrip

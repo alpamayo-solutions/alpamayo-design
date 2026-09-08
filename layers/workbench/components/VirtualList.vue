@@ -1,5 +1,6 @@
 <script setup lang="ts" generic="T">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
+import { isEditingKey } from '../utils/keyboard';
 
 const props = withDefaults(
     defineProps<{
@@ -11,7 +12,64 @@ const props = withDefaults(
     { overscan: 4 }
 );
 
+const emit = defineEmits<{ 'reach-end': [] }>();
 const viewport = ref<HTMLElement>();
+
+async function focusIndex(index: number): Promise<void> {
+    const element = viewport.value;
+    if (!element || index < 0 || index >= props.items.length) return;
+    const top = index * props.rowHeight;
+    const height = element.clientHeight || 320;
+    if (top < element.scrollTop) element.scrollTop = top;
+    else if (top + props.rowHeight > element.scrollTop + height)
+        element.scrollTop = top + props.rowHeight - height;
+    measure();
+    await nextTick();
+    const row = element.querySelector<HTMLElement>(`[data-virtual-index="${index}"]`);
+    const control = row?.querySelector<HTMLElement>(
+        'button:not(:disabled), a[href], [tabindex]:not([tabindex="-1"])'
+    );
+    (control ?? row)?.focus({ preventScroll: true });
+}
+
+function onKeydown(event: KeyboardEvent): void {
+    if (isEditingKey(event) || event.shiftKey) return;
+    const target = event.target as HTMLElement;
+    const row = target.closest<HTMLElement>('[data-virtual-index]');
+    if (!row || row.closest('.alp-workbench-virtual-list') !== viewport.value) return;
+    const index = Number(row.dataset.virtualIndex);
+    const primary = row.querySelector('button:not(:disabled), a[href], [tabindex]:not([tabindex="-1"])');
+    // Nested row actions keep their own keyboard behavior.
+    if (target !== row && primary && target !== primary && !primary.contains(target)) return;
+    let next: number;
+    switch (event.key) {
+        case 'ArrowDown':
+            next = index + 1;
+            break;
+        case 'ArrowUp':
+            next = index - 1;
+            break;
+        case 'Home':
+            next = 0;
+            break;
+        case 'End':
+            next = props.items.length - 1;
+            break;
+        case 'PageDown':
+            next = index + visibleRows.value;
+            break;
+        case 'PageUp':
+            next = index - visibleRows.value;
+            break;
+        default:
+            return;
+    }
+    event.preventDefault();
+    if (next >= props.items.length) emit('reach-end');
+    void focusIndex(Math.min(props.items.length - 1, Math.max(0, next)));
+}
+
+defineExpose({ focusIndex });
 const scrollTop = ref(0);
 const viewportHeight = ref(0);
 
@@ -73,7 +131,7 @@ const windowed = computed(() =>
 </script>
 
 <template>
-    <div ref="viewport" class="alp-workbench-virtual-list" @scroll="measure">
+    <div ref="viewport" class="alp-workbench-virtual-list" @scroll="measure" @keydown="onKeydown">
         <div
             class="alp-workbench-virtual-list-spacer"
             :style="{ height: `${props.items.length * props.rowHeight}px` }"
@@ -85,6 +143,8 @@ const windowed = computed(() =>
                 <div
                     v-for="entry in windowed"
                     :key="entry.index"
+                    :data-virtual-index="entry.index"
+                    tabindex="-1"
                     class="alp-workbench-virtual-list-row"
                     :style="{ height: `${props.rowHeight}px` }"
                 >

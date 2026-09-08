@@ -52,3 +52,21 @@ npm run design:build   # build Claude Design cards + manifest
 
 The Claude Design project is a generated mirror of this repo — see the mirror
 rule in AGENTS.md.
+
+### Workbench keyboard navigation
+
+- Tab strips emit `select` for Left/Right, Home/End, Enter/Space and Shift+Tab.
+  `Delete` emits `close`; the consumer owns dirty-change confirmation. Forward
+  Tab leaves the strip. These shortcuts are scoped to the strip.
+- Editor groups emit `focus` when focus enters through the keyboard as well as
+  through pointer interaction.
+- Sidebar headers support Left/Right collapse/expand; activity buttons support
+  Up/Down and Home/End.
+- Virtual lists support Up/Down, Home/End and Page Up/Page Down, scrolling and
+  focusing the primary native control even across the virtual window. Inputs and
+  nested action buttons retain their own keys. `reach-end` asks the caller for
+  another cursor page; loading guards and retry behavior remain caller-owned.
+  The exposed `focusIndex(index)` restores focus to a loaded row.
+- The opt-in `layers/workbench/utils/keyboard.ts` helper `navigateList(event,
+selector)` adds vertical navigation to bounded lists of native controls. It
+  respects disabled controls, text editing, modifiers and handled events.
