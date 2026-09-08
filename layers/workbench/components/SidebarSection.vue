@@ -11,6 +11,22 @@ const props = defineProps<{
 
 const emit = defineEmits<{ 'update:expanded': [boolean] }>();
 
+function onKeydown(event: KeyboardEvent): void {
+    if (
+        event.defaultPrevented ||
+        event.isComposing ||
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey
+    )
+        return;
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    const expanded = event.key === 'ArrowRight';
+    if (expanded !== props.expanded) emit('update:expanded', expanded);
+}
+
 const generatedId = useId();
 const headingId = computed(() => `alp-workbench-section-${props.sectionId ?? generatedId}`);
 </script>
@@ -23,6 +39,7 @@ const headingId = computed(() => `alp-workbench-section-${props.sectionId ?? gen
                 class="alp-workbench-sidebar-section-header"
                 :aria-expanded="props.expanded"
                 @click="emit('update:expanded', !props.expanded)"
+                @keydown="onKeydown"
             >
                 <i
                     :class="props.expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"

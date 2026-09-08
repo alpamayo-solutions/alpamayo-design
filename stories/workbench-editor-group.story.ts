@@ -4,7 +4,8 @@ export default defineStory({
     component: 'AlpWorkbenchEditorGroup',
     group: 'Components',
     title: 'Workbench Editor Group',
-    description: 'Focused editor frame with draggable tabs, split actions, and a content surface.',
+    description:
+        'Focused editor frame with draggable tabs, split actions, and a content surface. Pointer and keyboard focus both identify the active group.',
     variants: [
         {
             name: 'focused',

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { navigateList } from '../utils/keyboard';
 export interface WorkbenchActivityItem {
     id: string;
     label: string;
@@ -17,7 +18,11 @@ defineEmits<{
 </script>
 
 <template>
-    <aside class="alp-workbench-activity-rail" aria-label="Applications">
+    <aside
+        class="alp-workbench-activity-rail"
+        aria-label="Applications"
+        @keydown="navigateList($event, 'button')"
+    >
         <VoltButton
             v-for="item in items"
             :key="item.id"
