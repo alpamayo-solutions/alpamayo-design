@@ -22,6 +22,7 @@ function onKeydown(event: KeyboardEvent): void {
     )
         return;
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    if (event.key === 'ArrowRight' && props.expanded) return;
     event.preventDefault();
     const expanded = event.key === 'ArrowRight';
     if (expanded !== props.expanded) emit('update:expanded', expanded);
