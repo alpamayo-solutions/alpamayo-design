@@ -24,10 +24,15 @@ import AlpGrabBar from '../components/alp/AlpGrabBar.vue';
 // `emits: ['click']` matters: without a declared emit, Vue both forwards the
 // parent's onClick as a native fallthrough attribute *and* fires it again via
 // the stub's own `$emit('click')`, double-invoking the handler.
+// `as`/`href` are forwarded because AlpDetailActions' edit action is a
+// VoltButton rendered `as="a"`, and that button IS the anchor: AlpLink in
+// `custom` mode renders only the slot, no wrapper element of its own. A stub
+// that always rendered a <button> would let a broken `as`/`href` binding pass.
 const VoltButtonStub = {
-    props: ['label'],
+    props: ['label', 'as', 'href'],
     emits: ['click'],
-    template: '<button @click="$emit(\'click\')">{{ label }}<slot /></button>'
+    template:
+        '<component :is="as || \'button\'" :href="href" @click="$emit(\'click\', $event)">{{ label }}<slot /></component>'
 };
 const VoltMenuStub = {
     props: ['model'],
@@ -35,10 +40,6 @@ const VoltMenuStub = {
         '<ul><li v-for="item in model" :key="item.label" :class="item.class" @click="item.command && item.command()">{{ item.label }}</li></ul>'
 };
 const VoltSelectStub = { template: '<div />' };
-const NuxtLinkStub = {
-    props: ['to'],
-    template: '<a :href="to"><slot :href="to" :navigate="() => {}" /></a>'
-};
 
 // AlpDetailActions imports `Menu` directly from 'primevue/menu' inside
 // <script setup> (verbatim move — see global-constraints.md's "Move
@@ -113,10 +114,10 @@ describe('AlpDetailActions', () => {
     });
     const globalConfig = {
         plugins: [i18n],
-        components: { VoltButton: VoltButtonStub, NuxtLink: NuxtLinkStub }
+        components: { VoltButton: VoltButtonStub }
     };
 
-    it('renders the edit action as a NuxtLink when showEdit + editHref are set', () => {
+    it('renders the edit action as a real anchor when showEdit + editHref are set', () => {
         const w = mount(AlpDetailActions, {
             props: { showEdit: true, editHref: '/devices/1' },
             global: globalConfig

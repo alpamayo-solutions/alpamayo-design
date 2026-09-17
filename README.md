@@ -27,7 +27,13 @@ export default defineNuxtConfig({
 ```
 
 Apply `alp-workbench` to the application shell. The layer contributes only a
-scoped stylesheet, so consumers that extend the base layer alone are unaffected.
+stylesheet, so consumers that extend the base layer alone are unaffected.
+
+Its `--alp-workbench-*` tokens are declared on `:root` rather than on
+`.alp-workbench`, because PrimeVue overlays teleport to `document.body` and
+would otherwise resolve none of them. Dark mode therefore follows `.dark` on the
+document root (as the base theme already does), with `.alp-workbench.dark` still
+honoured for a workbench that carries its own theme class.
 
 For rapid cross-repository development, use a local package dependency:
 

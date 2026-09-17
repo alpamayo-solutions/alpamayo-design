@@ -75,14 +75,12 @@ const VoltDatePickerStub = {
     emits: ['update:modelValue'],
     template: '<div class="date-picker" @click="$emit(\'update:modelValue\', new Date(2026, 0, 1))" />'
 };
-const NuxtLinkStub = { props: ['to'], template: '<a :href="to"><slot /></a>' };
-
 afterEach(() => {
     vi.unstubAllGlobals();
 });
 
 describe('AlpFeed', () => {
-    const globalConfig = { plugins: [i18n], components: { NuxtLink: NuxtLinkStub } };
+    const globalConfig = { plugins: [i18n] };
     const items = [
         { id: '1', severity: 'info' as const, severityLabel: 'Info', title: 'Scheduled maintenance' },
         {
@@ -100,7 +98,7 @@ describe('AlpFeed', () => {
         expect(titles).toEqual(['edge-node-07 offline', 'Scheduled maintenance']);
     });
 
-    it('renders an item with an href as a NuxtLink', () => {
+    it('renders an item with an href as an anchor', () => {
         const w = mount(AlpFeed, { props: { items, emptyMessage: 'No alerts' }, global: globalConfig });
         const link = w.find('a[href="/fleet/edge-node-07"]');
         expect(link.exists()).toBe(true);

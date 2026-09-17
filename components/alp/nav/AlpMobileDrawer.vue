@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import AlpLink from '../AlpLink.vue';
 import type { NavItem, NavSection } from './AlpSidebar.vue';
 
 const props = defineProps<{
@@ -154,7 +155,7 @@ function onSectionClick(section: NavSection) {
                                 v-if="section.items.length > 0 && expandedSections.has(section.key)"
                                 class="space-y-0.5 mt-0.5"
                             >
-                                <NuxtLink
+                                <AlpLink
                                     v-for="item in section.items"
                                     :key="item.key"
                                     :to="item.to"
@@ -179,7 +180,7 @@ function onSectionClick(section: NavSection) {
                                         severity="secondary"
                                         class="flex-shrink-0"
                                     />
-                                </NuxtLink>
+                                </AlpLink>
                             </div>
                         </Transition>
                     </template>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
+import AlpLink from '../AlpLink.vue';
 
 export interface NavItem {
     key: string;
@@ -83,7 +84,7 @@ function toggleSection(section: NavSection) {
         <nav class="flex flex-col px-2 pt-3 pb-2 gap-0.5 flex-1">
             <template v-for="section in sections" :key="section.key">
                 <!-- No sub-items: direct link -->
-                <NuxtLink
+                <AlpLink
                     v-if="section.items.length === 0 && section.to"
                     :to="section.to"
                     class="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-colors"
@@ -96,7 +97,7 @@ function toggleSection(section: NavSection) {
                 >
                     <i :class="[section.icon || 'pi pi-circle', 'text-sm w-4 text-center flex-shrink-0']" />
                     <span>{{ section.label }}</span>
-                </NuxtLink>
+                </AlpLink>
 
                 <!-- Sections with sub-items: accordion header + collapsible items -->
                 <template v-else-if="section.items.length > 0">
@@ -139,7 +140,7 @@ function toggleSection(section: NavSection) {
                         >
                             <template v-for="item in section.items" :key="item.key">
                                 <slot name="item" :item="item" :active="isItemActive(item, section)">
-                                    <NuxtLink
+                                    <AlpLink
                                         v-if="item.to"
                                         :to="item.to"
                                         class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"
@@ -163,7 +164,7 @@ function toggleSection(section: NavSection) {
                                             severity="secondary"
                                             class="flex-shrink-0"
                                         />
-                                    </NuxtLink>
+                                    </AlpLink>
                                     <div
                                         v-else
                                         class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors"

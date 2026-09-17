@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import AlpStatusDot from './AlpStatusDot.vue';
 import AlpStatusPill from './AlpStatusPill.vue';
 import AlpEmptySection from './AlpEmptySection.vue';
+import AlpLink from './AlpLink.vue';
 
 export type AlpFeedSeverity = 'success' | 'warning' | 'danger' | 'info' | 'help' | 'neutral';
 
@@ -65,7 +66,7 @@ function sourceBadgeLabel(item: AlpFeedItem): string | null {
 <template>
     <div v-if="sortedItems.length" class="divide-y divide-surface-100 dark:divide-surface-700">
         <template v-for="item in sortedItems" :key="item.id">
-            <NuxtLink
+            <AlpLink
                 v-if="item.href"
                 :to="item.href"
                 class="flex items-start gap-3 px-4 py-3 hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors"
@@ -99,7 +100,7 @@ function sourceBadgeLabel(item: AlpFeedItem): string | null {
                     </p>
                 </div>
                 <AlpStatusPill :label="item.severityLabel" :severity="item.severity" class="shrink-0" />
-            </NuxtLink>
+            </AlpLink>
             <div v-else class="flex items-start gap-3 px-4 py-3">
                 <AlpStatusDot :severity="item.severity" size="w-2 h-2" class="mt-1.5" />
                 <div class="flex-1 min-w-0">

@@ -2,13 +2,14 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Menu from 'primevue/menu';
+import AlpLink from './AlpLink.vue';
 
 /**
  * Shared header action row for detail pages.
  *
  * Provides:
  *   - default slot for custom inline actions (Share, presence avatars, etc.)
- *   - inline Edit button (NuxtLink) when `editHref` + `showEdit` are set
+ *   - inline Edit button, rendered as an anchor, when `editHref` + `showEdit` are set
  *   - overflow Menu hosting destructive actions (Delete) and any extra items
  *     supplied via the `extraOverflowItems` prop
  *
@@ -67,7 +68,7 @@ const editLabelResolved = computed(() => props.editLabel ?? t('design.actions.ed
 <template>
     <div class="flex items-center gap-2">
         <slot />
-        <NuxtLink v-if="showEdit && editHref" v-slot="{ href, navigate }" custom :to="editHref">
+        <AlpLink v-if="showEdit && editHref" v-slot="{ href, navigate }" custom :to="editHref">
             <VoltButton
                 as="a"
                 :href="href"
@@ -81,7 +82,7 @@ const editLabelResolved = computed(() => props.editLabel ?? t('design.actions.ed
                     navigate($event);
                 "
             />
-        </NuxtLink>
+        </AlpLink>
         <VoltButton
             v-else-if="showEdit"
             type="button"
