@@ -214,6 +214,34 @@
     white-space: nowrap;
 }
 
+/* A tab's own secondary action, beside its close button. Same size, same
+   reveal-on-hover behaviour and the same hit area as the close control, so a
+   tab never grows a second visual language — the only difference is the
+   glyph. */
+.alp-workbench-tab-action {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 auto;
+    padding: 0.1875rem;
+    border: 0;
+    border-radius: 0.125rem;
+    color: inherit;
+    background: transparent;
+    font-size: 0.625rem;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.alp-workbench-tab-frame:hover .alp-workbench-tab-action,
+.alp-workbench-tab--active .alp-workbench-tab-action,
+.alp-workbench-tab-action:focus-visible {
+    opacity: 1;
+}
+
+.alp-workbench-tab-action:hover {
+    background: var(--alp-workbench-hover);
+}
+
 .alp-workbench-tab-close {
     width: 1.25rem;
     height: 1.25rem;
