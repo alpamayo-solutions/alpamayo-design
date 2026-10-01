@@ -27,7 +27,8 @@ const VoltTab = {
 const VoltButton = {
     props: ['icon', 'ariaLabel'],
     emits: ['click'],
-    template: '<button type="button" :aria-label="ariaLabel" @click="$emit(\'click\', $event)"><slot /></button>'
+    template:
+        '<button type="button" :aria-label="ariaLabel" @click="$emit(\'click\', $event)"><slot /></button>'
 };
 const VoltMenu = { props: ['model', 'popup'], template: '<div />' };
 
@@ -91,7 +92,10 @@ describe('a tab that carries its own action', () => {
     it('reaches the group that owns the strip', async () => {
         // EditorGroup is what a consumer actually mounts; an event the strip
         // emits into a component that drops it would be invisible.
-        const group = mount(EditorGroup, { props: { groupId: 'left', activeId: 'trace', tabs: TABS }, global });
+        const group = mount(EditorGroup, {
+            props: { groupId: 'left', activeId: 'trace', tabs: TABS },
+            global
+        });
         await group.get('[data-tab-action="standalone"]').trigger('click');
         expect(group.emitted('action')).toEqual([['trace', 'standalone']]);
     });
