@@ -18,8 +18,7 @@ export default {
                 'bg-transparent': !context.active,
                 'text-surface-600 dark:text-surface-300': !context.active,
 
-                'border-primary-500 dark:border-primary-400 text-primary-600 dark:text-primary-400':
-                    context.active,
+                'border-primary-text text-primary-text': context.active,
 
                 'opacity-60 cursor-default user-select-none select-none pointer-events-none': props?.disabled
             },

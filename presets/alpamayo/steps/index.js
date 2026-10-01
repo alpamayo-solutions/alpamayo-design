@@ -76,7 +76,7 @@ export default {
             'border-surface-100 dark:border-surface-700',
             {
                 'text-surface-400 dark:text-white/60': !context.active,
-                'text-primary': context.active
+                'text-primary-text': context.active
             },
 
             // States
@@ -103,7 +103,7 @@ export default {
             // Colors
             {
                 'text-surface-700 dark:text-white/70': !context.active,
-                'text-primary': context.active
+                'text-primary-text': context.active
             },
 
             // Text and Overflow
