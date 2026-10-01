@@ -359,6 +359,34 @@ body {
     border: 2px solid transparent;
 }
 
+/* Readable colours for text-like uses (WCAG AA, 4.5:1).
+   The brand primary is a fill colour: a dark primary on a dark surface, or a
+   light one on a light surface, is unreadable as text. `--primary-text` is the
+   primary for text, links, text/outlined buttons and active tabs;
+   `--placeholder` is the hint text of empty inputs. Both clear 4.5:1 over the
+   scheme's surfaces (surface-0..100 light, surface-800..950 dark) for this
+   palette. A deployment that brands the primary or the surface ramp must set
+   both itself (PREKIT derives them per brand). They are declared in a layer so
+   that any unlayered brand stylesheet wins, whatever the load order. */
+@layer alp-semantic {
+    :root {
+        --primary-text: var(--primary-500);
+        --placeholder: var(--surface-600);
+    }
+
+    .dark {
+        --primary-text: var(--primary-300);
+        --placeholder: var(--surface-400);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not(.light) {
+            --primary-text: var(--primary-300);
+            --placeholder: var(--surface-400);
+        }
+    }
+}
+
 /* Blur sensitive data toggle — activated by .blur-mode on <html> (see useAlpBlurSensitive) */
 :root.blur-mode .sensitive {
     filter: blur(5px);
