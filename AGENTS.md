@@ -67,6 +67,19 @@ export default defineNuxtConfig({
   adding one without matching subpath patterns (`"./components/*"`, `"./i18n/*"`,
   `"./assets/*"`) breaks every consumer on their next version bump.
 
+- **Links go through `AlpLink`** (`components/alp/AlpLink.vue`). No `Alp*`
+  component renders `<NuxtLink>`: that tag only resolves through Nuxt's
+  compile-time auto-import, so in a plain Vue 3 + Vite consumer it produced an
+  inert `<nuxtlink>` element with no href — a CTA that looked right and did
+  nothing — and a literal tag in the template warns on every render there even
+  when its branch is never taken. `AlpLink` resolves a globally registered
+  `RouterLink` at runtime (vue-router registers it from `install()`, and Nuxt
+  installs vue-router), and otherwise renders a plain `<a href>`; external
+  targets always take the plain anchor, since a router cannot resolve them.
+  Trade-off: no NuxtLink viewport prefetching under Nuxt. It takes `to` and
+  RouterLink's `custom` (slot props `{ href, navigate }`); new linked components
+  must use it rather than reintroducing a framework-specific link.
+
 - **Nav chrome** (`components/alp/nav/`) — `AlpNavbar`, `AlpIconRail`,
   `AlpSidebar`, `AlpMobileDrawer`, and `AlpAppShell` (which composes the other
   four with the same responsive orchestration as a typical app layout — CSS-only

@@ -4,6 +4,17 @@ export default {
             // Display and Position
             'inline-flex',
             'relative',
+
+            // Size — the same explicit scale the button and inputtext presets
+            // use, so a select, an input, and a button in one row are the same
+            // height. The label section keeps its own padding for the horizontal
+            // box; border-box means it cannot fight the height set here.
+            'box-border',
+            {
+                'h-[1.75rem]': props.size === 'small',
+                'h-[2.875rem]': props.size === 'large',
+                'h-[2.125rem]': props.size !== 'small' && props.size !== 'large'
+            },
             // Shape
             { 'rounded-md': parent.instance.$name !== 'InputGroup' },
             {
@@ -121,6 +132,10 @@ export default {
     },
     overlay: {
         class: [
+            // PrimeVue measures the trigger into an inline min-width. Begin at
+            // zero so long nowrap options cannot widen the teleported panel.
+            'w-0',
+
             // Colors
             'bg-surface-0 dark:bg-surface-900',
             'text-surface-700 dark:text-white/80',
@@ -189,6 +204,7 @@ export default {
             'cursor-pointer overflow-hidden whitespace-nowrap'
         ]
     }),
+    optionLabel: 'min-w-0 truncate',
     optionGroup: {
         class: [
             'font-semibold',
@@ -220,6 +236,10 @@ export default {
     },
     header: {
         class: [
+            // A block row fills the overlay's resolved trigger width without
+            // feeding a percentage back into PrimeVue's shrink-to-fit overlay.
+            'block',
+
             // Spacing
             'pt-2 px-2 pb-0',
             'm-0',
@@ -234,6 +254,30 @@ export default {
             'bg-surface-0 dark:bg-surface-900',
             'border-surface-300 dark:border-surface-700'
         ]
+    },
+    pcFilterContainer: {
+        root: {
+            class: 'relative block'
+        }
+    },
+    pcFilter: {
+        root: {
+            class: [
+                'leading-none m-0 w-full py-2 pl-3 pr-10 rounded-md',
+                'text-surface-800 dark:text-white/80',
+                'placeholder:text-placeholder',
+                'bg-surface-0 dark:bg-surface-950',
+                'border border-surface-300 dark:border-surface-700',
+                'hover:border-surface-400 dark:hover:border-surface-600',
+                'focus:outline-hidden focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400',
+                'transition-colors duration-200'
+            ]
+        }
+    },
+    pcFilterIconContainer: {
+        root: {
+            class: 'absolute top-1/2 end-3 -mt-2 leading-none text-surface-400 pointer-events-none'
+        }
     },
     clearIcon: {
         class: [

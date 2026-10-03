@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import AlpLink from './AlpLink.vue';
 
 /**
  * EmptySection — generic empty-state placeholder for cards/sections whose
@@ -16,7 +17,7 @@ import { computed } from 'vue';
  * Optional:
  *   - `icon`: PrimeIcons or alp-icons class (e.g. `pi pi-inbox`)
  *   - `severity`: 'success' | 'info' | 'warn' | 'danger' — colors the icon
- *   - `actionLabel` + `actionHref`: render a small CTA NuxtLink
+ *   - `actionLabel` + `actionHref`: render a small CTA link
  *
  * Part of Change E (information-design quick wins).
  */
@@ -50,12 +51,12 @@ const iconColorClass = computed(() => {
     >
         <i v-if="icon" :class="[icon, iconColorClass]" class="text-3xl" aria-hidden="true" />
         <p class="text-sm font-semibold">{{ message }}</p>
-        <NuxtLink
+        <AlpLink
             v-if="actionLabel && actionHref"
             :to="actionHref"
             class="text-xs text-primary-600 hover:underline"
         >
             {{ actionLabel }}
-        </NuxtLink>
+        </AlpLink>
     </div>
 </template>

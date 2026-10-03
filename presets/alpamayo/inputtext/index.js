@@ -12,10 +12,18 @@ export default {
             { 'w-full': props.fluid },
 
             // Size
+            //
+            // The explicit height is what keeps a control the same size as the
+            // button next to it. Without it the height is padding plus the
+            // *inherited* font, so it shifts with whatever base size the
+            // consuming app sets — an app on a 13px base rendered a 31px input
+            // beside a fixed 41.6px button. The padding stays: it still governs
+            // the horizontal box, and with border-box it cannot fight the height.
+            'box-border',
             {
-                'py-3 px-3.5': props.size == 'large',
-                'py-1.5 px-2': props.size == 'small',
-                'py-2 px-3': props.size == null
+                'py-3 px-3.5 h-[2.875rem]': props.size == 'large',
+                'py-1.5 px-2 h-[1.75rem]': props.size == 'small',
+                'py-2 px-3 h-[2.125rem]': props.size == null
             },
 
             // Shape

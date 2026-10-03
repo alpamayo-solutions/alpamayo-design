@@ -3,9 +3,17 @@ export default {
         class: [
             'relative',
 
-            // Keep the fixed per-size height (h-[2.1rem] etc.) identical across
+            // Keep the fixed per-size height (h-[1.75rem] etc.) identical across
             // variants: solid buttons carry a 1px border, text/ghost buttons
             // none, so without border-box the bordered ones render ~2px taller.
+            //
+            // The scale itself is the height the padding model produces for the
+            // other controls, so a button and the input beside it agree:
+            //   small  py-1.5 (12) + text-sm  (14) + border (2) = 28px = 1.75rem
+            //   normal py-2   (16) + inherited(16) + border (2) = 34px = 2.125rem
+            //   large  py-3   (24) + text-xl  (20) + border (2) = 46px = 2.875rem
+            // It previously read 2.1 / 2.6 / 3.35rem, chosen independently, which
+            // left the normal button 7.6px taller than the normal input.
             'box-border',
 
             'shrink-0',
@@ -27,9 +35,9 @@ export default {
             // Sizes & Spacing
             'leading-[normal]',
             {
-                'h-[2.6rem]': props.size === null,
-                'text-sm h-[2.1rem]': props.size === 'small',
-                'text-xl h-[3.35rem]': props.size === 'large'
+                'h-[2.125rem]': props.size === null,
+                'text-sm h-[1.75rem]': props.size === 'small',
+                'text-xl h-[2.875rem]': props.size === 'large'
             },
             {
                 'px-3': props.label !== null && (props.size === null || props.size === 'small'),

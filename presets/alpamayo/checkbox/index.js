@@ -108,7 +108,11 @@ export default {
 
             // Colors
             {
-                'text-white dark:text-surface-950': context.checked,
+                // The box stays `bg-primary-400` in both themes, so the tick must
+                // too — a dark-mode-only near-black tick was unreadable on it.
+                'text-white': context.checked,
+                // The indeterminate dash sits on the surface background, so it
+                // uses the per-scheme AA text token rather than the raw primary.
                 'text-primary-text': state.d_indeterminate
             },
 
