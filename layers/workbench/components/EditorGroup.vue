@@ -32,6 +32,9 @@ const emit = defineEmits<{
     select: [tabId: string];
     pin: [tabId: string];
     close: [tabId: string];
+    /** A tab's own secondary action was used. Forwarded verbatim: this group
+     *  knows no more about what it means than the strip does. */
+    action: [tabId: string, actionId: string];
     'close-group': [];
     split: [direction: EditorSplitDirection];
     'drag-start': [tabId: string, event: DragEvent];
@@ -70,6 +73,7 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 @select="$emit('select', $event)"
                 @pin="$emit('pin', $event)"
                 @close="$emit('close', $event)"
+                @action="(tabId, actionId) => $emit('action', tabId, actionId)"
                 @drag-start="(tabId, event) => $emit('drag-start', tabId, event)"
                 @drop-tab="(beforeTabId, event) => $emit('drop-tab', beforeTabId, event)"
                 @drag-end="$emit('drag-end', $event)"

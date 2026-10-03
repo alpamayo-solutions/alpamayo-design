@@ -227,7 +227,7 @@ export default {
                       : 'py-3 px-4',
 
                 // Color
-                (props.sortable === '' || props.sortable) && context.sorted
+                (props?.sortable === '' || props?.sortable) && context.sorted
                     ? 'bg-highlight'
                     : 'bg-surface-0 text-surface-700 dark:text-white/80 dark:bg-surface-900',
                 'border-surface-200 dark:border-surface-700',
@@ -235,12 +235,12 @@ export default {
                 // States
                 {
                     'hover:bg-surface-100 dark:hover:bg-surface-80/50':
-                        (props.sortable === '' || props.sortable) && !context?.sorted
+                        (props?.sortable === '' || props?.sortable) && !context?.sorted
                 },
                 'focus-visible:outline-hidden focus-visible:outline-offset-0 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
 
                 // Transition
-                { 'transition duration-200': props.sortable === '' || props.sortable },
+                { 'transition duration-200': props?.sortable === '' || props?.sortable },
 
                 // Misc
                 {

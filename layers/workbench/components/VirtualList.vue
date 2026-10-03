@@ -64,8 +64,10 @@ function onKeydown(event: KeyboardEvent): void {
         default:
             return;
     }
-    event.preventDefault();
     if (next >= props.items.length) emit('reach-end');
+    if ((event.key === 'ArrowUp' && next < 0) || (event.key === 'ArrowDown' && next >= props.items.length))
+        return;
+    event.preventDefault();
     void focusIndex(Math.min(props.items.length - 1, Math.max(0, next)));
 }
 

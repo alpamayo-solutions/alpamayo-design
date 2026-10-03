@@ -49,6 +49,12 @@ export default defineNuxtConfig({
   unstyled config + `alpamayo` preset, registers `v-tooltip`/`v-badge`/
   `v-styleclass`/`v-animateonscroll` and Toast/Confirmation services, loads the
   design tokens CSS, and serves brand assets at `/brand/...` + `/favicon.ico`.
+- Text-like primary (text/link/outlined buttons, active tabs and steps) uses
+  `text-primary-text` (`--primary-text`), and input hints use
+  `text-placeholder` (`--placeholder`); never `text-primary` or a fixed
+  `surface-*` step on a surface. Both switch per scheme and clear 4.5:1 for this
+  palette. An app that re-brands `--primary-*` or the surface ramp must set both
+  variables per scheme (unlayered; the defaults sit in `@layer alp-semantic`).
 - i18n: the layer does NOT auto-merge locale messages. Import its `design.*`
   keys explicitly in each locale entry and spread them, e.g.
   `import design from '@alpamayo-solutions/design/i18n/locales/en/design.json'`

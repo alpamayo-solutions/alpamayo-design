@@ -44,7 +44,7 @@ export default {
                 'bg-surface-0 dark:bg-surface-900': state.d_activeIndex !== context.index,
                 'text-surface-700 dark:text-surface-0/80': state.d_activeIndex !== context.index,
                 'border-primary': state.d_activeIndex === context.index,
-                'text-primary': state.d_activeIndex === context.index
+                'text-primary-text': state.d_activeIndex === context.index
             },
 
             // States

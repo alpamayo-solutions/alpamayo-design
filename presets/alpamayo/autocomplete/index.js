@@ -46,7 +46,7 @@ export default {
 
             // Color
             'text-surface-700 dark:text-white/80',
-            'placeholder:text-surface-400 dark:placeholder:text-surface-500',
+            'placeholder:text-placeholder',
             { 'bg-surface-0 dark:bg-surface-950': !props.disabled },
             'border',
             { 'border-surface-300 dark:border-surface-700': !props.invalid },
@@ -91,7 +91,7 @@ export default {
             class: [
                 'leading-none m-0 w-full py-2 px-3 rounded-md',
                 'text-surface-800 dark:text-white/80',
-                'placeholder:text-surface-400 dark:placeholder:text-surface-500',
+                'placeholder:text-placeholder',
                 'border',
                 {
                     'bg-surface-0 dark:bg-surface-950': !props.disabled,
