@@ -157,19 +157,19 @@ export default {
 
             // Success Button
             {
-                'text-white dark:text-surface-900':
+                'text-on-severity-fill':
                     props.severity === 'success' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'bg-success-500 dark:bg-success-400':
+                'bg-success-fill':
                     props.severity === 'success' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-success-500 dark:border-success-400':
+                'border border-success-fill':
                     props.severity === 'success' &&
                     !props.text &&
                     !props.outlined &&
@@ -178,130 +178,126 @@ export default {
             },
             // Success Text Button
             {
-                'text-success-500 dark:text-success-400':
-                    props.text && props.severity === 'success' && !props.plain
+                'text-success-text': props.text && props.severity === 'success' && !props.plain
             },
             // Success Outlined Button
             {
-                'text-success-500 border border-success-200 hover:bg-success-50':
+                'text-success-text border border-success-200 dark:border-success-700':
                     props.outlined && props.severity === 'success' && !props.plain
             },
             // Success Link Button
             {
-                'text-success-500 dark:text-success-400':
-                    props.link && props.severity === 'success' && !props.plain
+                'text-success-text': props.link && props.severity === 'success' && !props.plain
             },
 
             // Info Button
             {
-                'text-white dark:text-surface-900':
+                'text-on-severity-fill':
                     props.severity === 'info' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'bg-info-500 dark:bg-info-400':
+                'bg-info-fill':
                     props.severity === 'info' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-info-500 dark:border-info-400':
+                'border border-info-fill':
                     props.severity === 'info' && !props.text && !props.outlined && !props.plain && !props.link
             },
             // Info Text Button
             {
-                'text-info-500 dark:text-info-400': props.text && props.severity === 'info' && !props.plain
+                'text-info-text': props.text && props.severity === 'info' && !props.plain
             },
             // Info Outlined Button
             {
-                'text-info-500 border border-info-200 hover:bg-info-50 ':
+                'text-info-text border border-info-200 dark:border-info-700':
                     props.outlined && props.severity === 'info' && !props.plain
             },
             // Info Link Button
             {
-                'text-info-500 dark:text-info-400': props.link && props.severity === 'info' && !props.plain
+                'text-info-text': props.link && props.severity === 'info' && !props.plain
             },
 
             // Warning Button
             {
-                'text-white dark:text-surface-900':
+                'text-on-severity-fill':
                     props.severity === 'warn' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'bg-warning-500 dark:bg-warning-400':
+                'bg-warning-fill':
                     props.severity === 'warn' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-warning-500 dark:border-warning-400':
+                'border border-warning-fill':
                     props.severity === 'warn' && !props.text && !props.outlined && !props.plain && !props.link
             },
             // Warning Text Button
             {
-                'text-warning-500 dark:text-warning-400':
-                    props.text && props.severity === 'warn' && !props.plain
+                'text-warning-text': props.text && props.severity === 'warn' && !props.plain
             },
             // Warning Outlined Button
             {
-                'text-warning-500 border border-warning-200 hover:bg-warning-50':
+                'text-warning-text border border-warning-200 dark:border-warning-700':
                     props.outlined && props.severity === 'warn' && !props.plain
             },
             // Warning Link Button
             {
-                'text-warning-500 dark:text-warning-400':
-                    props.link && props.severity === 'warn' && !props.plain
+                'text-warning-text': props.link && props.severity === 'warn' && !props.plain
             },
 
             // Help Button
             {
-                'text-white dark:text-surface-900':
+                'text-on-severity-fill':
                     props.severity === 'help' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'bg-help-500 dark:bg-help-400':
+                'bg-help-fill':
                     props.severity === 'help' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-help-500 dark:border-help-400':
+                'border border-help-fill':
                     props.severity === 'help' && !props.text && !props.outlined && !props.plain && !props.link
             },
             // Help Text Button
             {
-                'text-help-500 dark:text-help-400': props.text && props.severity === 'help' && !props.plain
+                'text-help-text': props.text && props.severity === 'help' && !props.plain
             },
             // Help Outlined Button
             {
-                'text-help-500 border border-help-200 hover:bg-help-50':
+                'text-help-text border border-help-200 dark:border-help-700':
                     props.outlined && props.severity === 'help' && !props.plain
             },
             // Help Link Button
             {
-                'text-help-500 dark:text-help-400': props.link && props.severity === 'help' && !props.plain
+                'text-help-text': props.link && props.severity === 'help' && !props.plain
             },
 
             // Danger Button
             {
-                'text-white dark:text-surface-900':
+                'text-on-severity-fill':
                     props.severity === 'danger' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'bg-danger-500 dark:bg-danger-400':
+                'bg-danger-fill':
                     props.severity === 'danger' &&
                     !props.text &&
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-danger-500 dark:border-danger-400':
+                'border border-danger-fill':
                     props.severity === 'danger' &&
                     !props.text &&
                     !props.outlined &&
@@ -310,18 +306,16 @@ export default {
             },
             // Danger Text Button
             {
-                'text-danger-500 dark:text-danger-400':
-                    props.text && props.severity === 'danger' && !props.plain
+                'text-danger-text': props.text && props.severity === 'danger' && !props.plain
             },
             // Danger Outlined Button
             {
-                'text-danger-500 border border-danger-200 hover:bg-danger-50':
+                'text-danger-text border border-danger-200 dark:border-danger-700':
                     props.outlined && props.severity === 'danger' && !props.plain
             },
             // Danger Link Button
             {
-                'text-danger-500 dark:text-danger-400':
-                    props.link && props.severity === 'danger' && !props.plain
+                'text-danger-text': props.link && props.severity === 'danger' && !props.plain
             },
 
             // Contrast Button
@@ -481,7 +475,7 @@ export default {
 
             // Success
             {
-                'hover:bg-success-600 dark:hover:bg-success-300 hover:border-success-600 dark:hover:border-success-300':
+                'hover:bg-success-fill-hover hover:border-success-fill-hover':
                     props.severity === 'success' &&
                     !props.text &&
                     !props.outlined &&
@@ -493,13 +487,13 @@ export default {
             },
             // Text & Outlined Button
             {
-                'hover:bg-success-50':
+                'hover:bg-success-50 dark:hover:bg-success-400/10':
                     (props.text || props.outlined) && props.severity === 'success' && !props.plain
             },
 
             // Info
             {
-                'hover:bg-info-600 dark:hover:bg-info-300 hover:border-info-600 dark:hover:border-info-300':
+                'hover:bg-info-fill-hover hover:border-info-fill-hover':
                     props.severity === 'info' && !props.text && !props.outlined && !props.plain && !props.link
             },
             {
@@ -507,13 +501,13 @@ export default {
             },
             // Text & Outlined Button
             {
-                'hover:bg-info-50':
+                'hover:bg-info-50 dark:hover:bg-info-400/10':
                     (props.text || props.outlined) && props.severity === 'info' && !props.plain
             },
 
             // Warning
             {
-                'hover:bg-warning-600 dark:hover:bg-warning-300 hover:border-warning-600 dark:hover:border-warning-300':
+                'hover:bg-warning-fill-hover hover:border-warning-fill-hover':
                     props.severity === 'warn' && !props.text && !props.outlined && !props.plain && !props.link
             },
             {
@@ -521,13 +515,13 @@ export default {
             },
             // Text & Outlined Button
             {
-                'hover:bg-warning-50':
+                'hover:bg-warning-50 dark:hover:bg-warning-400/10':
                     (props.text || props.outlined) && props.severity === 'warn' && !props.plain
             },
 
             // Help
             {
-                'hover:bg-help-600 dark:hover:bg-help-300 hover:border-help-600 dark:hover:border-help-300':
+                'hover:bg-help-fill-hover hover:border-help-fill-hover':
                     props.severity === 'help' && !props.text && !props.outlined && !props.plain && !props.link
             },
             {
@@ -535,13 +529,13 @@ export default {
             },
             // Text & Outlined Button
             {
-                'hover:bg-help-50':
+                'hover:bg-help-50 dark:hover:bg-help-400/10':
                     (props.text || props.outlined) && props.severity === 'help' && !props.plain
             },
 
             // Danger
             {
-                'hover:bg-danger-600 dark:hover:bg-danger-300 hover:border-danger-600 dark:hover:border-danger-300':
+                'hover:bg-danger-fill-hover hover:border-danger-fill-hover':
                     props.severity === 'danger' &&
                     !props.text &&
                     !props.outlined &&
@@ -553,7 +547,7 @@ export default {
             },
             // Text & Outlined Button
             {
-                'hover:bg-danger-50':
+                'hover:bg-danger-50 dark:hover:bg-danger-400/10':
                     (props.text || props.outlined) && props.severity === 'danger' && !props.plain
             },
 

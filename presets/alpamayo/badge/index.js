@@ -31,15 +31,15 @@ export default {
             },
 
             // Color
-            'text-primary-contrast',
             {
-                'bg-primary': props.severity == null || props.severity === 'primary',
-                'bg-surface-500 dark:bg-surface-400': props.severity === 'secondary',
-                'bg-success-500 dark:bg-success-400': props.severity === 'success',
-                'bg-info-500 dark:bg-info-400': props.severity === 'info',
-                'bg-warning-500 dark:bg-warning-400': props.severity === 'warn',
-                'bg-help-500 dark:bg-help-400': props.severity === 'help',
-                'bg-danger-500 dark:bg-danger-400': props.severity === 'danger',
+                'text-primary-contrast bg-primary': props.severity == null || props.severity === 'primary',
+                'text-white dark:text-surface-900 bg-surface-600 dark:bg-surface-400':
+                    props.severity === 'secondary',
+                'text-on-severity-fill bg-success-fill': props.severity === 'success',
+                'text-on-severity-fill bg-info-fill': props.severity === 'info',
+                'text-on-severity-fill bg-warning-fill': props.severity === 'warn',
+                'text-on-severity-fill bg-help-fill': props.severity === 'help',
+                'text-on-severity-fill bg-danger-fill': props.severity === 'danger',
                 'text-surface-0 dark:text-surface-900 bg-surface-900 dark:bg-surface-0':
                     props.severity === 'contrast'
             }

@@ -173,6 +173,22 @@
 @theme inline {
     --color-primary-text: var(--primary-text);
     --color-placeholder: var(--placeholder);
+    --color-on-severity-fill: var(--on-severity-fill);
+    --color-success-fill: var(--success-fill);
+    --color-success-fill-hover: var(--success-fill-hover);
+    --color-success-text: var(--success-text);
+    --color-info-fill: var(--info-fill);
+    --color-info-fill-hover: var(--info-fill-hover);
+    --color-info-text: var(--info-text);
+    --color-warning-fill: var(--warning-fill);
+    --color-warning-fill-hover: var(--warning-fill-hover);
+    --color-warning-text: var(--warning-text);
+    --color-help-fill: var(--help-fill);
+    --color-help-fill-hover: var(--help-fill-hover);
+    --color-help-text: var(--help-text);
+    --color-danger-fill: var(--danger-fill);
+    --color-danger-fill-hover: var(--danger-fill-hover);
+    --color-danger-text: var(--danger-text);
 }
 
 @keyframes infinite-scroll {
