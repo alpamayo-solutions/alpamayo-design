@@ -63,9 +63,9 @@ export default {
             'border-0',
             {
                 'text-surface-800 dark:text-white/80': props.modelValue,
-                'text-surface-400 dark:text-surface-500': !props.modelValue
+                'text-placeholder': !props.modelValue
             },
-            'placeholder:text-surface-400 dark:placeholder:text-surface-500',
+            'placeholder:text-placeholder',
 
             // Transitions
             'transition',

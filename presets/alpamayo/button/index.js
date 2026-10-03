@@ -115,11 +115,11 @@ export default {
             },
             // Primary Text Button
             {
-                'text-primary': (props.text || props.link) && props.severity === null && !props.plain
+                'text-primary-text': (props.text || props.link) && props.severity === null && !props.plain
             },
             // Primary Outlined Button
             {
-                'text-primary-600 dark:text-primary-300 border border-primary-500 dark:border-primary-400':
+                'text-primary-text border border-primary-text':
                     props.outlined && props.severity === null && !props.plain
             },
 
@@ -416,18 +416,17 @@ export default {
             },
             // Light Text Button
             {
-                'text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20':
+                'text-primary-text hover:bg-primary-50 dark:hover:bg-primary-900/20':
                     props.text && props.severity === 'light' && !props.plain
             },
             // Light Outlined Button
             {
-                'text-primary-600 dark:text-primary-300 border border-primary-200 dark:border-primary-700 hover:bg-primary-50 dark:hover:bg-primary-900/20':
+                'text-primary-text border border-primary-200 dark:border-primary-700 hover:bg-primary-50 dark:hover:bg-primary-900/20':
                     props.outlined && props.severity === 'light' && !props.plain
             },
             // Light Link Button
             {
-                'text-primary-600 dark:text-primary-400':
-                    props.link && props.severity === 'light' && !props.plain
+                'text-primary-text': props.link && props.severity === 'light' && !props.plain
             },
 
             // --- Severity Button States ---

@@ -168,6 +168,13 @@
     --duration-600: 600ms;
 }
 
+/* Per-scheme semantic colours (see tokens.css). `inline` makes each utility
+   read the variable where it is used, so a `.dark` subtree switches them. */
+@theme inline {
+    --color-primary-text: var(--primary-text);
+    --color-placeholder: var(--placeholder);
+}
+
 @keyframes infinite-scroll {
     from {
         transform: translateX(0);

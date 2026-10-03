@@ -1,12 +1,32 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
 
+/** A secondary action offered on one tab, beside its close button. */
+export interface WorkbenchTabAction {
+    id: string;
+    /** Icon class, e.g. `pi pi-external-link`. */
+    icon: string;
+    /** The accessible name AND the tooltip. Already translated by the caller:
+     *  this package ships no strings of its own. */
+    label: string;
+}
+
 export interface WorkbenchTab {
     id: string;
     label: string;
     icon?: string;
     preview?: boolean;
     dirty?: boolean;
+    /**
+     * Actions belonging to THIS tab, rendered to the left of its close
+     * button. The strip knows nothing about what they do — it renders what it
+     * is given and emits `action` with the tab and the action id.
+     *
+     * This exists so a consumer can put a tab-scoped control in the tab
+     * chrome rather than floating one over the tab's CONTENT, where it
+     * overlaps whatever the content happens to draw in that corner.
+     */
+    actions?: WorkbenchTabAction[];
 }
 
 const props = withDefaults(
@@ -25,6 +45,7 @@ const emit = defineEmits<{
     select: [id: string];
     pin: [id: string];
     close: [id: string];
+    action: [tabId: string, actionId: string];
     'drag-start': [tabId: string, event: DragEvent];
     'drop-tab': [beforeTabId: string | undefined, event: DragEvent];
     'drag-end': [event: DragEvent];
@@ -131,6 +152,17 @@ function onDragEnd(event: DragEvent) {
                     <span class="alp-workbench-tab-label">{{ tab.label }}</span>
                     <span v-if="tab.dirty" class="alp-workbench-tab-dirty" aria-label="Unsaved changes" />
                 </VoltTab>
+                <button
+                    v-for="action in tab.actions ?? []"
+                    :key="action.id"
+                    type="button"
+                    :aria-label="action.label"
+                    :title="action.label"
+                    :data-tab-action="action.id"
+                    class="alp-workbench-tab-action"
+                    :class="action.icon"
+                    @click.stop="$emit('action', tab.id, action.id)"
+                />
                 <button
                     type="button"
                     :aria-label="`Close ${tab.label}`"

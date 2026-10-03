@@ -119,7 +119,7 @@ export default {
                 'text-sm lg:text-base',
 
                 // Position
-                { 'sticky z-20 border-b': props.frozen || props.frozen === '' },
+                { 'sticky z-20 border-b': props?.frozen || props?.frozen === '' },
 
                 { relative: context.resizable },
 
@@ -138,7 +138,7 @@ export default {
                       : 'py-3 px-4',
 
                 // Color
-                (props.sortable === '' || props.sortable) && context.sorted
+                (props?.sortable === '' || props?.sortable) && context.sorted
                     ? 'bg-primary-50 text-primary-800 dark:bg-primary-900/40 dark:text-primary-100'
                     : 'bg-surface-50 text-surface-700 dark:text-white/80 dark:bg-surface-800',
                 'border-surface-200 dark:border-surface-700 ',
@@ -146,15 +146,15 @@ export default {
                 // States
                 {
                     'hover:bg-surface-100 dark:hover:bg-surface-800/50':
-                        (props.sortable === '' || props.sortable) && !context?.sorted
+                        (props?.sortable === '' || props?.sortable) && !context?.sorted
                 },
                 'focus-visible:outline-hidden focus-visible:outline-offset-0 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
 
                 // Transition
-                { 'transition duration-200': props.sortable === '' || props.sortable },
+                { 'transition duration-200': props?.sortable === '' || props?.sortable },
 
                 // Misc
-                { 'cursor-pointer': props.sortable === '' || props.sortable },
+                { 'cursor-pointer': props?.sortable === '' || props?.sortable },
                 {
                     'overflow-hidden whitespace-nowrap border-y bg-clip-padding': context?.resizable // Resizable
                 }
@@ -185,7 +185,7 @@ export default {
                 //Position
                 { 'sticky box-border border-b': parent.instance.frozenRow },
                 {
-                    'sticky box-border border-b z-20': props.frozen || props.frozen === ''
+                    'sticky box-border border-b z-20': props?.frozen || props?.frozen === ''
                 },
 
                 // Alignment
@@ -199,7 +199,7 @@ export default {
                 { 'first:border-l border-r border-b': context?.showGridlines },
                 {
                     'bg-surface-0 dark:bg-surface-900':
-                        parent.instance.frozenRow || props.frozen || props.frozen === ''
+                        parent.instance.frozenRow || props?.frozen || props?.frozen === ''
                 },
 
                 // Spacing

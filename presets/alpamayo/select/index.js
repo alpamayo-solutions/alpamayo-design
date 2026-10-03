@@ -76,9 +76,9 @@ export default {
             'border-0',
             {
                 'text-surface-800 dark:text-white/80': props.modelValue != undefined,
-                'text-surface-400 dark:text-surface-500': props.modelValue == undefined
+                'text-placeholder': props.modelValue == undefined
             },
-            'placeholder:text-surface-400 dark:placeholder:text-surface-500',
+            'placeholder:text-placeholder',
 
             // Sizing and Spacing
             'w-[1%]',
@@ -265,7 +265,7 @@ export default {
             class: [
                 'leading-none m-0 w-full py-2 pl-3 pr-10 rounded-md',
                 'text-surface-800 dark:text-white/80',
-                'placeholder:text-surface-400 dark:placeholder:text-surface-500',
+                'placeholder:text-placeholder',
                 'bg-surface-0 dark:bg-surface-950',
                 'border border-surface-300 dark:border-surface-700',
                 'hover:border-surface-400 dark:hover:border-surface-600',
