@@ -28,21 +28,20 @@ export default {
             },
 
             // Color
-            'text-primary-contrast',
             {
-                'bg-primary':
+                'text-primary-contrast bg-primary':
                     !context.info &&
                     !context.success &&
                     !context.warning &&
                     !context.danger &&
                     !context.help &&
                     !context.secondary,
-                'bg-surface-500 dark:bg-surface-400': context.secondary,
-                'bg-success dark:bg-green-400': context.success,
-                'bg-info dark:bg-blue-400': context.info,
-                'bg-orange-500 dark:bg-orange-400': context.warning,
-                'bg-purple-500 dark:bg-purple-400': context.help,
-                'bg-danger dark:bg-danger-400': context.danger
+                'text-white dark:text-surface-900 bg-surface-600 dark:bg-surface-400': context.secondary,
+                'text-on-severity-fill bg-success-fill': context.success,
+                'text-on-severity-fill bg-info-fill': context.info,
+                'text-on-severity-fill bg-warning-fill': context.warning,
+                'text-on-severity-fill bg-help-fill': context.help,
+                'text-on-severity-fill bg-danger-fill': context.danger
             }
         ]
     })

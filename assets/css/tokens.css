@@ -367,22 +367,78 @@ body {
    scheme's surfaces (surface-0..100 light, surface-800..950 dark) for this
    palette. A deployment that brands the primary or the surface ramp must set
    both itself (PREKIT derives them per brand). They are declared in a layer so
-   that any unlayered brand stylesheet wins, whatever the load order. */
+   that any unlayered brand stylesheet wins, whatever the load order.
+   The severity tokens below follow the same rule: presets colour severity
+   fills and severity text through them, never through a fixed ramp step. */
 @layer alp-semantic {
     :root {
         --primary-text: var(--primary-500);
         --placeholder: var(--surface-600);
+
+        /* Severity colours. A fill carries `--on-severity-fill` text, a text
+           colour sits on the scheme's surfaces (and on the severity's own hover
+           tint). Light fills are dark enough for white text, dark-scheme fills
+           light enough for surface-900 text; each pair, hover included, clears
+           4.5:1. */
+        --on-severity-fill: var(--surface-0);
+        --success-fill: var(--success-700);
+        --success-fill-hover: var(--success-800);
+        --success-text: var(--success-700);
+        --info-fill: var(--info-700);
+        --info-fill-hover: var(--info-800);
+        --info-text: var(--info-700);
+        --warning-fill: var(--warning-700);
+        --warning-fill-hover: var(--warning-800);
+        --warning-text: var(--warning-700);
+        --help-fill: var(--help-600);
+        --help-fill-hover: var(--help-700);
+        --help-text: var(--help-600);
+        --danger-fill: var(--danger-600);
+        --danger-fill-hover: var(--danger-700);
+        --danger-text: var(--danger-700);
     }
 
     .dark {
         --primary-text: var(--primary-300);
         --placeholder: var(--surface-400);
+        --on-severity-fill: var(--surface-900);
+        --success-fill: var(--success-400);
+        --success-fill-hover: var(--success-300);
+        --success-text: var(--success-300);
+        --info-fill: var(--info-400);
+        --info-fill-hover: var(--info-300);
+        --info-text: var(--info-300);
+        --warning-fill: var(--warning-400);
+        --warning-fill-hover: var(--warning-300);
+        --warning-text: var(--warning-300);
+        --help-fill: var(--help-400);
+        --help-fill-hover: var(--help-300);
+        --help-text: var(--help-200);
+        --danger-fill: var(--danger-400);
+        --danger-fill-hover: var(--danger-300);
+        --danger-text: var(--danger-300);
     }
 
     @media (prefers-color-scheme: dark) {
         :root:not(.light) {
             --primary-text: var(--primary-300);
             --placeholder: var(--surface-400);
+            --on-severity-fill: var(--surface-900);
+            --success-fill: var(--success-400);
+            --success-fill-hover: var(--success-300);
+            --success-text: var(--success-300);
+            --info-fill: var(--info-400);
+            --info-fill-hover: var(--info-300);
+            --info-text: var(--info-300);
+            --warning-fill: var(--warning-400);
+            --warning-fill-hover: var(--warning-300);
+            --warning-text: var(--warning-300);
+            --help-fill: var(--help-400);
+            --help-fill-hover: var(--help-300);
+            --help-text: var(--help-200);
+            --danger-fill: var(--danger-400);
+            --danger-fill-hover: var(--danger-300);
+            --danger-text: var(--danger-300);
         }
     }
 }

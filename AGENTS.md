@@ -55,6 +55,13 @@ export default defineNuxtConfig({
   `surface-*` step on a surface. Both switch per scheme and clear 4.5:1 for this
   palette. An app that re-brands `--primary-*` or the surface ramp must set both
   variables per scheme (unlayered; the defaults sit in `@layer alp-semantic`).
+- Severity colours (success, info, warning, help, danger) work the same way:
+  a solid fill is `bg-<severity>-fill` (`hover:bg-<severity>-fill-hover`)
+  with `text-on-severity-fill`, and severity text on a surface is
+  `text-<severity>-text`. The `-500` ramp steps fail 4.5:1 against white
+  (danger 3.76, success 2.28), so never put text on, or in, a bare ramp step.
+  `tests/severity-contrast.spec.ts` renders each severity preset and measures
+  the pairs in both schemes, hover included.
 - i18n: the layer does NOT auto-merge locale messages. Import its `design.*`
   keys explicitly in each locale entry and spread them, e.g.
   `import design from '@alpamayo-solutions/design/i18n/locales/en/design.json'`
