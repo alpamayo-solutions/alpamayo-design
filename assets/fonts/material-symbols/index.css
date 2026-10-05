@@ -27,3 +27,12 @@
     /* Enable ligatures so text like "check"/"warning" renders as the glyph. */
     font-feature-settings: 'liga';
 }
+
+/* `<span class="material-symbols-outlined" data-icon="close" aria-hidden="true" />`
+   draws the same glyph from the attribute instead of from text. The ligature
+   name is then not part of the element's text, so it is neither read out nor
+   compared with the control's accessible name (axe:
+   label-content-name-mismatch). Prefer it inside named controls. */
+.material-symbols-outlined[data-icon]::before {
+    content: attr(data-icon);
+}

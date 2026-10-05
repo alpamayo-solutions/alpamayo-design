@@ -185,7 +185,7 @@ describe('workbench components', () => {
         expect(wrapper.emitted('drop-tab')?.[0]?.[0]).toBeUndefined();
     });
 
-    it('uses Material Symbols split-screen glyphs and emits close-group', async () => {
+    it("keeps the split glyph names out of the buttons' text and emits close-group", async () => {
         const wrapper = mount(EditorGroup, {
             props: {
                 groupId: 'group-2',
@@ -197,8 +197,9 @@ describe('workbench components', () => {
 
         const splitRight = wrapper.get('[aria-label="Split editor right"]');
         const splitDown = wrapper.get('[aria-label="Split editor down"]');
-        expect(splitRight.get('.material-symbols-outlined').text()).toBe('splitscreen_vertical_add');
-        expect(splitDown.get('.material-symbols-outlined').text()).toBe('splitscreen_add');
+        // The ligature name would otherwise be read out and contradict the label.
+        expect(splitRight.text()).toBe('');
+        expect(splitDown.text()).toBe('');
 
         await wrapper.get('[aria-label="Close editor group"]').trigger('click');
         expect(wrapper.emitted('close-group')).toHaveLength(1);

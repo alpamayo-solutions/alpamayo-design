@@ -22,7 +22,7 @@ const editingNames = computed(() => props.users.map((u) => u.name).join(', '));
         v-if="users.length"
         class="flex items-center gap-2 px-4 py-3 rounded-lg bg-warning-50 dark:bg-warning-950 border border-warning-200 dark:border-warning-800 text-warning-700 dark:text-warning-300 text-sm"
     >
-        <span class="material-symbols-outlined text-base">warning</span>
+        <span class="material-symbols-outlined text-base" data-icon="warning" aria-hidden="true" />
         <span>
             <strong>{{ editingNames }}</strong>
             {{ t('design.presence.editWarning', users.length) }}
