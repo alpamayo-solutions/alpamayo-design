@@ -80,3 +80,29 @@ rule in AGENTS.md.
 - The opt-in `layers/workbench/utils/keyboard.ts` helper `navigateList(event,
 selector)` adds vertical navigation to bounded lists of native controls. It
   respects disabled controls, text editing, modifiers and handled events.
+
+### Accessibility of PrimeVue components
+
+The `alpamayo` preset corrects these PrimeVue 4 defaults (global preset and Volt
+wrappers alike):
+
+- Select, MultiSelect, Listbox: overlay focus guards are no longer
+  `aria-hidden` while focusable (`presets/alpamayo/focus-guard.js`).
+- Select, MultiSelect: the filter input is named by `filterPlaceholder`, else
+  the PrimeVue locale's `aria.search`, else "Search". Set `aria.search` in the
+  app's PrimeVue locale to translate it; override one component with
+  `:pt="{ pcFilter: { root: { 'aria-label': '…' } } }"`.
+- MultiSelect: the checkbox inside each option is display only (hidden from
+  assistive technology, not focusable); the option itself carries
+  `aria-selected` and takes the click.
+
+Material Symbols inside a named control: write
+`<span class="material-symbols-outlined" data-icon="close" aria-hidden="true" />`
+instead of putting the ligature name in the text, so the name is neither read
+out nor compared with the control's label.
+
+Known gap: Dialog and Drawer focus traps (`primevue/focustrap`) still create
+`aria-hidden` focus guards with `tabindex="0"` (primefaces/primevue#7949). The
+directive builds them in DOM code with no pass-through, so the preset cannot
+change them; only patching the directive object would. axe-core 4.14 does not
+report them on an open modal Dialog.

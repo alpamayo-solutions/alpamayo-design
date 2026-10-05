@@ -1,3 +1,4 @@
+import filterInputName from '../filter-input-name.js';
 import focusGuard from '../focus-guard.js';
 
 export default {
@@ -263,7 +264,8 @@ export default {
         }
     },
     pcFilter: {
-        root: {
+        root: (options) => ({
+            ...filterInputName(options),
             class: [
                 'leading-none m-0 w-full py-2 pl-3 pr-10 rounded-md',
                 'text-surface-800 dark:text-white/80',
@@ -274,7 +276,7 @@ export default {
                 'focus:outline-hidden focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400',
                 'transition-colors duration-200'
             ]
-        }
+        })
     },
     pcFilterIconContainer: {
         root: {

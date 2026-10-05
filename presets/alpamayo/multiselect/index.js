@@ -1,3 +1,4 @@
+import filterInputName from '../filter-input-name.js';
 import focusGuard from '../focus-guard.js';
 
 export default {
@@ -220,6 +221,20 @@ export default {
         enterActiveClass: 'transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]',
         leaveActiveClass: 'transition-opacity duration-100 ease-linear',
         leaveToClass: 'opacity-0'
+    },
+    // The filter input gets an accessible name (see filter-input-name.js).
+    pcFilter: {
+        root: filterInputName
+    },
+    // An option already reports its state with aria-selected, and clicking the
+    // option toggles it; the checkbox inside only shows that state. As a live
+    // input it is an unnamed control nested in an interactive option (axe:
+    // `label`, `nested-interactive`), so it is made inert: hidden from
+    // assistive technology, not focusable, and clicks fall through to the
+    // option. Its look comes from the Checkbox props, which are unchanged.
+    pcOptionCheckbox: {
+        root: { class: 'pointer-events-none' },
+        input: { 'aria-hidden': 'true', disabled: true }
     },
     hiddenFirstFocusableEl: focusGuard,
     hiddenLastFocusableEl: focusGuard

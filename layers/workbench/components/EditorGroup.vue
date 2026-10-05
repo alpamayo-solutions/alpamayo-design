@@ -97,14 +97,18 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                     label="Split editor right"
                     @click="$emit('split', 'horizontal')"
                 >
-                    <span class="material-symbols-outlined" aria-hidden="true">splitscreen_vertical_add</span>
+                    <span
+                        class="material-symbols-outlined"
+                        data-icon="splitscreen_vertical_add"
+                        aria-hidden="true"
+                    />
                 </AlpWorkbenchIconButton>
                 <AlpWorkbenchIconButton
                     v-if="showSplitActions"
                     label="Split editor down"
                     @click="$emit('split', 'vertical')"
                 >
-                    <span class="material-symbols-outlined" aria-hidden="true">splitscreen_add</span>
+                    <span class="material-symbols-outlined" data-icon="splitscreen_add" aria-hidden="true" />
                 </AlpWorkbenchIconButton>
                 <AlpWorkbenchIconButton
                     v-if="showCloseAction"
