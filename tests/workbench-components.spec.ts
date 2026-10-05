@@ -16,17 +16,6 @@ const VoltButton = {
     template:
         '<button type="button" :aria-label="ariaLabel || $attrs[\'aria-label\']" @click="$emit(\'click\', $event)"><slot /><i v-if="icon" :class="icon" /></button>'
 };
-const VoltTabs = {
-    props: ['value'],
-    emits: ['update:value'],
-    template: '<div><slot /></div>'
-};
-const VoltTabList = { template: '<div><slot /></div>' };
-const VoltTab = {
-    props: ['value'],
-    emits: ['click'],
-    template: '<button type="button" @click="$emit(\'click\')"><slot /></button>'
-};
 const VoltMenu = {
     props: ['model', 'popup'],
     template:
@@ -35,9 +24,6 @@ const VoltMenu = {
 const global = {
     components: {
         VoltButton,
-        VoltTabs,
-        VoltTabList,
-        VoltTab,
         VoltMenu,
         AlpWorkbenchIconButton: IconButton,
         AlpWorkbenchResizeHandle: ResizeHandle,

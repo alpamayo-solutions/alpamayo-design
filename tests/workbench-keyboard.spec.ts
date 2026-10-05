@@ -1,10 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { nextTick } from 'vue';
-import PrimeVue from 'primevue/config';
-import Tabs from '../components/volt/Tabs.vue';
-import TabList from '../components/volt/TabList.vue';
-import Tab from '../components/volt/Tab.vue';
 import TabStrip from '../layers/workbench/components/TabStrip.vue';
 import VirtualList from '../layers/workbench/components/VirtualList.vue';
 import SidebarSection from '../layers/workbench/components/SidebarSection.vue';
@@ -15,7 +11,7 @@ afterEach(() => {
 });
 
 describe('Workbench keyboard behavior', () => {
-    it('activates real PrimeVue tabs once, wraps within the strip, and leaves forward Tab alone', async () => {
+    it('activates tabs once, wraps within the strip, and leaves forward Tab alone', async () => {
         const wrapper = mount(TabStrip, {
             props: {
                 activeId: 'a',
@@ -23,10 +19,6 @@ describe('Workbench keyboard behavior', () => {
                     { id: 'a', label: 'A' },
                     { id: 'b', label: 'B' }
                 ]
-            },
-            global: {
-                plugins: [PrimeVue],
-                components: { VoltTabs: Tabs, VoltTabList: TabList, VoltTab: Tab }
             },
             attachTo: document.body
         });
@@ -51,6 +43,20 @@ describe('Workbench keyboard behavior', () => {
         });
         wrapper.get('[role="tab"]').element.dispatchEvent(reverse);
         expect(reverse.defaultPrevented).toBe(false);
+        wrapper.unmount();
+    });
+
+    it('keeps exactly one tab in the Tab sequence, the first when none is active', async () => {
+        const tabs = [
+            { id: 'a', label: 'A' },
+            { id: 'b', label: 'B' }
+        ];
+        const wrapper = mount(TabStrip, { props: { activeId: 'gone', tabs } });
+        const reachable = () =>
+            wrapper.findAll('[role="tab"]').filter((tab) => (tab.element as HTMLElement).tabIndex === 0);
+        expect(reachable().map((tab) => tab.text())).toEqual(['A']);
+        await wrapper.setProps({ activeId: 'b' });
+        expect(reachable().map((tab) => tab.text())).toEqual(['B']);
         wrapper.unmount();
     });
 

@@ -17,13 +17,6 @@ import TabStrip from '../layers/workbench/components/TabStrip.vue';
  * what an "app" is and ships no strings: the label arrives translated.
  */
 
-const VoltTabs = { props: ['value'], emits: ['update:value'], template: '<div><slot /></div>' };
-const VoltTabList = { template: '<div><slot /></div>' };
-const VoltTab = {
-    props: ['value'],
-    emits: ['click'],
-    template: '<button type="button" @click="$emit(\'click\')"><slot /></button>'
-};
 const VoltButton = {
     props: ['icon', 'ariaLabel'],
     emits: ['click'],
@@ -33,7 +26,7 @@ const VoltButton = {
 const VoltMenu = { props: ['model', 'popup'], template: '<div />' };
 
 const global = {
-    components: { VoltTabs, VoltTabList, VoltTab, VoltButton, VoltMenu, AlpWorkbenchTabStrip: TabStrip }
+    components: { VoltButton, VoltMenu, AlpWorkbenchTabStrip: TabStrip }
 };
 
 const TABS = [
