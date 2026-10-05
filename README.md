@@ -64,6 +64,10 @@ rule in AGENTS.md.
 - Tab strips emit `select` for Left/Right, Home/End, Enter/Space and Shift+Tab.
   `Delete` emits `close`; the consumer owns dirty-change confirmation. Forward
   Tab leaves the strip. These shortcuts are scoped to the strip.
+- The `tablist` owns only the tabs (through `aria-owns`); each tab's action and
+  close buttons sit beside it in the Tab order. Pass `panel-id` to point the
+  tabs at the element showing the active tab; `EditorGroup` does this for its
+  content, which becomes the `tabpanel` named by the active tab.
 - Editor groups emit `focus` when focus enters through the keyboard as well as
   through pointer interaction.
 - Sidebar headers support Left/Right collapse/expand; activity buttons support

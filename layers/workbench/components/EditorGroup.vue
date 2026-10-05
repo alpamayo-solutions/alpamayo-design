@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { computed, useId } from 'vue';
 import type { WorkbenchTab } from './TabStrip.vue';
 
 export type EditorDropEdge = 'left' | 'right' | 'top' | 'bottom';
 export type EditorSplitDirection = 'horizontal' | 'vertical';
 
-withDefaults(
+const props = withDefaults(
     defineProps<{
         groupId: string;
         tabs: WorkbenchTab[];
@@ -43,6 +44,15 @@ const emit = defineEmits<{
     'edge-drop': [edge: EditorDropEdge, event: DragEvent];
 }>();
 
+// The content shows the active tab, so it is that tab's panel: every tab points
+// at it (aria-controls) and it is named by the active tab (aria-labelledby).
+const tabIdPrefix = `${useId()}-editor`;
+const panelId = `${tabIdPrefix}-panel`;
+const activeTabElementId = computed(() => {
+    const index = props.tabs.findIndex((tab) => tab.id === props.activeId);
+    return index < 0 ? undefined : `${tabIdPrefix}-tab-${index}`;
+});
+
 function onDropContent(event: DragEvent) {
     event.preventDefault();
     emit('drop-tab', undefined, event);
@@ -70,6 +80,9 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 :tabs="tabs"
                 :active-id="activeId"
                 :draggable="draggable"
+                :label="label"
+                :id-prefix="tabIdPrefix"
+                :panel-id="activeTabElementId ? panelId : undefined"
                 @select="$emit('select', $event)"
                 @pin="$emit('pin', $event)"
                 @close="$emit('close', $event)"
@@ -103,8 +116,11 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
         </header>
 
         <div
+            :id="panelId"
             class="alp-workbench-editor-group-content"
             data-testid="editor-group-content"
+            :role="activeTabElementId ? 'tabpanel' : undefined"
+            :aria-labelledby="activeTabElementId"
             @dragover.prevent
             @drop="onDropContent"
         >

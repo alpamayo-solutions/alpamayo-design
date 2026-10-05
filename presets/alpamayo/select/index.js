@@ -1,3 +1,5 @@
+import focusGuard from '../focus-guard.js';
+
 export default {
     root: ({ props, state, parent }) => ({
         class: [
@@ -301,5 +303,7 @@ export default {
         enterActiveClass: 'transition-[transform,opacity] duration-120 ease-out',
         leaveActiveClass: 'transition-opacity duration-100 ease-linear',
         leaveToClass: 'opacity-0'
-    }
+    },
+    hiddenFirstFocusableEl: focusGuard,
+    hiddenLastFocusableEl: focusGuard
 };

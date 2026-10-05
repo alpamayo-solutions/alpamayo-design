@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
+import { computed, nextTick, ref, useId } from 'vue';
 
 /** A secondary action offered on one tab, beside its close button. */
 export interface WorkbenchTabAction {
@@ -34,10 +34,22 @@ const props = withDefaults(
         activeId?: string;
         tabs: WorkbenchTab[];
         draggable?: boolean;
+        /** Accessible name of the tab list. Already translated by the caller. */
+        label?: string;
+        /**
+         * Prefix for the tabs' element ids, so a consumer can point at them
+         * (an editor group labels its panel with the active tab).
+         */
+        idPrefix?: string;
+        /** Id of the element showing the active tab's content, if any. */
+        panelId?: string;
     }>(),
     {
         activeId: undefined,
-        draggable: false
+        draggable: false,
+        label: undefined,
+        idPrefix: undefined,
+        panelId: undefined
     }
 );
 
@@ -52,6 +64,27 @@ const emit = defineEmits<{
 }>();
 
 const draggingId = ref<string>();
+
+const generatedId = useId();
+/** Element id of the tab at `index`. Tab ids are caller data and may contain
+ *  whitespace, so they never go into an id reference directly. */
+function tabElementId(index: number): string {
+    return `${props.idPrefix ?? generatedId}-tab-${index}`;
+}
+
+/**
+ * The tab list owns the tabs through `aria-owns` rather than as DOM children.
+ * Each tab sits in a frame next to its action and close buttons; were the frames
+ * inside the `tablist`, those buttons would be children of the list, which only
+ * allows tabs. This way the tabs form the list and the buttons stay reachable
+ * beside it.
+ */
+/** The one tab in the page's Tab sequence: the active one, else the first. */
+const focusableTabId = computed(() =>
+    props.tabs.some((tab) => tab.id === props.activeId) ? props.activeId : props.tabs[0]?.id
+);
+
+const ownedTabIds = computed(() => props.tabs.map((_, index) => tabElementId(index)).join(' '));
 
 function onTabKeydown(id: string, event: KeyboardEvent): void {
     if (event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -116,16 +149,22 @@ function onDragEnd(event: DragEvent) {
 </script>
 
 <template>
-    <VoltTabs
-        :value="activeId ?? ''"
+    <div
         class="alp-workbench-tab-strip"
         :class="{ 'alp-workbench-tab-strip--dragging': draggingId }"
         @dragover.prevent
         @drop="onDropStrip"
     >
-        <VoltTabList>
+        <div
+            role="tablist"
+            class="alp-workbench-tab-list"
+            aria-orientation="horizontal"
+            :aria-label="label"
+            :aria-owns="ownedTabIds || undefined"
+        />
+        <div class="alp-workbench-tab-scroller">
             <div
-                v-for="tab in tabs"
+                v-for="(tab, index) in tabs"
                 :key="tab.id"
                 class="alp-workbench-tab-frame"
                 :class="{
@@ -137,13 +176,18 @@ function onDragEnd(event: DragEvent) {
                 @dragover.prevent
                 @drop="onDropTab(tab.id, $event)"
             >
-                <VoltTab
-                    :value="tab.id"
+                <button
+                    :id="tabElementId(index)"
+                    type="button"
+                    role="tab"
                     class="alp-workbench-tab"
                     data-testid="workbench-tab"
+                    :aria-selected="tab.id === activeId"
+                    :aria-controls="panelId"
+                    :tabindex="tab.id === focusableTabId ? 0 : -1"
                     :draggable="draggable"
                     @click="$emit('select', tab.id)"
-                    @keydown.capture="onTabKeydown(tab.id, $event)"
+                    @keydown="onTabKeydown(tab.id, $event)"
                     @dblclick="$emit('pin', tab.id)"
                     @dragstart="onDragStart(tab.id, $event)"
                     @dragend="onDragEnd"
@@ -151,7 +195,7 @@ function onDragEnd(event: DragEvent) {
                     <i v-if="tab.icon" :class="tab.icon" aria-hidden="true" />
                     <span class="alp-workbench-tab-label">{{ tab.label }}</span>
                     <span v-if="tab.dirty" class="alp-workbench-tab-dirty" aria-label="Unsaved changes" />
-                </VoltTab>
+                </button>
                 <button
                     v-for="action in tab.actions ?? []"
                     :key="action.id"
@@ -170,6 +214,6 @@ function onDragEnd(event: DragEvent) {
                     @click="$emit('close', tab.id)"
                 />
             </div>
-        </VoltTabList>
-    </VoltTabs>
+        </div>
+    </div>
 </template>

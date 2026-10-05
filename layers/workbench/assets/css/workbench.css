@@ -181,25 +181,25 @@
     background: var(--alp-workbench-chrome);
 }
 
-.alp-workbench-tab-strip [data-pc-name='tablist'],
-.alp-workbench-tab-strip [data-pc-section='content'],
-.alp-workbench-tab-strip [role='tablist'] {
+.alp-workbench-tab-scroller {
     display: flex;
     height: 100%;
     min-height: 100%;
     overflow-x: auto;
-    border-bottom-width: 0;
-    background: transparent;
+    overflow-y: hidden;
+    scrollbar-width: none;
 }
 
-/* PrimeVue's ink bar is positioned in pixels and only recomputed by a
-   ResizeObserver on the tab list. Editor tabs have a fixed width and the strip
-   scrolls, so closing a tab leaves the list's box the same size, the observer
-   never fires, and the bar stays under the tab that used to be active. The
-   active frame draws its own indicator below instead — no measurement, nothing
-   to go stale. */
-.alp-workbench-tab-strip [data-pc-section='activebar'] {
+.alp-workbench-tab-scroller::-webkit-scrollbar {
     display: none;
+}
+
+/* The tab list owns the tabs by aria-owns (see TabStrip.vue); it draws nothing. */
+.alp-workbench-tab-list {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 .alp-workbench-tab-frame {
@@ -227,7 +227,14 @@
     color: inherit;
     background: transparent;
     font: inherit;
+    white-space: nowrap;
     cursor: default;
+    user-select: none;
+}
+
+.alp-workbench-tab:focus-visible {
+    outline: 1px solid var(--alp-workbench-focus);
+    outline-offset: -1px;
 }
 
 .alp-workbench-tab--active {

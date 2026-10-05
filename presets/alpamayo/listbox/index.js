@@ -1,3 +1,5 @@
+import focusGuard from '../focus-guard.js';
+
 export default {
     root: ({ props }) => ({
         class: [
@@ -111,5 +113,7 @@ export default {
 
             '**:data-[pc-name=pcfilter]:w-full'
         ]
-    }
+    },
+    hiddenFirstFocusableEl: focusGuard,
+    hiddenLastFocusableEl: focusGuard
 };
