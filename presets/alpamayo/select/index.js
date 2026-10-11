@@ -52,7 +52,7 @@ export default {
                 'hover:border-surface-400 dark:hover:border-surface-600': !props.invalid
             },
             {
-                'outline-hidden outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10':
+                'outline-hidden outline-offset-0 ring-2 ring-primary-500 dark:ring-primary-400 z-10':
                     state.focused
             },
 

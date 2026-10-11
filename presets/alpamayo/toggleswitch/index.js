@@ -49,7 +49,7 @@ export default {
                 'peer-hover:bg-primary-hover':
                     props.modelValue == props.trueValue && !props.disabled && !props.invalid
             },
-            'peer-focus-visible:ring-1 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400',
+            'peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface-0 dark:peer-focus-visible:ring-offset-surface-900 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400',
 
             // Transition
             'transition-colors duration-200',
