@@ -25,6 +25,19 @@ function referencedProperties(src: string) {
 
 describe('workbench stylesheet', () => {
     /**
+     * With many editors open the frames shrank to their icon (`min-width: 0`,
+     * `flex: 0 1 auto`) and every tab name disappeared. A tab keeps a readable
+     * width and the strip scrolls instead, with a scrollbar a pointer can use.
+     */
+    it('keeps tab names readable when many tabs are open', () => {
+        const frame = /\.alp-workbench-tab-frame\s*\{([^}]*)\}/.exec(workbenchCss)?.[1] ?? '';
+        expect(frame).toMatch(/min-width:\s*7\.5rem/);
+        expect(frame).toMatch(/flex:\s*0 0 auto/);
+        const scroller = /\.alp-workbench-tab-scroller\s*\{([^}]*)\}/.exec(workbenchCss)?.[1] ?? '';
+        expect(scroller).not.toMatch(/scrollbar-width:\s*none/);
+    });
+
+    /**
      * `.alp-workbench-context-menu-item--destructive` used to be coloured with
      * `--p-red-500`, a PrimeVue theme token this package never defines. An
      * undefined custom property makes the whole declaration invalid, so Delete
