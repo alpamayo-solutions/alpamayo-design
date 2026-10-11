@@ -46,7 +46,7 @@ export default {
                 'peer-hover:border-primary-emphasis': !props.disabled && !context.checked,
                 '[&>*:first-child]:peer-hover:bg-primary-600 dark:[&>*:first-child]:peer-hover:bg-primary-300':
                     !props.disabled && !context.checked,
-                'peer-focus-visible:ring-1 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400':
+                'peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface-0 dark:peer-focus-visible:ring-offset-surface-900 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400':
                     !props.disabled,
                 'bg-surface-200 [&>*:first-child]:bg-surface-600 dark:bg-surface-700 dark:[&>*:first-child]:bg-surface-400 border-surface-300 dark:border-surface-700 select-none pointer-events-none cursor-default':
                     props.disabled

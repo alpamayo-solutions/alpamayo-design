@@ -57,7 +57,7 @@ export default {
                     !props.disabled && !context.checked && !props.invalid,
                 'peer-hover:bg-primary-emphasis peer-hover:border-primary-emphasis':
                     !props.disabled && context.checked,
-                'peer-focus-visible:z-10 peer-focus-visible:outline-hidden peer-focus-visible:outline-offset-0 peer-focus-visible:ring-1 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400':
+                'peer-focus-visible:z-10 peer-focus-visible:outline-hidden peer-focus-visible:outline-offset-0 peer-focus-visible:ring-2 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-surface-0 dark:peer-focus-visible:ring-offset-surface-900 peer-focus-visible:ring-primary-500 dark:peer-focus-visible:ring-primary-400':
                     !props.disabled,
                 'bg-surface-200 dark:bg-surface-700 select-none pointer-events-none cursor-default':
                     props.disabled
