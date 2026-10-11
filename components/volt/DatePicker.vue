@@ -1,5 +1,6 @@
 <template>
     <DatePicker
+        ref="picker"
         unstyled
         :pt="theme"
         :ptOptions="{
@@ -7,14 +8,26 @@
         }"
     >
         <template #prevbutton="{ actionCallback, keydownCallback }">
-            <SecondaryButton variant="text" rounded @click="actionCallback" @keydown="keydownCallback">
+            <SecondaryButton
+                variant="text"
+                rounded
+                :aria-label="navLabels.prev"
+                @click="actionCallback"
+                @keydown="keydownCallback"
+            >
                 <template #icon>
                     <ChevronLeftIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #nextbutton="{ actionCallback, keydownCallback }">
-            <SecondaryButton variant="text" rounded @click="actionCallback" @keydown="keydownCallback">
+            <SecondaryButton
+                variant="text"
+                rounded
+                :aria-label="navLabels.next"
+                @click="actionCallback"
+                @keydown="keydownCallback"
+            >
                 <template #icon>
                     <ChevronRightIcon />
                 </template>
@@ -126,7 +139,7 @@ import ChevronRightIcon from '@primevue/icons/chevronright';
 import ChevronUpIcon from '@primevue/icons/chevronup';
 import DatePicker from 'primevue/datepicker';
 import { usePrimeVue } from 'primevue/config';
-import { computed, ref } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
 
@@ -152,6 +165,29 @@ const timeLabels = computed(() =>
         ])
     )
 );
+
+// The previous/next buttons replace PrimeVue's own too. PrimeVue names them by
+// the view on screen -- month in the day view, year in the month view, decade
+// in the year view -- so the names follow the picker's current view, which
+// PrimeVue keeps on the instance (it emits no event when the view changes).
+const attrs = useAttrs();
+const picker = ref(null);
+const navLabelFallbacks = {
+    prevMonth: 'Previous Month',
+    nextMonth: 'Next Month',
+    prevYear: 'Previous Year',
+    nextYear: 'Next Year',
+    prevDecade: 'Previous Decade',
+    nextDecade: 'Next Decade'
+};
+function localeLabel(key) {
+    return primevue.config.locale?.[key] || navLabelFallbacks[key];
+}
+const navLabels = computed(() => {
+    const view = picker.value?.currentView ?? attrs.view ?? 'date';
+    const unit = view === 'year' ? 'Decade' : view === 'month' ? 'Year' : 'Month';
+    return { prev: localeLabel(`prev${unit}`), next: localeLabel(`next${unit}`) };
+});
 
 const theme = ref({
     root: `inline-flex max-w-full relative p-fluid:flex`,
