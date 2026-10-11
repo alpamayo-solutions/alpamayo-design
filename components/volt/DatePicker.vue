@@ -45,56 +45,68 @@
             <CalendarIcon />
         </template>
         <template #hourincrementbutton="{ callbacks }">
-            <SecondaryButton variant="text" rounded v-on="callbacks">
+            <SecondaryButton variant="text" rounded :aria-label="timeLabels.nextHour" v-on="callbacks">
                 <template #icon>
                     <ChevronUpIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #hourdecrementbutton="{ callbacks }">
-            <SecondaryButton variant="text" rounded v-on="callbacks">
+            <SecondaryButton variant="text" rounded :aria-label="timeLabels.prevHour" v-on="callbacks">
                 <template #icon>
                     <ChevronDownIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #minuteincrementbutton="{ callbacks }">
-            <SecondaryButton variant="text" rounded v-on="callbacks">
+            <SecondaryButton variant="text" rounded :aria-label="timeLabels.nextMinute" v-on="callbacks">
                 <template #icon>
                     <ChevronUpIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #minutedecrementbutton="{ callbacks }">
-            <SecondaryButton variant="text" rounded v-on="callbacks">
+            <SecondaryButton variant="text" rounded :aria-label="timeLabels.prevMinute" v-on="callbacks">
                 <template #icon>
                     <ChevronDownIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #secondincrementbutton="{ callbacks }">
-            <SecondaryButton variant="text" rounded v-on="callbacks">
+            <SecondaryButton variant="text" rounded :aria-label="timeLabels.nextSecond" v-on="callbacks">
                 <template #icon>
                     <ChevronUpIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #seconddecrementbutton="{ callbacks }">
-            <SecondaryButton variant="text" rounded v-on="callbacks">
+            <SecondaryButton variant="text" rounded :aria-label="timeLabels.prevSecond" v-on="callbacks">
                 <template #icon>
                     <ChevronDownIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #ampmincrementbutton="{ toggleCallback, keydownCallback }">
-            <SecondaryButton variant="text" rounded @click="toggleCallback" @keydown="keydownCallback">
+            <SecondaryButton
+                variant="text"
+                rounded
+                :aria-label="timeLabels.am"
+                @click="toggleCallback"
+                @keydown="keydownCallback"
+            >
                 <template #icon>
                     <ChevronUpIcon />
                 </template>
             </SecondaryButton>
         </template>
         <template #ampmdecrementbutton="{ toggleCallback, keydownCallback }">
-            <SecondaryButton variant="text" rounded @click="toggleCallback" @keydown="keydownCallback">
+            <SecondaryButton
+                variant="text"
+                rounded
+                :aria-label="timeLabels.pm"
+                @click="toggleCallback"
+                @keydown="keydownCallback"
+            >
                 <template #icon>
                     <ChevronDownIcon />
                 </template>
@@ -113,9 +125,33 @@ import ChevronLeftIcon from '@primevue/icons/chevronleft';
 import ChevronRightIcon from '@primevue/icons/chevronright';
 import ChevronUpIcon from '@primevue/icons/chevronup';
 import DatePicker from 'primevue/datepicker';
-import { ref } from 'vue';
+import { usePrimeVue } from 'primevue/config';
+import { computed, ref } from 'vue';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
+
+// The time picker buttons replace PrimeVue's own, which named themselves from
+// the locale (nextHour, prevHour, ..., am, pm); icon-only buttons without them
+// have no accessible name (axe: button-name). Same source, same fallback.
+const primevue = usePrimeVue();
+const timeLabelFallbacks = {
+    nextHour: 'Next Hour',
+    prevHour: 'Previous Hour',
+    nextMinute: 'Next Minute',
+    prevMinute: 'Previous Minute',
+    nextSecond: 'Next Second',
+    prevSecond: 'Previous Second',
+    am: 'am',
+    pm: 'pm'
+};
+const timeLabels = computed(() =>
+    Object.fromEntries(
+        Object.entries(timeLabelFallbacks).map(([key, fallback]) => [
+            key,
+            primevue.config.locale?.[key] || fallback
+        ])
+    )
+);
 
 const theme = ref({
     root: `inline-flex max-w-full relative p-fluid:flex`,
