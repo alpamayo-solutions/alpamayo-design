@@ -23,7 +23,7 @@ describe('form control keyboard focus', () => {
         ['radio button', VoltRadioButton, { value: 'a', modelValue: null }],
         ['toggle switch', VoltToggleSwitch, { modelValue: false }]
     ])('rings a focused %s apart from its border', (_name, component, props) => {
-        const wrapper = mount(component as never, { props, global });
+        const wrapper = mount(component as never, { props: props as never, global });
         const box = wrapper.get('[data-pc-section="box"], [data-pc-section="slider"]');
 
         expect(box.classes()).toContain('peer-focus-visible:ring-2');
