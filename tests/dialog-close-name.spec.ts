@@ -7,7 +7,7 @@ async function closeButton(locale?: Record<string, unknown>) {
     const wrapper = mount(VoltDialog, {
         props: { visible: true, header: 'Assign models', closable: true },
         global: {
-            plugins: [[PrimeVue, { unstyled: true, ...(locale ? { locale } : {}) }]],
+            plugins: [[PrimeVue, { unstyled: true, ...(locale ? { locale } : {}) }]]
         },
         attachTo: document.body
     });
