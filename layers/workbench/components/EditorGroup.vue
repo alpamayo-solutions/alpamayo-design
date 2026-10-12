@@ -16,6 +16,13 @@ const props = withDefaults(
         dragActive?: boolean;
         showSplitActions?: boolean;
         showCloseAction?: boolean;
+        /** Accessible names, translated by the caller; English when omitted.
+         *  The two tab names are the tab strip's own props. */
+        dirtyLabel?: string;
+        closeTabLabel?: (tabLabel: string) => string;
+        splitRightLabel?: string;
+        splitDownLabel?: string;
+        closeGroupLabel?: string;
     }>(),
     {
         activeId: undefined,
@@ -24,7 +31,12 @@ const props = withDefaults(
         draggable: false,
         dragActive: false,
         showSplitActions: true,
-        showCloseAction: false
+        showCloseAction: false,
+        dirtyLabel: undefined,
+        closeTabLabel: undefined,
+        splitRightLabel: 'Split editor right',
+        splitDownLabel: 'Split editor down',
+        closeGroupLabel: 'Close editor group'
     }
 );
 
@@ -83,6 +95,8 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 :label="label"
                 :id-prefix="tabIdPrefix"
                 :panel-id="activeTabElementId ? panelId : undefined"
+                :dirty-label="dirtyLabel"
+                :close-label="closeTabLabel"
                 @select="$emit('select', $event)"
                 @pin="$emit('pin', $event)"
                 @close="$emit('close', $event)"
@@ -94,7 +108,7 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
             <div v-if="showSplitActions || showCloseAction" class="alp-workbench-editor-group-actions">
                 <AlpWorkbenchIconButton
                     v-if="showSplitActions"
-                    label="Split editor right"
+                    :label="splitRightLabel"
                     @click="$emit('split', 'horizontal')"
                 >
                     <span
@@ -105,14 +119,14 @@ function onEdgeDrop(edge: EditorDropEdge, event: DragEvent) {
                 </AlpWorkbenchIconButton>
                 <AlpWorkbenchIconButton
                     v-if="showSplitActions"
-                    label="Split editor down"
+                    :label="splitDownLabel"
                     @click="$emit('split', 'vertical')"
                 >
                     <span class="material-symbols-outlined" data-icon="splitscreen_add" aria-hidden="true" />
                 </AlpWorkbenchIconButton>
                 <AlpWorkbenchIconButton
                     v-if="showCloseAction"
-                    label="Close editor group"
+                    :label="closeGroupLabel"
                     icon="pi pi-times"
                     @click="$emit('close-group')"
                 />

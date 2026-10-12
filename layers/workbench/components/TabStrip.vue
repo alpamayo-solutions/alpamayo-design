@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useId } from 'vue';
+import { computed, nextTick, onMounted, ref, useId, watch } from 'vue';
 
 /** A secondary action offered on one tab, beside its close button. */
 export interface WorkbenchTabAction {
     id: string;
     /** Icon class, e.g. `pi pi-external-link`. */
     icon: string;
-    /** The accessible name AND the tooltip. Already translated by the caller:
-     *  this package ships no strings of its own. */
+    /** The accessible name AND the tooltip. Already translated by the caller. */
     label: string;
 }
 
@@ -43,13 +42,21 @@ const props = withDefaults(
         idPrefix?: string;
         /** Id of the element showing the active tab's content, if any. */
         panelId?: string;
+        /** Accessible name of the marker on a tab with unsaved changes.
+         *  Translated by the caller; English when omitted. */
+        dirtyLabel?: string;
+        /** Accessible name of a tab's close button, given the tab's label.
+         *  Translated by the caller; English when omitted. */
+        closeLabel?: (tabLabel: string) => string;
     }>(),
     {
         activeId: undefined,
         draggable: false,
         label: undefined,
         idPrefix: undefined,
-        panelId: undefined
+        panelId: undefined,
+        dirtyLabel: 'Unsaved changes',
+        closeLabel: (tabLabel: string) => `Close ${tabLabel}`
     }
 );
 
@@ -86,6 +93,22 @@ const focusableTabId = computed(() =>
 
 const ownedTabIds = computed(() => props.tabs.map((_, index) => tabElementId(index)).join(' '));
 
+/**
+ * The active tab stays in sight. The strip scrolls, and a tab the consumer
+ * activates from outside the strip (a tree, a search, a link) can sit past
+ * either edge; so can the active tab of a strip that has only just rendered.
+ */
+const scroller = ref<HTMLElement>();
+function revealActiveTab(): void {
+    const index = props.tabs.findIndex((tab) => tab.id === props.activeId);
+    scroller.value?.children[index]?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+}
+watch(
+    () => props.activeId,
+    () => void nextTick(revealActiveTab)
+);
+onMounted(revealActiveTab);
+
 function onTabKeydown(id: string, event: KeyboardEvent): void {
     if (event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey) return;
     if (event.key === 'Tab' && event.shiftKey && props.tabs.length < 2) return;
@@ -117,9 +140,9 @@ function onTabKeydown(id: string, event: KeyboardEvent): void {
     const tab = props.tabs[next];
     if (!tab) return;
     emit('select', tab.id);
-    const element = strip?.querySelectorAll<HTMLElement>('[data-testid="workbench-tab"]')[next];
-    element?.focus();
-    element?.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+    // Focusing a tab scrolls it into view natively; activating it does too
+    // (see `revealActiveTab`).
+    strip?.querySelectorAll<HTMLElement>('[data-testid="workbench-tab"]')[next]?.focus();
 }
 
 function onDragStart(tabId: string, event: DragEvent) {
@@ -162,7 +185,7 @@ function onDragEnd(event: DragEvent) {
             :aria-label="label"
             :aria-owns="ownedTabIds || undefined"
         />
-        <div class="alp-workbench-tab-scroller">
+        <div ref="scroller" class="alp-workbench-tab-scroller">
             <div
                 v-for="(tab, index) in tabs"
                 :key="tab.id"
@@ -194,7 +217,7 @@ function onDragEnd(event: DragEvent) {
                 >
                     <i v-if="tab.icon" :class="tab.icon" aria-hidden="true" />
                     <span class="alp-workbench-tab-label">{{ tab.label }}</span>
-                    <span v-if="tab.dirty" class="alp-workbench-tab-dirty" aria-label="Unsaved changes" />
+                    <span v-if="tab.dirty" class="alp-workbench-tab-dirty" :aria-label="dirtyLabel" />
                 </button>
                 <button
                     v-for="action in tab.actions ?? []"
@@ -209,7 +232,7 @@ function onDragEnd(event: DragEvent) {
                 />
                 <button
                     type="button"
-                    :aria-label="`Close ${tab.label}`"
+                    :aria-label="closeLabel(tab.label)"
                     class="alp-workbench-tab-close pi pi-times"
                     @click="$emit('close', tab.id)"
                 />

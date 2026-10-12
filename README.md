@@ -64,6 +64,14 @@ rule in AGENTS.md.
 - Tab strips emit `select` for Left/Right, Home/End, Enter/Space and Shift+Tab.
   `Delete` emits `close`; the consumer owns dirty-change confirmation. Forward
   Tab leaves the strip. These shortcuts are scoped to the strip.
+- A tab strip scrolls its active tab into view when it mounts and whenever
+  `active-id` changes, so a tab activated from outside the strip is never left
+  past an edge.
+- The strip's own accessible names are props with English defaults:
+  `dirty-label` (the unsaved-changes marker) and `close-label` (a function of
+  the tab's label). `EditorGroup` forwards them as `dirty-label` and
+  `close-tab-label`, and names its own buttons through `split-right-label`,
+  `split-down-label` and `close-group-label`. Pass translated values.
 - The `tablist` owns only the tabs (through `aria-owns`); each tab's action and
   close buttons sit beside it in the Tab order. Pass `panel-id` to point the
   tabs at the element showing the active tab; `EditorGroup` does this for its
@@ -71,7 +79,8 @@ rule in AGENTS.md.
 - Editor groups emit `focus` when focus enters through the keyboard as well as
   through pointer interaction.
 - Sidebar headers support Left/Right collapse/expand; activity buttons support
-  Up/Down and Home/End.
+  Up/Down and Home/End. Keyboard focus on an activity button is a ring inside the
+  item; the left bar marks the active app only.
 - Virtual lists support Up/Down, Home/End and Page Up/Page Down, scrolling and
   focusing the primary native control even across the virtual window. Inputs and
   nested action buttons retain their own keys. `reach-end` asks the caller for
