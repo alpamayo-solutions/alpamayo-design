@@ -5,7 +5,7 @@ export default defineStory({
     group: 'Components',
     title: 'Workbench Tab Strip',
     description:
-        'Closable editor tabs with preview and unsaved-state treatments. Arrow keys, Home/End and Shift+Tab activate tabs; Delete requests close.',
+        'Closable editor tabs with preview and unsaved-state treatments. Arrow keys, Home/End and Shift+Tab activate tabs; Delete requests close. The active tab is kept in view. The unsaved marker and the close buttons are named through `dirty-label` and `close-label` (English by default).',
     variants: [
         {
             name: 'editor-tabs',
@@ -19,6 +19,6 @@ export default defineStory({
         }
     ],
     snippet:
-        '<AlpWorkbenchTabStrip :tabs="tabs" active-id="fill-level" @select="activateTab" @close="requestClose" />',
+        '<AlpWorkbenchTabStrip :tabs="tabs" active-id="fill-level" :dirty-label="t(\'tabs.unsaved\')" :close-label="(name) => t(\'tabs.close\', { name })" @select="activateTab" @close="requestClose" />',
     sourcePath: 'layers/workbench/components/TabStrip.vue'
 });

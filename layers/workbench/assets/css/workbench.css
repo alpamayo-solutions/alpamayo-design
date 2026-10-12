@@ -138,21 +138,27 @@
     background: var(--alp-workbench-hover);
 }
 
-/* The rail marks focus with the same left bar it uses for the active app.
-   The button preset's all-round focus ring is a box-shadow, and on a
-   full-bleed rail item it reads as a stray outline rather than as focus. */
+/* Keyboard focus on the rail gets its own ring inside the item. The left bar
+   marks the active app only: sharing it with focus showed two "active" apps
+   while tabbing through the rail. The button preset's all-round focus ring
+   is a box-shadow, which reads as a stray outline on a full-bleed rail item. */
 .alp-workbench-activity-item:focus,
 .alp-workbench-activity-item:focus-visible {
     outline: none;
     box-shadow: none;
 }
 
+.alp-workbench-activity-item:focus-visible {
+    outline: 0.125rem solid var(--alp-workbench-focus);
+    outline-offset: -0.25rem;
+    border-radius: 0.375rem;
+}
+
 .alp-workbench-activity-item--active {
     color: var(--alp-workbench-focus);
 }
 
-.alp-workbench-activity-item--active::before,
-.alp-workbench-activity-item:focus-visible::before {
+.alp-workbench-activity-item--active::before {
     content: '';
     position: absolute;
     inset: 0.4375rem auto 0.4375rem 0;
