@@ -451,7 +451,7 @@ export default {
             { 'focus:ring-primary': props.severity === null },
             // Text & Outlined Button
             {
-                'hover:bg-primary-50':
+                'hover:bg-primary-50 dark:hover:bg-primary-900/20':
                     (props.text || props.outlined) && props.severity === null && !props.plain
             },
 
