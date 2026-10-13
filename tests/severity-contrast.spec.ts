@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import badgePreset from '../presets/alpamayo/badge/index.js';
 import badgeDirectivePreset from '../presets/alpamayo/badgedirective/index.js';
 import buttonPreset from '../presets/alpamayo/button/index.js';
+import dataTablePreset from '../presets/alpamayo/datatable/index.js';
 import messagePreset from '../presets/alpamayo/message/index.js';
 import tagPreset from '../presets/alpamayo/tag/index.js';
 import toastPreset from '../presets/alpamayo/toast/index.js';
@@ -181,7 +182,7 @@ function expectAA(name: string, tokens: string[]) {
     }
 }
 
-function button(severity: string, variant: 'solid' | 'text' | 'outlined' | 'link') {
+function button(severity: string | null, variant: 'solid' | 'text' | 'outlined' | 'link') {
     return classTokens(
         (buttonPreset as any).root({
             props: {
@@ -207,6 +208,14 @@ describe('severity colours meet WCAG AA', () => {
         for (const variant of ['solid', 'text', 'outlined', 'link'] as const)
             it(`button ${severity} ${variant}`, () =>
                 expectAA(`button ${severity} ${variant}`, button(severity, variant)));
+
+    // The primary button's text and outlined forms tint the surface on hover.
+    // In the dark scheme that tint must be a dark one: `--primary-text` is a
+    // light colour there, and it was unreadable on the light `primary-50`.
+    for (const severity of [null, 'light'])
+        for (const variant of ['text', 'outlined'] as const)
+            it(`button ${severity ?? 'primary'} ${variant}`, () =>
+                expectAA(`button ${severity ?? 'primary'} ${variant}`, button(severity, variant)));
 
     for (const severity of SEVERITIES) {
         it(`badge ${severity}`, () =>
@@ -241,4 +250,58 @@ describe('severity colours meet WCAG AA', () => {
                 ...classTokens((toastPreset as any).detail(toast))
             ]));
     }
+});
+
+/**
+ * The class list one row of a striped table is painted with.
+ *
+ * `odd:` and `even:` add a pseudo-class, so they outrank a plain utility and a
+ * plain `dark:` one alike (`dark:` is a `:where()` and adds no specificity).
+ * A parity colour without a dark counterpart is therefore what the dark scheme
+ * paints, whatever `dark:text-*` stands beside it. The row's tokens are
+ * rewritten to say so, and the result goes through the same measurement as
+ * every other element.
+ */
+function stripedRow(tokens: string[], parity: 'odd' | 'even') {
+    const parsed = tokens.map((token) => {
+        const m = token.match(/^((?:dark:|hover:|odd:|even:)*)(text|bg)-(.+)$/);
+        const variants = m ? m[1]!.split(':').filter(Boolean) : [];
+        return { token, property: m?.[2], variants, value: m?.[3] };
+    });
+    const own = parsed.filter((t) => t.property && t.variants.includes(parity));
+    const out: string[] = [];
+    for (const t of parsed) {
+        if (!t.property) continue;
+        if (t.variants.includes('odd') || t.variants.includes('even')) continue;
+        if (t.variants.includes('hover')) {
+            out.push(t.token);
+            continue;
+        }
+        // A plain or `dark:` colour loses to any parity colour of its property.
+        const beaten = own.some((o) => o.property === t.property && !o.variants.includes('hover'));
+        if (!beaten) out.push(t.token);
+    }
+    for (const property of ['text', 'bg'] as const) {
+        const mine = own.filter((o) => o.property === property && !o.variants.includes('hover'));
+        const dark = mine.filter((o) => o.variants.includes('dark'));
+        const plain = mine.filter((o) => !o.variants.includes('dark'));
+        for (const o of plain) out.push(`${property}-${o.value}`);
+        // Without a dark parity colour, the light one is painted in dark too.
+        for (const o of dark.length ? dark : plain) out.push(`dark:${property}-${o.value}`);
+    }
+    return out;
+}
+
+describe('table rows meet WCAG AA', () => {
+    const row = (stripedRows: boolean) =>
+        classTokens(
+            (dataTablePreset as any).bodyRow({
+                context: { selected: false, selectable: false, stripedRows },
+                props: { selectionMode: null, rowHover: true, highlightOnSelect: false, frozenRow: false }
+            })
+        );
+
+    it('plain row', () => expectAA('row', row(false)));
+    for (const parity of ['odd', 'even'] as const)
+        it(`striped ${parity} row`, () => expectAA(`striped ${parity} row`, stripedRow(row(true), parity)));
 });

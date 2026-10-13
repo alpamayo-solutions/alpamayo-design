@@ -422,7 +422,10 @@ export default {
                 },
                 { 'font-bold bg-surface-0 dark:bg-surface-900 z-20': props.frozenRow },
                 {
-                    'odd:bg-surface-0 odd:text-surface-600 dark:odd:bg-surface-900 even:bg-surface-50 even:text-surface-600 dark:even:bg-surface-800/50':
+                    // `odd:`/`even:` outrank the plain `dark:text-white/80`
+                    // above (one more pseudo-class), so the dark text colour
+                    // is repeated per parity.
+                    'odd:bg-surface-0 odd:text-surface-600 dark:odd:bg-surface-900 dark:odd:text-white/80 even:bg-surface-50 even:text-surface-600 dark:even:bg-surface-800/50 dark:even:text-white/80':
                         context.stripedRows
                 },
 
