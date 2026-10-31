@@ -1,3 +1,8 @@
+// A text button that carries a label is a quiet outlined button: transparent,
+// with the control border, so it reads as a button and not as loose text. Only
+// an icon-only text button (a toolbar icon) and a link stay without an edge.
+const labelled = (props) => props.label != null && props.label !== '';
+
 export default {
     root: ({ props, context, parent, instance }) => ({
         class: [
@@ -81,8 +86,28 @@ export default {
                 'text-surface-500 border border-gray-500': props.plain && props.outlined
             },
 
-            // Text Button
-            { 'bg-transparent border-transparent': props.text && !props.plain },
+            // Text Button (see `labelled` above)
+            { 'bg-transparent': props.text && !props.plain },
+            { 'border-transparent': props.text && !props.plain && !labelled(props) },
+            {
+                'border border-control-border':
+                    props.text &&
+                    !props.plain &&
+                    labelled(props) &&
+                    [null, undefined, 'secondary', 'contrast', 'ghost', 'light'].includes(props.severity)
+            },
+            {
+                'border border-success-500':
+                    props.text && !props.plain && labelled(props) && props.severity === 'success',
+                'border border-info-500':
+                    props.text && !props.plain && labelled(props) && props.severity === 'info',
+                'border border-warning-500':
+                    props.text && !props.plain && labelled(props) && props.severity === 'warn',
+                'border border-help-500':
+                    props.text && !props.plain && labelled(props) && props.severity === 'help',
+                'border border-danger-500':
+                    props.text && !props.plain && labelled(props) && props.severity === 'danger'
+            },
 
             // Outlined Button
             { 'bg-transparent border': props.outlined && !props.plain },
@@ -137,7 +162,7 @@ export default {
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-surface-100 dark:border-surface-800':
+                'border border-control-border':
                     props.severity === 'secondary' &&
                     !props.text &&
                     !props.outlined &&
@@ -151,7 +176,7 @@ export default {
             },
             // Secondary Outlined Button
             {
-                'text-surface-600 dark:text-surface-300 border border-surface-200 dark:border-surface-600 hover:bg-surface-100 dark:hover:bg-surface-700':
+                'text-surface-600 dark:text-surface-300 border border-control-border hover:bg-surface-100 dark:hover:bg-surface-700':
                     props.outlined && props.severity === 'secondary' && !props.plain
             },
 
@@ -182,7 +207,7 @@ export default {
             },
             // Success Outlined Button
             {
-                'text-success-text border border-success-200 dark:border-success-700':
+                'text-success-text border border-success-500':
                     props.outlined && props.severity === 'success' && !props.plain
             },
             // Success Link Button
@@ -213,7 +238,7 @@ export default {
             },
             // Info Outlined Button
             {
-                'text-info-text border border-info-200 dark:border-info-700':
+                'text-info-text border border-info-500':
                     props.outlined && props.severity === 'info' && !props.plain
             },
             // Info Link Button
@@ -244,7 +269,7 @@ export default {
             },
             // Warning Outlined Button
             {
-                'text-warning-text border border-warning-200 dark:border-warning-700':
+                'text-warning-text border border-warning-500':
                     props.outlined && props.severity === 'warn' && !props.plain
             },
             // Warning Link Button
@@ -275,7 +300,7 @@ export default {
             },
             // Help Outlined Button
             {
-                'text-help-text border border-help-200 dark:border-help-700':
+                'text-help-text border border-help-500':
                     props.outlined && props.severity === 'help' && !props.plain
             },
             // Help Link Button
@@ -310,7 +335,7 @@ export default {
             },
             // Danger Outlined Button
             {
-                'text-danger-text border border-danger-200 dark:border-danger-700':
+                'text-danger-text border border-danger-500':
                     props.outlined && props.severity === 'danger' && !props.plain
             },
             // Danger Link Button
@@ -346,7 +371,7 @@ export default {
             },
             // Contrast Outlined Button
             {
-                'text-surface-900 dark:text-surface-0 border border-surface-300 dark:border-surface-0 hover:bg-surface-100':
+                'text-surface-900 dark:text-surface-0 border border-surface-500 dark:border-surface-0 hover:bg-surface-100':
                     props.outlined && props.severity === 'contrast' && !props.plain
             },
             // Contrast Link Button
@@ -355,7 +380,8 @@ export default {
                     props.link && props.severity === 'contrast' && !props.plain
             },
 
-            // Ghost Button (subtle slate bg, no border)
+            // Ghost Button (subtle slate fill; the control border keeps its edge
+            // visible where the fill is as light as the surface behind it)
             {
                 'text-surface-600 dark:text-surface-300':
                     props.severity === 'ghost' &&
@@ -369,7 +395,7 @@ export default {
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-transparent':
+                'border border-control-border':
                     props.severity === 'ghost' &&
                     !props.text &&
                     !props.outlined &&
@@ -383,7 +409,7 @@ export default {
             },
             // Ghost Outlined Button
             {
-                'text-surface-600 dark:text-surface-300 border border-surface-200 dark:border-surface-600 hover:bg-surface-100 dark:hover:bg-surface-700':
+                'text-surface-600 dark:text-surface-300 border border-control-border hover:bg-surface-100 dark:hover:bg-surface-700':
                     props.outlined && props.severity === 'ghost' && !props.plain
             },
 
@@ -401,7 +427,7 @@ export default {
                     !props.outlined &&
                     !props.plain &&
                     !props.link,
-                'border border-primary-100 dark:border-primary-800':
+                'border border-primary-300 dark:border-primary-400':
                     props.severity === 'light' &&
                     !props.text &&
                     !props.outlined &&
@@ -415,7 +441,7 @@ export default {
             },
             // Light Outlined Button
             {
-                'text-primary-text border border-primary-200 dark:border-primary-700 hover:bg-primary-50 dark:hover:bg-primary-900/20':
+                'text-primary-text border border-primary-300 dark:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20':
                     props.outlined && props.severity === 'light' && !props.plain
             },
             // Light Link Button
@@ -457,7 +483,7 @@ export default {
 
             // Secondary
             {
-                'hover:bg-surface-200 dark:hover:bg-surface-700 hover:border-surface-200 dark:hover:border-surface-700':
+                'hover:bg-surface-200 dark:hover:bg-surface-700':
                     props.severity === 'secondary' &&
                     !props.text &&
                     !props.outlined &&
@@ -584,7 +610,7 @@ export default {
 
             // Light
             {
-                'hover:bg-primary-100 dark:hover:bg-primary-900/50 hover:border-primary-200 dark:hover:border-primary-700':
+                'hover:bg-primary-100 dark:hover:bg-primary-900/50':
                     props.severity === 'light' &&
                     !props.text &&
                     !props.outlined &&

@@ -10,9 +10,11 @@ export default {
             // Shape
             'rounded-[16px]',
 
-            // Colors
+            // Colors (the control border keeps the edge visible: the fill alone
+            // is as light as the surface behind it)
             'text-surface-700 dark:text-white',
-            'bg-surface-100 dark:bg-surface-700'
+            'bg-surface-100 dark:bg-surface-700',
+            'border border-control-border'
         ]
     },
     label: {

@@ -410,9 +410,9 @@ describe('AlpBadgeRow', () => {
         });
         const badges = w.findAll('span[title]');
         expect(badges).toHaveLength(3);
-        expect(badges[0]!.classes()).toContain('border-success-200');
-        expect(badges[1]!.classes()).toContain('border-warning-200');
-        expect(badges[2]!.classes()).toContain('border-surface-200'); // default neutral
+        expect(badges[0]!.classes()).toContain('border-success-500');
+        expect(badges[1]!.classes()).toContain('border-warning-500');
+        expect(badges[2]!.classes()).toContain('border-control-border'); // default neutral
     });
 
     it('renders an icon when given, else the label initial', () => {

@@ -9,7 +9,7 @@ export default {
             // Invalid State
             {
                 'border-danger dark:border-red-400': props.invalid,
-                'border-transparent': !props.invalid
+                'border-control-border': !props.invalid
             }
         ]
     })

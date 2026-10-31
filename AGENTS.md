@@ -62,6 +62,14 @@ export default defineNuxtConfig({
   (danger 3.76, success 2.28), so never put text on, or in, a bare ramp step.
   `tests/severity-contrast.spec.ts` renders each severity preset and measures
   the pairs in both schemes, hover included.
+- Controls without a strong fill of their own (secondary, outlined and
+  labelled text buttons, tags, chips, badges, toggle/select buttons) are
+  outlined with `border-control-border` (`--control-border`: surface-400
+  light, surface-600 dark; `--alp-workbench-control-border` in the workbench
+  layer). Severity outlines use the `-500` step. `surface-200` and
+  `--p-content-border-color` divide areas; at 1.18:1 on white they do not
+  outline a control. Only an icon-only text button and a `link` button stay
+  without an edge.
 - i18n: the layer does NOT auto-merge locale messages. Import its `design.*`
   keys explicitly in each locale entry and spread them, e.g.
   `import design from '@alpamayo-solutions/design/i18n/locales/en/design.json'`

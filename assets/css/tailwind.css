@@ -173,6 +173,7 @@
 @theme inline {
     --color-primary-text: var(--primary-text);
     --color-placeholder: var(--placeholder);
+    --color-control-border: var(--control-border);
     --color-on-severity-fill: var(--on-severity-fill);
     --color-success-fill: var(--success-fill);
     --color-success-fill-hover: var(--success-fill-hover);
