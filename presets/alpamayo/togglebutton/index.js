@@ -26,7 +26,7 @@ export default {
             // Invalid State
             {
                 'border-danger dark:border-red-400': props.invalid,
-                'border-surface-100 dark:border-surface-950': !props.invalid
+                'border-control-border': !props.invalid
             },
 
             // Before

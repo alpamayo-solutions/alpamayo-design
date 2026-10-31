@@ -98,7 +98,7 @@ const activeFilterCount = computed(
                 size="small"
                 icon="pi pi-filter"
                 outlined
-                class="relative !h-8 !w-8 !border-surface-200 !bg-transparent !p-0 !text-surface-700 hover:!bg-surface-50 dark:!border-surface-700 dark:!text-surface-200 dark:hover:!bg-surface-800"
+                class="relative !h-8 !w-8 !border-control-border !bg-transparent !p-0 !text-surface-700 hover:!bg-surface-50 dark:!text-surface-200 dark:hover:!bg-surface-800"
                 :aria-label="t('design.toolbar.filtersButton')"
                 @click="togglePopover"
             >

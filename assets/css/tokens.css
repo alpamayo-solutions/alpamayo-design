@@ -369,11 +369,17 @@ body {
    both itself (PREKIT derives them per brand). They are declared in a layer so
    that any unlayered brand stylesheet wins, whatever the load order.
    The severity tokens below follow the same rule: presets colour severity
-   fills and severity text through them, never through a fixed ramp step. */
+   fills and severity text through them, never through a fixed ramp step.
+   `--control-border` is the outline of a control that has no fill of its own
+   or only a faint one: secondary, outlined and labelled text buttons, tags,
+   chips and badges. It must read as an edge (about 2.3:1 light, 2.9:1 dark
+   on the scheme's base surface); `--p-content-border-color` (surface-200)
+   is a divider between areas and is too pale to outline a control. */
 @layer alp-semantic {
     :root {
         --primary-text: var(--primary-500);
         --placeholder: var(--surface-600);
+        --control-border: var(--surface-400);
 
         /* Severity colours. A fill carries `--on-severity-fill` text, a text
            colour sits on the scheme's surfaces (and on the severity's own hover
@@ -401,6 +407,7 @@ body {
     .dark {
         --primary-text: var(--primary-300);
         --placeholder: var(--surface-400);
+        --control-border: var(--surface-600);
         --on-severity-fill: var(--surface-900);
         --success-fill: var(--success-400);
         --success-fill-hover: var(--success-300);
@@ -423,6 +430,7 @@ body {
         :root:not(.light) {
             --primary-text: var(--primary-300);
             --placeholder: var(--surface-400);
+            --control-border: var(--surface-600);
             --on-severity-fill: var(--surface-900);
             --success-fill: var(--success-400);
             --success-fill-hover: var(--success-300);

@@ -34,6 +34,8 @@
     --alp-workbench-surface-raised: var(--p-surface-0);
     --alp-workbench-chrome: var(--p-surface-50);
     --alp-workbench-border: var(--p-surface-200);
+    /* The outline of a chip, badge or quiet button; the border above divides areas. */
+    --alp-workbench-control-border: var(--control-border);
     --alp-workbench-text: var(--p-surface-900);
     --alp-workbench-text-muted: var(--p-surface-500);
     --alp-workbench-hover: var(--p-surface-100);
@@ -50,6 +52,7 @@
     --alp-workbench-surface-raised: var(--p-surface-800);
     --alp-workbench-chrome: var(--p-surface-950);
     --alp-workbench-border: var(--p-surface-700);
+    --alp-workbench-control-border: var(--control-border);
     --alp-workbench-text: var(--p-surface-0);
     --alp-workbench-text-muted: var(--p-surface-400);
     --alp-workbench-hover: var(--p-surface-800);
@@ -64,6 +67,7 @@
         --alp-workbench-surface-raised: var(--p-surface-800);
         --alp-workbench-chrome: var(--p-surface-950);
         --alp-workbench-border: var(--p-surface-700);
+        --alp-workbench-control-border: var(--control-border);
         --alp-workbench-text: var(--p-surface-0);
         --alp-workbench-text-muted: var(--p-surface-400);
         --alp-workbench-hover: var(--p-surface-800);

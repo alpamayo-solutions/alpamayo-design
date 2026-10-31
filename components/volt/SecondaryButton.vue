@@ -24,10 +24,9 @@ const theme = ref<ButtonPassThroughOptions>({
     root: `inline-flex cursor-pointer select-none items-center justify-center overflow-hidden relative
         px-3 py-2 gap-2 rounded-md disabled:pointer-events-none disabled:opacity-60 transition-colors duration-200
         bg-surface-100 enabled:hover:bg-surface-200 enabled:active:bg-surface-300
-        border border-surface-100 enabled:hover:border-surface-200 enabled:active:border-surface-300
+        border border-control-border
         text-surface-600 enabled:hover:text-surface-700 enabled:active:text-surface-800
         dark:bg-surface-800 dark:enabled:hover:bg-surface-700 dark:enabled:active:bg-surface-600
-        dark:border-surface-800 dark:enabled:hover:border-surface-700 dark:enabled:active:border-surface-600
         dark:text-surface-300 dark:enabled:hover:text-surface-200 dark:enabled:active:text-surface-100
         focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2
         focus-visible:outline-surface-600 dark:focus-visible:outline-surface-300
@@ -38,10 +37,9 @@ const theme = ref<ButtonPassThroughOptions>({
         p-large:text-[1.125rem] p-large:px-[0.875rem] p-large:py-[0.625rem]
         p-raised:shadow-sm p-rounded:rounded-[2rem]
         p-outlined:bg-transparent enabled:hover:p-outlined:bg-surface-50 enabled:active:p-outlined:bg-surface-100
-        p-outlined:border-surface-200 enabled:hover:p-outlined:border-surface-200 enabled:active:p-outlined:border-surface-200
+        p-outlined:border-control-border
         p-outlined:text-surface-500 enabled:hover:p-outlined:text-surface-500 enabled:active:p-outlined:text-surface-500
         dark:p-outlined:bg-transparent dark:enabled:hover:p-outlined:bg-white/5 dark:enabled:active:p-outlined:bg-white/15
-        dark:p-outlined:border-surface-700 dark:enabled:hover:p-outlined:border-surface-700 dark:enabled:active:p-outlined:border-surface-700
         dark:p-outlined:text-surface-400 dark:enabled:hover:p-outlined:text-surface-400 dark:enabled:active:p-outlined:text-surface-400
         p-text:bg-transparent enabled:hover:p-text:bg-surface-50 enabled:active:p-text:bg-surface-100
         p-text:border-transparent enabled:hover:p-text:border-transparent enabled:active:p-text:border-transparent
