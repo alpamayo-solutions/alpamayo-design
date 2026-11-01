@@ -50,12 +50,11 @@ describe('icon source', () => {
     });
 });
 
-describe('logos', () => {
-    it('references only files that ship beside the sprites', () => {
+describe('protocol icons', () => {
+    it('are drawings on currentColor and the accent, with no embedded image', () => {
         for (const variant of ['detail', 'small']) {
             const sprite = readFileSync(join(root, `public/icons/alp-${variant}.svg`), 'utf8');
-            const logos = [...sprite.matchAll(/<image href="\/icons\/logos\/([^"]+)"/g)].map((m) => m[1]);
-            expect(logos.sort()).toEqual(readdirSync(join(root, 'public/icons/logos')).sort());
+            expect(sprite).not.toContain('<image');
         }
     });
 });

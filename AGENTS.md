@@ -92,9 +92,8 @@ export default defineNuxtConfig({
   accept it wherever they take an icon class. Source: `assets/icons/alp/` (drawings
   plus `manifest.json`). After changing it run `npm run icons:build` and commit
   `public/icons/` and `composables/alpIconIds.ts`; never hand-edit those.
-  OPC UA, Modbus and Sparkplug B are the owners' logos in `public/icons/logos/`,
-  unaltered and referenced by an `<image>` in the drawing: they ignore
-  `currentColor` and `--icon-accent`, and need that folder served beside the sprites.
+  Protocol icons are neutral line drawings, with no third-party logo elements or
+  wordmarks: a real logo belongs to the consumer's surface, beside the protocol's name.
   The `alp-icons` font stays for now. Design cards do not resolve the sprites.
 
 - **Links go through `AlpLink`** (`components/alp/AlpLink.vue`). No `Alp*`

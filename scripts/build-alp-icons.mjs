@@ -3,8 +3,7 @@
 //
 // assets/icons/alp/detail/<id>.svg  240 grid. assets/icons/alp/small/<id>.svg  24 grid.
 // Drawings hold geometry and `class` only. Classes: none = ink line, k = ink fill,
-// a = accent line, af = accent fill. A third-party logo that may not be redrawn is one <image> of
-// the unaltered file in public/icons/logos/, contained in the square.
+// a = accent line, af = accent fill.
 //
 // Output: public/icons/alp-detail.svg, public/icons/alp-small.svg, composables/alpIconIds.ts
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';

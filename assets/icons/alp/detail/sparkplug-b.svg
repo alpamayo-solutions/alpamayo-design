@@ -1,3 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-  <image href="/icons/logos/sparkplug-b.webp" width="240" height="240"/>
+  <path d="M60,30H180"/>
+  <path d="M120,30V55.0"/>
+  <path d="M60,210H180"/>
+  <path d="M120,210V185.0"/>
+  <path class="af" d="M120,70L136,104L170,120L136,136L120,170L104,136L70,120L104,104Z"/>
 </svg>

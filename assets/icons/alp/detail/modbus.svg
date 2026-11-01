@@ -1,3 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-  <image href="/icons/logos/modbus.webp" width="240" height="240"/>
+  <path d="M20,64H220"/>
+  <path d="M46,64V136"/>
+  <path d="M120,64V136"/>
+  <path d="M194,64V136"/>
+  <circle class="af" cx="46" cy="164" r="20"/>
+  <circle class="af" cx="120" cy="164" r="20"/>
+  <circle class="af" cx="194" cy="164" r="20"/>
 </svg>
