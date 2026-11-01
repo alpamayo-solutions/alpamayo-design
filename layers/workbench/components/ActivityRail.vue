@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { navigateList } from '../utils/keyboard';
+import WorkbenchIcon from './Icon.vue';
+
 export interface WorkbenchActivityItem {
     id: string;
     label: string;
@@ -35,7 +37,7 @@ defineEmits<{
             @click="$emit('select', item.id)"
         >
             <span v-if="item.logomark" class="alp-workbench-activity-logomark" aria-hidden="true" />
-            <i v-else-if="item.icon" :class="item.icon" aria-hidden="true" />
+            <WorkbenchIcon v-else-if="item.icon" :icon="item.icon" variant="detail" :size="28" />
         </VoltButton>
         <div class="alp-workbench-activity-footer">
             <slot name="footer" />

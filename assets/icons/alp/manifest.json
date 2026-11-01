@@ -1,0 +1,1118 @@
+{
+    "access-control": {
+        "name": "Access control",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "access-token": {
+        "name": "Access token",
+        "family": "platform",
+        "group": "Network and security",
+        "origin": "new"
+    },
+    "administration": {
+        "name": "Administration",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "agv": {
+        "name": "AGV",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "ai-task": {
+        "name": "AI task",
+        "family": "apps",
+        "group": "ai",
+        "origin": "new"
+    },
+    "alarm": {
+        "name": "Alarm",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "annotation": {
+        "name": "Annotation",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "annotation-types": {
+        "name": "Annotation types",
+        "family": "apps",
+        "group": "catalog",
+        "origin": "new"
+    },
+    "anomaly-detection": {
+        "name": "Anomaly detection",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "api-key": {
+        "name": "API key",
+        "family": "platform",
+        "group": "Network and security",
+        "origin": "new"
+    },
+    "app-grid": {
+        "name": "App grid",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "appearance": {
+        "name": "Appearance",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "area": {
+        "name": "Area",
+        "family": "domain",
+        "group": "Plant hierarchy",
+        "origin": "new"
+    },
+    "assistant": {
+        "name": "Assistant",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "audit-log": {
+        "name": "Audit log",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "backup": {
+        "name": "Backup",
+        "family": "platform",
+        "group": "Data",
+        "origin": "new"
+    },
+    "bacnet": {
+        "name": "BACnet",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "batch": {
+        "name": "Batch",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "bridge-node": {
+        "name": "Bridge node",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "broker": {
+        "name": "Broker",
+        "family": "protocols",
+        "group": "messaging",
+        "origin": "new"
+    },
+    "built-in": {
+        "name": "Built in",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "catalogs": {
+        "name": "Catalogs",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "cell": {
+        "name": "Work cell",
+        "family": "domain",
+        "group": "Plant hierarchy",
+        "origin": "new"
+    },
+    "centralized": {
+        "name": "Centralized",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "certificate": {
+        "name": "Certificate",
+        "family": "platform",
+        "group": "Network and security",
+        "origin": "new"
+    },
+    "cloud": {
+        "name": "Cloud",
+        "family": "platform",
+        "group": "Systems",
+        "origin": "new"
+    },
+    "cloud-analytics": {
+        "name": "Cloud analytics",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "cluster": {
+        "name": "Cluster",
+        "family": "platform",
+        "group": "Nodes",
+        "origin": "new"
+    },
+    "cnc": {
+        "name": "CNC machine",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "compressor": {
+        "name": "Compressor",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "computed-metric": {
+        "name": "Computed metric",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "connector": {
+        "name": "Connector",
+        "family": "protocols",
+        "group": "connector",
+        "origin": "new"
+    },
+    "connector-binding": {
+        "name": "Connector binding",
+        "family": "protocols",
+        "group": "connector",
+        "origin": "new"
+    },
+    "constant": {
+        "name": "Constant",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "container": {
+        "name": "Container",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "conveyor": {
+        "name": "Conveyor",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "core-workbench": {
+        "name": "Core Workbench",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "cpu": {
+        "name": "Cpu",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "csv": {
+        "name": "CSV",
+        "family": "protocols",
+        "group": "data",
+        "origin": "new"
+    },
+    "cursor": {
+        "name": "Cursor",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "dashboard": {
+        "name": "Dashboard",
+        "family": "apps",
+        "group": "product",
+        "origin": "new"
+    },
+    "data-analysis": {
+        "name": "Data analysis",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "data-architecture": {
+        "name": "Data architecture",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "data-contextualization": {
+        "name": "Data contextualization",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "data-export": {
+        "name": "Data export",
+        "family": "apps",
+        "group": "product",
+        "origin": "new"
+    },
+    "data-model": {
+        "name": "Data model",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "data-quality": {
+        "name": "Data quality",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "data-security": {
+        "name": "Data security",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "data-structure": {
+        "name": "Data structure",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "database": {
+        "name": "Database",
+        "family": "platform",
+        "group": "Data",
+        "origin": "new"
+    },
+    "dataops-node": {
+        "name": "Dataops node",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "deployment": {
+        "name": "Deployment",
+        "family": "platform",
+        "group": "Delivery",
+        "origin": "new"
+    },
+    "digital-product-runner": {
+        "name": "Digital product runner",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "documentation": {
+        "name": "Documentation",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "downtime": {
+        "name": "Downtime",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "edge-driven": {
+        "name": "Edge driven",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "edge-node": {
+        "name": "Edge node",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "email": {
+        "name": "Email",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "end-to-end": {
+        "name": "End to end",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "energy": {
+        "name": "Energy",
+        "family": "domain",
+        "group": "KPIs",
+        "origin": "new"
+    },
+    "entrypoint": {
+        "name": "Entrypoint",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "erp": {
+        "name": "ERP",
+        "family": "platform",
+        "group": "Systems",
+        "origin": "new"
+    },
+    "ethernet-ip": {
+        "name": "EtherNet/IP",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "event": {
+        "name": "Event",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "explorer": {
+        "name": "Explorer",
+        "family": "apps",
+        "group": "product",
+        "origin": "new"
+    },
+    "external-agents": {
+        "name": "External agents",
+        "family": "apps",
+        "group": "ai",
+        "origin": "new"
+    },
+    "external-app": {
+        "name": "External app",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "external-systems": {
+        "name": "External systems",
+        "family": "apps",
+        "group": "catalog",
+        "origin": "new"
+    },
+    "feedback-loop": {
+        "name": "Feedback loop",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "file-connector": {
+        "name": "File connector",
+        "family": "protocols",
+        "group": "data",
+        "origin": "new"
+    },
+    "filler": {
+        "name": "Filler",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "fleet": {
+        "name": "Fleet",
+        "family": "platform",
+        "group": "Nodes",
+        "origin": "new"
+    },
+    "floorplan": {
+        "name": "Floorplan",
+        "family": "domain",
+        "group": "Documents",
+        "origin": "new"
+    },
+    "formula": {
+        "name": "Formula",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "gateway": {
+        "name": "Gateway",
+        "family": "platform",
+        "group": "Nodes",
+        "origin": "new"
+    },
+    "grants": {
+        "name": "Grants",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "groups": {
+        "name": "Groups",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "health": {
+        "name": "Health",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "historian": {
+        "name": "Historian",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "hmi": {
+        "name": "Hmi",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "http-rest": {
+        "name": "HTTP / REST",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "hub-node": {
+        "name": "Hub node",
+        "family": "platform",
+        "group": "Nodes",
+        "origin": "new"
+    },
+    "i3x": {
+        "name": "i3X",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "injection-molding": {
+        "name": "Injection molding",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "installed-app": {
+        "name": "Installed app",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "integrated-ai": {
+        "name": "Integrated AI",
+        "family": "apps",
+        "group": "ai",
+        "origin": "new"
+    },
+    "integrations": {
+        "name": "Integrations",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "internet": {
+        "name": "Internet",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "intranet": {
+        "name": "Intranet",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "json-payload": {
+        "name": "JSON payload",
+        "family": "protocols",
+        "group": "messaging",
+        "origin": "new"
+    },
+    "land-and-expand": {
+        "name": "Land and expand",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "license": {
+        "name": "License",
+        "family": "platform",
+        "group": "Network and security",
+        "origin": "new"
+    },
+    "line": {
+        "name": "Production line",
+        "family": "domain",
+        "group": "Plant hierarchy",
+        "origin": "new"
+    },
+    "local-tools": {
+        "name": "Local tools",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "location-pin": {
+        "name": "Location pin",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "machine": {
+        "name": "Machine",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "maintenance-document": {
+        "name": "Maintenance document",
+        "family": "domain",
+        "group": "Documents",
+        "origin": "new"
+    },
+    "mcp-protocol": {
+        "name": "MCP",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "mcp-surface": {
+        "name": "MCP surface",
+        "family": "apps",
+        "group": "ai",
+        "origin": "new"
+    },
+    "mes": {
+        "name": "Mes",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "metadata-types": {
+        "name": "Metadata types",
+        "family": "apps",
+        "group": "catalog",
+        "origin": "new"
+    },
+    "mixer": {
+        "name": "Mixer",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "modbus": {
+        "name": "Modbus",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "model-provider": {
+        "name": "Model provider",
+        "family": "apps",
+        "group": "ai",
+        "origin": "new"
+    },
+    "monitor-check": {
+        "name": "Monitor check",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "motor": {
+        "name": "Motor",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "mqtt": {
+        "name": "MQTT",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "mtconnect": {
+        "name": "MTConnect",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "network": {
+        "name": "Network",
+        "family": "platform",
+        "group": "Network and security",
+        "origin": "new"
+    },
+    "notification-delivery": {
+        "name": "Notification delivery",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "notifications": {
+        "name": "Notifications",
+        "family": "apps",
+        "group": "product",
+        "origin": "new"
+    },
+    "oee": {
+        "name": "OEE",
+        "family": "domain",
+        "group": "KPIs",
+        "origin": "new"
+    },
+    "offline": {
+        "name": "Offline",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "opc-ua": {
+        "name": "OPC UA",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "open-architecture": {
+        "name": "Open architecture",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "open-interfaces": {
+        "name": "Open interfaces",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "open-no-lock-in": {
+        "name": "Open no lock in",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "options": {
+        "name": "Options",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "order": {
+        "name": "Order",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "ota-update": {
+        "name": "OTA update",
+        "family": "platform",
+        "group": "Delivery",
+        "origin": "new"
+    },
+    "oven": {
+        "name": "Oven",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "packaging": {
+        "name": "Packaging",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "palletizer": {
+        "name": "Palletizer",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "pilot-in-a-box": {
+        "name": "Pilot in a box",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "plc": {
+        "name": "Plc",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "predictive-maintenance": {
+        "name": "Predictive maintenance",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "prekit-node": {
+        "name": "PREKIT node",
+        "family": "platform",
+        "group": "Nodes",
+        "origin": "new"
+    },
+    "press": {
+        "name": "Press",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "privacy": {
+        "name": "Privacy",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "profinet": {
+        "name": "PROFINET",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "pump": {
+        "name": "Pump",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "qr-scanner": {
+        "name": "QR scanner",
+        "family": "protocols",
+        "group": "data",
+        "origin": "new"
+    },
+    "quality-check": {
+        "name": "Quality check",
+        "family": "domain",
+        "group": "KPIs",
+        "origin": "new"
+    },
+    "remote-monitoring": {
+        "name": "Remote monitoring",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "replication": {
+        "name": "Replication",
+        "family": "platform",
+        "group": "Data",
+        "origin": "new"
+    },
+    "resource-document": {
+        "name": "Resource document",
+        "family": "domain",
+        "group": "Documents",
+        "origin": "new"
+    },
+    "restart": {
+        "name": "Restart",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "revision": {
+        "name": "Revision",
+        "family": "platform",
+        "group": "Delivery",
+        "origin": "new"
+    },
+    "robot": {
+        "name": "Robot",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "rollout": {
+        "name": "Rollout",
+        "family": "platform",
+        "group": "Delivery",
+        "origin": "new"
+    },
+    "root-cause-analysis": {
+        "name": "Root cause analysis",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "s7": {
+        "name": "S7 PLC",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "scada": {
+        "name": "SCADA",
+        "family": "platform",
+        "group": "Systems",
+        "origin": "new"
+    },
+    "scale-horizontally": {
+        "name": "Scale horizontally",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "scale-horizontally-b": {
+        "name": "Scale horizontally b",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "search": {
+        "name": "Search",
+        "family": "apps",
+        "group": "product",
+        "origin": "new"
+    },
+    "semantic-type": {
+        "name": "Semantic type",
+        "family": "apps",
+        "group": "catalog",
+        "origin": "new"
+    },
+    "sensor": {
+        "name": "Sensor",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "server": {
+        "name": "Server",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "service": {
+        "name": "Service",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "settings": {
+        "name": "Settings",
+        "family": "apps",
+        "group": "rail",
+        "origin": "new"
+    },
+    "shift": {
+        "name": "Shift",
+        "family": "domain",
+        "group": "Events",
+        "origin": "new"
+    },
+    "shopfloor": {
+        "name": "Shopfloor",
+        "family": "apps",
+        "group": "product",
+        "origin": "new"
+    },
+    "signal": {
+        "name": "Signal",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "site": {
+        "name": "Site",
+        "family": "domain",
+        "group": "Plant hierarchy",
+        "origin": "new"
+    },
+    "smart-data": {
+        "name": "Smart data",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "smart-product": {
+        "name": "Smart product",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "sparkplug-b": {
+        "name": "Sparkplug B",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "sql": {
+        "name": "SQL",
+        "family": "protocols",
+        "group": "data",
+        "origin": "new"
+    },
+    "storage": {
+        "name": "Storage",
+        "family": "platform",
+        "group": "Data",
+        "origin": "new"
+    },
+    "sync": {
+        "name": "Sync",
+        "family": "platform",
+        "group": "Data",
+        "origin": "new"
+    },
+    "system-logs": {
+        "name": "System logs",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "tag": {
+        "name": "Tag",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "tank": {
+        "name": "Tank",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "team": {
+        "name": "Team",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "telephone": {
+        "name": "Telephone",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "terminal": {
+        "name": "Terminal",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "threshold": {
+        "name": "Threshold",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "throughput": {
+        "name": "Throughput",
+        "family": "domain",
+        "group": "KPIs",
+        "origin": "new"
+    },
+    "time-series": {
+        "name": "Time series",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "time-sync": {
+        "name": "Time sync",
+        "family": "platform",
+        "group": "Data",
+        "origin": "new"
+    },
+    "topic": {
+        "name": "Topic",
+        "family": "protocols",
+        "group": "messaging",
+        "origin": "new"
+    },
+    "unified-namespace": {
+        "name": "Unified namespace",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "unit": {
+        "name": "Unit",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "user": {
+        "name": "User",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "users": {
+        "name": "Users",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "value-definitions": {
+        "name": "Value definitions",
+        "family": "apps",
+        "group": "catalog",
+        "origin": "new"
+    },
+    "value-history": {
+        "name": "Value history",
+        "family": "domain",
+        "group": "Data",
+        "origin": "new"
+    },
+    "valve": {
+        "name": "Valve",
+        "family": "domain",
+        "group": "Machines",
+        "origin": "new"
+    },
+    "vendor-lock-in": {
+        "name": "Vendor lock in",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "vpn-tunnel": {
+        "name": "VPN tunnel",
+        "family": "platform",
+        "group": "Network and security",
+        "origin": "new"
+    },
+    "web-analytics": {
+        "name": "Web analytics",
+        "family": "apps",
+        "group": "admin",
+        "origin": "new"
+    },
+    "webhook": {
+        "name": "Webhook",
+        "family": "protocols",
+        "group": "protocol",
+        "origin": "new"
+    },
+    "webhook-server": {
+        "name": "Webhook server",
+        "family": "platform",
+        "group": "Runtime",
+        "origin": "new"
+    },
+    "wifi": {
+        "name": "Wifi",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    },
+    "wifi-offline": {
+        "name": "Wifi offline",
+        "family": "existing",
+        "group": "existing",
+        "origin": "existing"
+    }
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect x="44" y="157" width="152" height="54" rx="12" ry="12" />
+  <circle cx="74" cy="184" r="7" class="af" />
+  <line x1="116" y1="184" x2="168" y2="184" />
+  <circle cx="132" cy="41" r="12" class="a" />
+  <line x1="132" y1="53" x2="132" y2="91" />
+  <path d="M132 91 c0 22 -16 36 -38 36 s-38 -16 -38 -36" class="a" />
+  <path d="M56 91 l-14 16 M56 91 l18 10" class="a" />
+</svg>

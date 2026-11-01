@@ -275,6 +275,16 @@ describe('workbench components', () => {
         window.dispatchEvent(new PointerEvent('pointerup'));
     });
 
+    it('takes alp_ icon strings and leaves icon classes alone on an icon button', () => {
+        const alp = mount(IconButton, { props: { label: 'Sync', icon: 'alp_sync' }, global });
+        expect(alp.get('use').attributes('href')).toBe('/icons/alp-small.svg#sync');
+        expect(alp.find('i').exists()).toBe(false);
+
+        const plain = mount(IconButton, { props: { label: 'Close', icon: 'pi pi-times' }, global });
+        expect(plain.find('svg').exists()).toBe(false);
+        expect(plain.find('i').exists()).toBe(true);
+    });
+
     it('maps workbench actions into the Volt menu', async () => {
         const wrapper = mount(ContextMenu, {
             props: {

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect x="26" y="58" width="48" height="32" rx="10" ry="10"/>
+  <circle class="k" cx="38" cy="74" r="4"/>
+  <rect x="26" y="90" width="48" height="32" rx="10" ry="10"/>
+  <circle class="k" cx="38" cy="106" r="4"/>
+  <path d="M50,122v35"/>
+  <circle cx="50" cy="168" r="11"/>
+  <rect x="96" y="58" width="48" height="32" rx="10" ry="10"/>
+  <circle class="k" cx="108" cy="74" r="4"/>
+  <rect x="96" y="90" width="48" height="32" rx="10" ry="10"/>
+  <circle class="k" cx="108" cy="106" r="4"/>
+  <path d="M120,122v35"/>
+  <circle cx="120" cy="168" r="11"/>
+  <rect class="a" x="166" y="58" width="48" height="32" rx="10" ry="10"/>
+  <circle class="af" cx="178" cy="74" r="4"/>
+  <rect class="a" x="166" y="90" width="48" height="32" rx="10" ry="10"/>
+  <circle class="af" cx="178" cy="106" r="4"/>
+  <path class="a" d="M190,122v35"/>
+  <circle class="a" cx="190" cy="168" r="11"/>
+  <path d="M39,168H24"/>
+  <path d="M61,168h48"/>
+  <path d="M131,168h48"/>
+  <path class="a" d="M201,168h15"/>
+</svg>

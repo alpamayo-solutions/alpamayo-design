@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect x="60" y="24" width="120" height="76" rx="14" ry="14"/>
+  <path d="M60,50h120"/>
+  <circle class="k" cx="80" cy="37.0" r="5"/>
+  <circle class="k" cx="96" cy="37.0" r="5"/>
+  <circle class="k" cx="112" cy="37.0" r="5"/>
+  <rect x="24" y="146" width="88" height="68" rx="12" ry="12"/>
+  <path d="M24,170h88"/>
+  <circle class="k" cx="40" cy="158.0" r="4"/>
+  <circle class="k" cx="53" cy="158.0" r="4"/>
+  <circle class="k" cx="66" cy="158.0" r="4"/>
+  <rect x="128" y="146" width="88" height="68" rx="12" ry="12"/>
+  <path d="M128,170h88"/>
+  <circle class="k" cx="144" cy="158.0" r="4"/>
+  <circle class="k" cx="157" cy="158.0" r="4"/>
+  <circle class="k" cx="170" cy="158.0" r="4"/>
+  <circle class="a" cx="120" cy="122" r="11"/>
+  <path class="a" d="M120,100v11"/>
+  <path class="a" d="M109,122H78c-6.6,0-10,3.4-10,10v14"/>
+  <path class="a" d="M131,122h31c6.6,0,10,3.4,10,10v14"/>
+</svg>

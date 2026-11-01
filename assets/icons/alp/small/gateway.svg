@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <rect x="6.6" y="6.6" width="10.8" height="10.8" rx="1.8" ry="1.8" />
+  <line x1="3" y1="12" x2="6.6" y2="12" />
+  <line x1="17.4" y1="12" x2="21" y2="12" />
+  <path d="M11.95 14.29 L14.25 12 L11.95 9.7" class="a" />
+  <line x1="9.3" y1="12" x2="13.8" y2="12" class="a" />
+</svg>

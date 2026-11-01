@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect x="74" y="90" width="92" height="112" rx="14" ry="14"/>
+  <path d="M120,90V66"/>
+  <path class="a" d="M105,53c8.3-7.9,21.7-7.9,30,0"/>
+  <path class="a" d="M92,38c15.5-14.7,40.5-14.7,56,0"/>
+  <path d="M96,118h30"/>
+  <circle class="af" cx="145" cy="118" r="6"/>
+  <path d="M96,146h30"/>
+  <circle class="k" cx="145" cy="146" r="6"/>
+  <path d="M96,174h30"/>
+  <circle class="k" cx="145" cy="174" r="6"/>
+</svg>

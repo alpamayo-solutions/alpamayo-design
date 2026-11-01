@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <ellipse cx="70" cy="120" rx="26" ry="58" />
+  <path d="M70 62 H180 c14 0 26 26 26 58 s-12 58 -26 58 H70" />
+  <line x1="34" y1="120" x2="70" y2="120" class="a" />
+  <line x1="70" y1="120" x2="168" y2="120" class="a" />
+  <path d="M153.65 134.72 L170 120 L153.65 105.28" class="a" />
+</svg>

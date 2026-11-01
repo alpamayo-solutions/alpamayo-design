@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, useId, watch } from 'vue';
+import { isAlpIcon } from '../../../composables/alpIcons';
+import WorkbenchIcon from './Icon.vue';
 
 /** A secondary action offered on one tab, beside its close button. */
 export interface WorkbenchTabAction {
     id: string;
-    /** Icon class, e.g. `pi pi-external-link`. */
+    /** Icon class, e.g. `pi pi-external-link`, or an `alp_*` icon. */
     icon: string;
     /** The accessible name AND the tooltip. Already translated by the caller. */
     label: string;
@@ -215,7 +217,7 @@ function onDragEnd(event: DragEvent) {
                     @dragstart="onDragStart(tab.id, $event)"
                     @dragend="onDragEnd"
                 >
-                    <i v-if="tab.icon" :class="tab.icon" aria-hidden="true" />
+                    <WorkbenchIcon v-if="tab.icon" :icon="tab.icon" />
                     <span class="alp-workbench-tab-label">{{ tab.label }}</span>
                     <span v-if="tab.dirty" class="alp-workbench-tab-dirty" :aria-label="dirtyLabel" />
                 </button>
@@ -227,9 +229,11 @@ function onDragEnd(event: DragEvent) {
                     :title="action.label"
                     :data-tab-action="action.id"
                     class="alp-workbench-tab-action"
-                    :class="action.icon"
+                    :class="isAlpIcon(action.icon) ? undefined : action.icon"
                     @click.stop="$emit('action', tab.id, action.id)"
-                />
+                >
+                    <WorkbenchIcon v-if="isAlpIcon(action.icon)" :icon="action.icon" :size="14" />
+                </button>
                 <button
                     type="button"
                     :aria-label="closeLabel(tab.label)"

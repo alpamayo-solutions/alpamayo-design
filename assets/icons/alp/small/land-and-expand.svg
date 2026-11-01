@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <circle class="af" cx="12" cy="12" r="2.5"/>
+  <path d="M3 8V3h5"/>
+  <path d="M16 3h5v5"/>
+  <path d="M21 16v5h-5"/>
+  <path d="M8 21H3v-5"/>
+  <path d="M3 3l5 5"/>
+  <path d="M21 3l-5 5"/>
+  <path d="M21 21l-5-5"/>
+  <path d="M3 21l5-5"/>
+</svg>

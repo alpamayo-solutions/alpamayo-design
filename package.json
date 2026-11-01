@@ -36,7 +36,8 @@
         "format:check": "prettier --check .",
         "test": "vitest run",
         "design:build": "npm run generate && node design-sync/build.mjs",
-        "check:stories": "node scripts/check-stories.mjs"
+        "check:stories": "node scripts/check-stories.mjs",
+        "icons:build": "node scripts/build-alp-icons.mjs"
     },
     "peerDependencies": {
         "primeicons": "^7.0.0",

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect x="52" y="110" width="68" height="52" rx="6" ry="6"/>
+  <rect x="120" y="110" width="68" height="52" rx="6" ry="6"/>
+  <rect x="86" y="58" width="68" height="52" rx="6" ry="6" class="a"/>
+  <line x1="40" y1="174" x2="200" y2="174"/>
+  <line x1="60" y1="174" x2="60" y2="196"/>
+  <line x1="120" y1="174" x2="120" y2="196"/>
+  <line x1="180" y1="174" x2="180" y2="196"/>
+</svg>

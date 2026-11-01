@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <rect x="40" y="40" width="160" height="160" rx="14" ry="14"/>
+  <rect class="a" x="86" y="86" width="68" height="68" rx="10" ry="10"/>
+  <path d="M26,102h14"/>
+  <path d="M200,102h14"/>
+  <path d="M102,26v14"/>
+  <path d="M102,200v14"/>
+  <path d="M26,138h14"/>
+  <path d="M200,138h14"/>
+  <path d="M138,26v14"/>
+  <path d="M138,200v14"/>
+</svg>

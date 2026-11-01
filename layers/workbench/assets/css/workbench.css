@@ -17,6 +17,7 @@
 :root {
     --alp-workbench-app-bar-height: 2.625rem;
     --alp-workbench-activity-rail-width: 3rem;
+    --alp-workbench-activity-icon-accent: var(--primary-400);
     --alp-workbench-explorer-width: 17rem;
     --alp-workbench-explorer-min-width: 13rem;
     --alp-workbench-explorer-max-width: 32rem;
@@ -59,6 +60,7 @@
     --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
     --alp-workbench-focus: var(--p-primary-400);
     --alp-workbench-danger: var(--danger-400);
+    --alp-workbench-activity-icon-accent: var(--primary-300);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -74,6 +76,7 @@
         --alp-workbench-selection: color-mix(in srgb, var(--p-primary-400), transparent 82%);
         --alp-workbench-focus: var(--p-primary-400);
         --alp-workbench-danger: var(--danger-400);
+        --alp-workbench-activity-icon-accent: var(--primary-300);
     }
 }
 
@@ -134,6 +137,12 @@
     background: transparent;
     font-size: 1.0625rem;
     cursor: pointer;
+    --icon-accent: var(--alp-workbench-activity-icon-accent);
+}
+
+/* Detailed drawings at 28 px need a heavier line than the 240 grid's 8. */
+.alp-workbench-activity-item .alp-icon--detail {
+    stroke-width: 12;
 }
 
 .alp-workbench-activity-item:hover,
@@ -159,6 +168,7 @@
 }
 
 .alp-workbench-activity-item--active {
+    --icon-accent: var(--secondary-500);
     color: var(--alp-workbench-focus);
 }
 
