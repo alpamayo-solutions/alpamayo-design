@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <path d="M12 18H8.5A2.5 2.5 0 0 1 6 15.5v-7A2.5 2.5 0 0 1 8.5 6h9A2.5 2.5 0 0 1 20 8.5V12"/>
-  <circle class="af" cx="12.5" cy="12" r="2.2"/>
-  <path d="M12.5 6V3.5"/>
-  <circle class="k" cx="12.5" cy="3.5" r="1.5"/>
-  <path d="M6 12H3.5"/>
-  <circle class="k" cx="3.5" cy="12" r="1.5"/>
-  <polygon class="k" points="14.5 14.5 22 17 18.5 18.5 17 22"/>
+  <path d="M12,3.5V8.5"/>
+  <path d="M12,15.5V20.5"/>
+  <path d="M3.5,12H8.5"/>
+  <path d="M15.5,12H20.5"/>
+  <circle class="a" cx="12" cy="12" r="3.5"/>
+  <circle class="k" cx="12" cy="3" r="1.9"/>
+  <circle class="k" cx="12" cy="21" r="1.9"/>
+  <circle class="k" cx="3" cy="12" r="1.9"/>
+  <circle class="k" cx="21" cy="12" r="1.9"/>
 </svg>

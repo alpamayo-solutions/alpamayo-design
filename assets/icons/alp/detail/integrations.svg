@@ -1,9 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
   <rect x="36" y="36" width="168" height="168" rx="18" ry="18"/>
   <path d="M36,76H204"/>
-  <circle cx="62" cy="56" r="1.7"/>
-  <circle cx="80" cy="56" r="1.7"/>
-  <circle cx="98" cy="56" r="1.7"/>
   <path d="M108,106V162H94a28,28 0 0 1 0,-56Z"/>
   <path class="a" d="M132,106V162H146a28,28 0 0 0 0,-56Z"/>
   <path d="M108,120H124"/>

@@ -50,6 +50,16 @@ describe('icon source', () => {
     });
 });
 
+describe('logos', () => {
+    it('references only files that ship beside the sprites', () => {
+        for (const variant of ['detail', 'small']) {
+            const sprite = readFileSync(join(root, `public/icons/alp-${variant}.svg`), 'utf8');
+            const logos = [...sprite.matchAll(/<image href="\/icons\/logos\/([^"]+)"/g)].map((m) => m[1]);
+            expect(logos.sort()).toEqual(readdirSync(join(root, 'public/icons/logos')).sort());
+        }
+    });
+});
+
 describe('icon strings', () => {
     it('fits every icon into what the PREKIT server accepts and maps it back', () => {
         for (const id of ALP_ICON_IDS) {

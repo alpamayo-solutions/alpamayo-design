@@ -31,6 +31,8 @@ withDefaults(
 
 <style>
 .alp-icon {
+    /* Tailwind's reset makes every svg a block, which breaks the icon out of a line of text. */
+    display: inline-block;
     flex: none;
     fill: none;
     stroke: currentColor;

@@ -701,12 +701,6 @@
         "group": "existing",
         "origin": "existing"
     },
-    "options": {
-        "name": "Options",
-        "family": "existing",
-        "group": "existing",
-        "origin": "existing"
-    },
     "order": {
         "name": "Order",
         "family": "domain",
@@ -921,6 +915,12 @@
         "name": "Signal",
         "family": "domain",
         "group": "Data",
+        "origin": "new"
+    },
+    "simulation": {
+        "name": "Simulation",
+        "family": "apps",
+        "group": "product",
         "origin": "new"
     },
     "site": {
