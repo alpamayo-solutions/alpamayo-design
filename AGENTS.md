@@ -82,6 +82,20 @@ export default defineNuxtConfig({
   adding one without matching subpath patterns (`"./components/*"`, `"./i18n/*"`,
   `"./assets/*"`) breaks every consumer on their next version bump.
 
+- **Icons.** `AlpIcon` draws the Alpamayo set from external sprites at
+  `/icons/alp-detail.svg` (240 grid) and `/icons/alp-small.svg` (24 grid), so
+  nothing is inlined. Line colour follows `currentColor`; accent parts use
+  `--icon-accent` (set it on any parent) and `--alp-icon-stroke` tunes the small
+  line. Fields holding a string, such as `item.icon`, use `alp_<id with - as _>`
+  (`alp_opc_ua`), which fits PREKIT's `/^[a-z0-9_]{1,64}$/`; `isAlpIcon` and
+  `alpIconId` (`composables/alpIcons.ts`) read that form, and workbench surfaces
+  accept it wherever they take an icon class. Source: `assets/icons/alp/` (drawings
+  plus `manifest.json`). After changing it run `npm run icons:build` and commit
+  `public/icons/` and `composables/alpIconIds.ts`; never hand-edit those.
+  Protocol icons are neutral line drawings, with no third-party logo elements or
+  wordmarks: a real logo belongs to the consumer's surface, beside the protocol's name.
+  The `alp-icons` font stays for now. Design cards do not resolve the sprites.
+
 - **Links go through `AlpLink`** (`components/alp/AlpLink.vue`). No `Alp*`
   component renders `<NuxtLink>`: that tag only resolves through Nuxt's
   compile-time auto-import, so in a plain Vue 3 + Vite consumer it produced an

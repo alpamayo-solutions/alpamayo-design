@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <path d="M44,178A96,96 0 1 1 196,178"/>
+  <path class="a" d="M120,136L164,86"/>
+  <circle class="af" cx="120" cy="136" r="12"/>
+  <path d="M120,44V60"/>
+  <path d="M58,84L70,94"/>
+  <path d="M182,84L170,94"/>
+  <path d="M84,196H156"/>
+</svg>

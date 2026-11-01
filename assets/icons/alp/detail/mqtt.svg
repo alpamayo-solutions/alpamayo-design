@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <path d="M30,50A160,160 0 0 1 190,210"/>
+  <path d="M30,110A100,100 0 0 1 130,210"/>
+  <circle class="af" cx="46" cy="194" r="18"/>
+  <path class="a" d="M160,30H210V80"/>
+</svg>

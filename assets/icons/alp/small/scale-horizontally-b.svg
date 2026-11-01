@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <rect class="k" x="2" y="3" width="5" height="4.5" rx="1"/>
+  <rect class="k" x="2" y="9.5" width="5" height="4.5" rx="1"/>
+  <path d="M4.5,14v5"/>
+  <rect class="k" x="9.5" y="3" width="5" height="4.5" rx="1"/>
+  <rect class="k" x="9.5" y="9.5" width="5" height="4.5" rx="1"/>
+  <path d="M12.0,14v5"/>
+  <rect class="af" x="17" y="3" width="5" height="4.5" rx="1"/>
+  <rect class="af" x="17" y="9.5" width="5" height="4.5" rx="1"/>
+  <path class="a" d="M19.5,14v5"/>
+  <path d="M3,20H21"/>
+</svg>

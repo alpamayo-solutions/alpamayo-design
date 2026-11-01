@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <path d="M120,36c-50,0 -88,38 -88,84s38,84 88,84c12,0 20,-8 20,-18c0,-6 -3,-10 -6,-14c-3,-4 -6,-8 -6,-12c0,-10 8,-16 18,-16h16c30,0 46,-18 46,-42c0,-38 -38,-66 -88,-66Z"/>
+  <circle class="af" cx="82" cy="118" r="11"/>
+  <circle class="af" cx="100" cy="78" r="11"/>
+  <circle class="af" cx="146" cy="76" r="11"/>
+  <circle class="af" cx="172" cy="108" r="11"/>
+</svg>

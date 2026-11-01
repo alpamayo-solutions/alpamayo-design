@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <path d="M120,50V84"/>
+  <path d="M120,156V190"/>
+  <path d="M50,120H84"/>
+  <path d="M156,120H190"/>
+  <circle class="a" cx="120" cy="120" r="36"/>
+  <circle class="k" cx="120" cy="34" r="20"/>
+  <circle class="k" cx="120" cy="206" r="20"/>
+  <circle class="k" cx="34" cy="120" r="20"/>
+  <circle class="k" cx="206" cy="120" r="20"/>
+</svg>

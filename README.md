@@ -46,6 +46,19 @@ the source checkout. Changes to source-shipped files are then available to the
 Nuxt dev server without publishing a package first. Switch the dependency back
 to the released package version before production delivery.
 
+## Icons
+
+```vue
+<AlpIcon name="opc-ua" />
+<AlpIcon name="opc-ua" variant="detail" :size="28" />
+```
+
+Set `--icon-accent` on a parent to colour the accent parts. String fields such as
+`item.icon` take `alp_opc_ua`; see `isAlpIcon` and `alpIconId`. Workbench surfaces
+render those strings and keep other icon classes as they are. The `alp-icons` font
+remains available for now. `npm run icons:build` regenerates the sprites from
+`assets/icons/alp/`.
+
 ## Develop
 
 ```bash
@@ -53,6 +66,7 @@ npm install
 npm run dev            # playground with all stories at /
 npm test               # vitest
 npm run check:stories  # every component must have a story
+npm run icons:build    # regenerate icon sprites and the id list
 npm run design:build   # build Claude Design cards + manifest
 ```
 

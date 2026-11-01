@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { isAlpIcon } from '../../../composables/alpIcons';
+import WorkbenchIcon from './Icon.vue';
+
 withDefaults(
     defineProps<{
         label: string;
@@ -22,7 +25,7 @@ defineEmits<{
     <VoltButton
         text
         rounded
-        :icon="icon"
+        :icon="isAlpIcon(icon) ? undefined : icon"
         :disabled="disabled"
         :aria-label="label"
         :title="label"
@@ -30,6 +33,7 @@ defineEmits<{
         :class="{ 'alp-workbench-icon-button--active': active }"
         @click="$emit('click', $event)"
     >
+        <WorkbenchIcon v-if="isAlpIcon(icon)" :icon="icon" />
         <slot />
     </VoltButton>
 </template>
