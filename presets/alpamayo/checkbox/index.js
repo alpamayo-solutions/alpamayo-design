@@ -99,7 +99,6 @@ export default {
     icon: ({ props, context, state }) => ({
         class: [
             // Size
-            'w-4.5 h-4.5',
             {
                 'w-3.5 h-3.5': props.size === undefined,
                 'w-4.5 h-4.5': props.size === 'large',
@@ -108,12 +107,15 @@ export default {
 
             // Colors
             {
-                // The box stays `bg-primary-400` in both themes, so the tick must
-                // too — a dark-mode-only near-black tick was unreadable on it.
-                'text-white': context.checked,
+                // The filled box is `bg-primary-400` in both themes; the tick takes
+                // the colour made to stand on the primary fill, so a branding
+                // with a light primary gets a dark tick.
+                'text-primary-contrast': context.checked && !props.disabled,
                 // The indeterminate dash sits on the surface background, so it
                 // uses the per-scheme AA text token rather than the raw primary.
-                'text-primary-text': state.d_indeterminate
+                'text-primary-text': state.d_indeterminate && !props.disabled,
+                // Disabled, the box is a surface tint, checked or not.
+                'text-surface-700 dark:text-surface-0': props.disabled
             },
 
             // Transitions
