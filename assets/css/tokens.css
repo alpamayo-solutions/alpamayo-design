@@ -244,7 +244,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light) {
         --background: var(--p-primary-900);
         --foreground: var(--p-surface-0);
 

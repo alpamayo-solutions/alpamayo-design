@@ -20,14 +20,13 @@
             <div
                 class="overflow-y-auto pt-0 px-5 pb-5 flex items-center gap-4 text-surface-700 dark:text-surface-0/80"
             >
-                <ExclamationTriangeIcon class="size-6" />
+                <ExclamationTriangeIcon class="size-6 shrink-0" />
                 {{ message.message }}
             </div>
             <div class="pt-0 px-5 pb-5 flex justify-end gap-2">
                 <SecondaryButton
                     @click="rejectCallback"
                     :label="message.rejectProps?.label || message.rejectLabel || 'Cancel'"
-                    size="small"
                 />
                 <Button
                     @click="acceptCallback"
@@ -40,7 +39,6 @@
                         message.acceptProps?.icon ||
                         (String(message.acceptClass || '').includes('danger') ? 'pi pi-trash' : undefined)
                     "
-                    size="small"
                 />
             </div>
         </template>
