@@ -8,7 +8,7 @@
     >
         <template #container="{ message, acceptCallback, rejectCallback }">
             <div class="flex items-center justify-between shrink-0 p-5">
-                <span :ref="nameDialog" class="font-semibold text-xl text-surface-800 dark:text-surface-0">{{
+                <span :id="titleId" class="font-semibold text-xl text-surface-800 dark:text-surface-0">{{
                     message.header
                 }}</span>
                 <SecondaryButton variant="text" rounded :aria-label="closeLabel" @click="rejectCallback">
@@ -54,7 +54,7 @@ import ConfirmDialog, {
     type ConfirmDialogProps
 } from 'primevue/confirmdialog';
 import { usePrimeVue } from 'primevue/config';
-import { computed, ref } from 'vue';
+import { computed, ref, useId } from 'vue';
 import Button from './Button.vue';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
@@ -63,16 +63,14 @@ import auraConfirmDialodPreset from '../../presets/alpamayo/confirmdialog/index.
 interface Props extends /* @vue-ignore */ ConfirmDialogProps {}
 defineProps<Props>();
 
-const theme = ref<ConfirmDialogPassThroughOptions>(auraConfirmDialodPreset);
+// The container slot replaces PrimeVue's header, so the id its aria-labelledby names never
+// exists: point it at our own title instead. Focus starts on Cancel.
+const titleId = `alp-confirm-${useId()}`;
+const theme = ref<ConfirmDialogPassThroughOptions>({
+    ...auraConfirmDialodPreset,
+    root: { 'aria-labelledby': titleId }
+} as ConfirmDialogPassThroughOptions);
 
 const primevue = usePrimeVue();
 const closeLabel = computed(() => primevue.config.locale?.aria?.close || 'Close');
-
-// The dialog's aria-labelledby names PrimeVue's header id, which the container slot doesn't
-// render: give that id to our title so screen readers announce it. Focus starts on Cancel.
-function nameDialog(el: unknown) {
-    if (!(el instanceof HTMLElement)) return;
-    const id = el.closest('[aria-labelledby]')?.getAttribute('aria-labelledby');
-    if (id) el.id = id;
-}
 </script>
