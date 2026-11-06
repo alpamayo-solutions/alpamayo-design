@@ -330,7 +330,7 @@ h2 {
 }
 
 @utility text-section-inner-title {
-    @apply text-primary-800 dark:text-primary-400 text-2xl font-semibold;
+    @apply text-primary-800 dark:text-primary-300 text-2xl font-semibold;
 }
 
 /* Fallbacks for slash-opacity color utilities in browsers without color-mix */
