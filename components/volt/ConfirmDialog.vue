@@ -8,10 +8,10 @@
     >
         <template #container="{ message, acceptCallback, rejectCallback }">
             <div class="flex items-center justify-between shrink-0 p-5">
-                <span class="font-semibold text-xl text-surface-800 dark:text-surface-0">{{
+                <span :ref="nameDialog" class="font-semibold text-xl text-surface-800 dark:text-surface-0">{{
                     message.header
                 }}</span>
-                <SecondaryButton variant="text" rounded @click="rejectCallback" autofocus>
+                <SecondaryButton variant="text" rounded :aria-label="closeLabel" @click="rejectCallback">
                     <template #icon>
                         <TimesIcon />
                     </template>
@@ -25,6 +25,7 @@
             </div>
             <div class="pt-0 px-5 pb-5 flex justify-end gap-2">
                 <SecondaryButton
+                    autofocus
                     @click="rejectCallback"
                     :label="message.rejectProps?.label || message.rejectLabel || 'Cancel'"
                 />
@@ -52,7 +53,8 @@ import ConfirmDialog, {
     type ConfirmDialogPassThroughOptions,
     type ConfirmDialogProps
 } from 'primevue/confirmdialog';
-import { ref } from 'vue';
+import { usePrimeVue } from 'primevue/config';
+import { computed, ref } from 'vue';
 import Button from './Button.vue';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
@@ -62,4 +64,15 @@ interface Props extends /* @vue-ignore */ ConfirmDialogProps {}
 defineProps<Props>();
 
 const theme = ref<ConfirmDialogPassThroughOptions>(auraConfirmDialodPreset);
+
+const primevue = usePrimeVue();
+const closeLabel = computed(() => primevue.config.locale?.aria?.close || 'Close');
+
+// The dialog's aria-labelledby names PrimeVue's header id, which the container slot doesn't
+// render: give that id to our title so screen readers announce it. Focus starts on Cancel.
+function nameDialog(el: unknown) {
+    if (!(el instanceof HTMLElement)) return;
+    const id = el.closest('[aria-labelledby]')?.getAttribute('aria-labelledby');
+    if (id) el.id = id;
+}
 </script>

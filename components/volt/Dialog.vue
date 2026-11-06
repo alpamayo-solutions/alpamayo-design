@@ -5,9 +5,10 @@
         :ptOptions="{
             mergeProps: ptViewMerge
         }"
+        @show="focusInside"
     >
         <template #closebutton="{ closeCallback }">
-            <SecondaryButton rounded :aria-label="closeLabel" @click="closeCallback">
+            <SecondaryButton ref="closeButton" rounded :aria-label="closeLabel" @click="closeCallback">
                 <template #icon>
                     <TimesIcon />
                 </template>
@@ -33,7 +34,7 @@ import WindowMaximizeIcon from '@primevue/icons/windowmaximize';
 import WindowMinimizeIcon from '@primevue/icons/windowminimize';
 import Dialog, { type DialogPassThroughOptions, type DialogProps } from 'primevue/dialog';
 import { usePrimeVue } from 'primevue/config';
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import SecondaryButton from './SecondaryButton.vue';
 import { ptViewMerge } from './utils';
 import auraDialogPreset from '../../presets/alpamayo/dialog/index.js';
@@ -48,4 +49,14 @@ const theme = ref<DialogPassThroughOptions>(auraDialogPreset);
 // name (axe: button-name). Same source, same fallback as PrimeVue.
 const primevue = usePrimeVue();
 const closeLabel = computed(() => primevue.config.locale?.aria?.close || 'Close');
+
+// PrimeVue moves focus into the dialog through its own close button, which the slot above
+// replaces; without this, focus stays on the page behind the modal.
+const closeButton = ref<{ $el?: HTMLElement } | null>(null);
+async function focusInside() {
+    await nextTick();
+    const button = closeButton.value?.$el;
+    const dialog = button?.closest('[role="dialog"], [role="alertdialog"]');
+    if (button && dialog && !dialog.contains(document.activeElement)) button.focus();
+}
 </script>

@@ -34,7 +34,8 @@ export default {
             {
                 'text-surface-700 dark:text-white/80': context.checked,
                 'border-surface-300 dark:border-surface-700': !context.checked && !props.invalid,
-                'border-primary bg-primary': context.checked && !props.disabled
+                'border-primary bg-primary dark:border-primary-400 dark:bg-primary-400':
+                    context.checked && !props.disabled
             },
             // Invalid State
             { 'border-danger dark:border-red-400': props.invalid },
