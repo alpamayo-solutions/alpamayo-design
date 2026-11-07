@@ -32,7 +32,11 @@ let opener: HTMLElement | null = null;
 function returnFocus() {
     const target = opener;
     setTimeout(() => {
-        if (target?.isConnected && (document.activeElement === document.body || document.activeElement === null)) target.focus();
+        if (
+            target?.isConnected &&
+            (document.activeElement === document.body || document.activeElement === null)
+        )
+            target.focus();
     });
 }
 defineExpose({
