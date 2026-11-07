@@ -26,7 +26,7 @@ export default {
             'before:h-4 before:w-4',
             'before:rounded-full',
             'before:duration-200',
-            'before:bg-surface-0 dark:before:bg-surface-500',
+            'before:bg-surface-0 dark:before:bg-surface-0',
 
             // Colors
             'border',
@@ -42,7 +42,7 @@ export default {
 
             // States
             {
-                'peer-hover:bg-surface-400 dark:peer-hover:bg-surface-700':
+                'peer-hover:bg-surface-600 dark:peer-hover:bg-surface-400':
                     !(props.modelValue == props.trueValue) && !props.disabled && !props.invalid
             },
             {
