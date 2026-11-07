@@ -43,9 +43,11 @@ export default {
                     'text-center': parent.props.showButtons && parent.props.buttonLayout == 'vertical'
                 },
 
-                // Spacing
+                // Spacing and the fixed control height (see inputtext): the field
+                // then lines up with the inputs and buttons beside it.
                 'py-2 px-2',
                 'm-0',
+                'box-border h-[2.125rem]',
 
                 // Shape
                 {
