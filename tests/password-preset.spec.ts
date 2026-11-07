@@ -22,7 +22,7 @@ describe('password preset', () => {
 
         expect(classes).toContain('bg-surface-0');
         expect(classes).toContain('border');
-        expect(classes).toContain('border-surface-300');
+        expect(classes).toContain('border-surface-500');
         expect(classes).toContain('h-[2.125rem]');
         expect(classes.some((c) => c.startsWith('px-'))).toBe(true);
     });
@@ -31,7 +31,7 @@ describe('password preset', () => {
         const classes = inputClasses({ invalid: true });
 
         expect(classes).toContain('border-danger');
-        expect(classes).not.toContain('border-surface-300');
+        expect(classes).not.toContain('border-surface-500');
     });
 
     it('uses the disabled surface when the field is disabled', () => {

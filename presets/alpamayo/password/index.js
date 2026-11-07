@@ -22,11 +22,11 @@ export default {
                         props.disabled
                 },
                 {
-                    'border-surface-300 dark:border-surface-700': !props.invalid,
+                    'border-surface-500 dark:border-surface-500': !props.invalid,
                     'border-danger dark:border-red-400': props.invalid
                 },
                 {
-                    'hover:border-surface-400 dark:hover:border-surface-600':
+                    'hover:border-surface-600 dark:hover:border-surface-400':
                         !props.disabled && !props.invalid,
                     'focus:outline-hidden focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10':
                         !props.disabled

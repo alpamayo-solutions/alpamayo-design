@@ -450,7 +450,8 @@ export default {
             },
 
             // --- Severity Button States ---
-            'focus:outline-hidden focus:outline-offset-0 focus:ring-1',
+            // A visible ring for keyboard focus: 2 px with a gap, so it shows on a filled button in both themes.
+            'focus:outline-hidden focus:outline-offset-0 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0 dark:focus-visible:ring-offset-surface-900',
 
             // Link
             { 'focus:ring-primary': props.link, 'px-0!': props.link },
@@ -474,7 +475,7 @@ export default {
                     !props.plain &&
                     !props.link
             },
-            { 'focus:ring-primary': props.severity === null },
+            { 'focus:ring-primary dark:focus:ring-primary-300': props.severity === null },
             // Text & Outlined Button
             {
                 'hover:bg-primary-50 dark:hover:bg-primary-900/20':

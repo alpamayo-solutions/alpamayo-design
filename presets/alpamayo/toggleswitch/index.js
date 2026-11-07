@@ -31,8 +31,8 @@ export default {
             // Colors
             'border',
             {
-                'bg-surface-300 dark:bg-surface-800': !(props.modelValue == props.trueValue),
-                'bg-primary': props.modelValue == props.trueValue,
+                'bg-surface-500 dark:bg-surface-500': !(props.modelValue == props.trueValue),
+                'bg-primary dark:bg-primary-400': props.modelValue == props.trueValue,
                 'dark:before:bg-surface-950': props.modelValue == props.trueValue,
                 'border-transparent': !props.invalid
             },

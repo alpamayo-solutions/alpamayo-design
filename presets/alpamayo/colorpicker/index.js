@@ -30,7 +30,7 @@ export default {
             'border border-surface-300 dark:border-surface-700',
 
             // States
-            'hover:border-surface-400 dark:hover:border-surface-600',
+            'hover:border-surface-600 dark:hover:border-surface-400',
             'focus:outline-hidden focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10',
 
             // Transition

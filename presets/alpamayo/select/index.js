@@ -36,7 +36,7 @@ export default {
             'border',
             { 'dark:border-surface-700': parent.instance.$name != 'InputGroup' },
             { 'dark:border-surface-600': parent.instance.$name == 'InputGroup' },
-            { 'border-surface-300 dark:border-surface-600': !props.invalid },
+            { 'border-surface-500 dark:border-surface-500': !props.invalid },
 
             // Invalid State
             'invalid:focus:ring-red-200',
@@ -49,7 +49,7 @@ export default {
 
             // States
             {
-                'hover:border-surface-400 dark:hover:border-surface-600': !props.invalid
+                'hover:border-surface-600 dark:hover:border-surface-400': !props.invalid
             },
             {
                 'outline-hidden outline-offset-0 ring-2 ring-primary-500 dark:ring-primary-400 z-10':
@@ -272,7 +272,7 @@ export default {
                 'placeholder:text-placeholder',
                 'bg-surface-0 dark:bg-surface-950',
                 'border border-surface-300 dark:border-surface-700',
-                'hover:border-surface-400 dark:hover:border-surface-600',
+                'hover:border-surface-600 dark:hover:border-surface-400',
                 'focus:outline-hidden focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400',
                 'transition-colors duration-200'
             ]

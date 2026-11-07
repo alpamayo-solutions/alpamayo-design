@@ -25,18 +25,24 @@ export function useAlpDarkMode() {
 
     const isDark = computed(() => darkTheme.value);
 
+    // `.light` stops the prefers-color-scheme token block in tokens.css when someone chose light on a dark OS.
+    function setThemeClass(dark: boolean) {
+        document.documentElement.classList.toggle('dark', dark);
+        document.documentElement.classList.toggle('light', !dark);
+    }
+
     function initDarkMode() {
         if (themeCookie.value === 'dark' || themeCookie.value === 'light') {
             darkTheme.value = themeCookie.value === 'dark';
         } else {
             darkTheme.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
         }
-        document.documentElement.classList.toggle('dark', darkTheme.value);
+        setThemeClass(darkTheme.value);
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!themeCookie.value) {
                 darkTheme.value = e.matches;
-                document.documentElement.classList.toggle('dark', e.matches);
+                setThemeClass(e.matches);
             }
         });
     }
@@ -45,7 +51,7 @@ export function useAlpDarkMode() {
         const next = !darkTheme.value;
         themeCookie.value = next ? 'dark' : 'light';
         darkTheme.value = next;
-        document.documentElement.classList.toggle('dark', next);
+        setThemeClass(next);
     }
 
     return { isDark, toggleDarkMode, initDarkMode };

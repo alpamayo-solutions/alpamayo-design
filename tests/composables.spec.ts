@@ -219,7 +219,7 @@ describe('useAlpAnchoredDropdown', () => {
 describe('useAlpDarkMode', () => {
     beforeEach(() => {
         stubNuxtState();
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove('dark', 'light');
         vi.stubGlobal(
             'matchMedia',
             vi.fn((query: string) => ({
@@ -241,6 +241,27 @@ describe('useAlpDarkMode', () => {
         toggleDarkMode();
         expect(isDark.value).toBe(true);
         expect(document.documentElement.classList.contains('dark')).toBe(true);
+    });
+
+    it('marks a chosen light theme with .light so OS-dark tokens stay off', () => {
+        vi.stubGlobal(
+            'matchMedia',
+            vi.fn((query: string) => ({
+                media: query,
+                matches: true,
+                addEventListener: vi.fn(),
+                removeEventListener: vi.fn()
+            }))
+        );
+        vi.stubGlobal(
+            'useCookie',
+            vi.fn(() => ref('light'))
+        );
+        const { isDark, initDarkMode } = useAlpDarkMode();
+        initDarkMode();
+        expect(isDark.value).toBe(false);
+        expect(document.documentElement.classList.contains('light')).toBe(true);
+        expect(document.documentElement.classList.contains('dark')).toBe(false);
     });
 
     it('toggles back to light', () => {

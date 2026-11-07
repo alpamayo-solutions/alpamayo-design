@@ -244,7 +244,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light) {
         --background: var(--p-primary-900);
         --foreground: var(--p-surface-0);
 
@@ -460,4 +460,16 @@ body {
 }
 :root.blur-mode .sensitive:hover {
     filter: blur(2px);
+}
+
+/* People who ask their system for less motion get no dialog, menu or toast animations. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
