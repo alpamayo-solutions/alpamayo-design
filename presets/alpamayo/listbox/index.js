@@ -9,7 +9,7 @@ export default {
             { 'bg-surface-0 dark:bg-surface-900': !props.disabled },
             'text-surface-700 dark:text-white/80',
             'border',
-            { 'border-surface-300 dark:border-surface-700': !props.invalid },
+            { 'border-surface-500 dark:border-surface-500': !props.invalid },
 
             // Disabled State
             {

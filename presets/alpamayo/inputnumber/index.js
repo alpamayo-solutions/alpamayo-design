@@ -16,7 +16,7 @@ export default {
                     (!props.showButtons || props.buttonLayout == 'horizontal')
             },
             {
-                'border-0 border-y border-l last:border-r border-surface-300 dark:border-surface-700':
+                'border-0 border-y border-l last:border-r border-surface-500 dark:border-surface-500':
                     parent.instance.$name === 'InputGroup' && !props.showButtons
             },
             {
@@ -72,7 +72,7 @@ export default {
                 'placeholder:text-placeholder',
                 { 'bg-surface-0 dark:bg-surface-950': !context.disabled },
                 'border',
-                { 'border-surface-300 dark:border-surface-700': !parent.props.invalid },
+                { 'border-surface-500 dark:border-surface-500': !parent.props.invalid },
 
                 // Invalid State
                 'invalid:focus:ring-red-200',

@@ -33,7 +33,7 @@ export default {
             // Colors
             {
                 'text-surface-700 dark:text-white/80': context.checked,
-                'border-surface-300 dark:border-surface-700': !context.checked && !props.invalid,
+                'border-surface-500 dark:border-surface-500': !context.checked && !props.invalid,
                 'border-primary bg-primary dark:border-primary-400 dark:bg-primary-400':
                     context.checked && !props.disabled
             },
@@ -42,7 +42,7 @@ export default {
 
             // States
             {
-                'peer-hover:border-surface-400 dark:peer-hover:border-surface-400':
+                'peer-hover:border-surface-600 dark:peer-hover:border-surface-400':
                     !props.disabled && !props.invalid && !context.checked,
                 'peer-hover:border-primary-emphasis': !props.disabled && !context.checked,
                 '[&>*:first-child]:peer-hover:bg-primary-600 dark:[&>*:first-child]:peer-hover:bg-primary-300':

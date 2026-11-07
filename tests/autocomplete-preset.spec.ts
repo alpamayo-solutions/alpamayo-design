@@ -25,8 +25,8 @@ describe('autocomplete preset', () => {
         expect(classes).toContain('bg-surface-0');
         expect(classes).toContain('dark:bg-surface-950');
         expect(classes).toContain('border');
-        expect(classes).toContain('border-surface-300');
-        expect(classes).toContain('dark:border-surface-700');
+        expect(classes).toContain('border-surface-500');
+        expect(classes).toContain('dark:border-surface-500');
         expect(classes.some((c) => c.startsWith('py-'))).toBe(true);
         expect(classes.some((c) => c.startsWith('px-'))).toBe(true);
     });
@@ -35,7 +35,7 @@ describe('autocomplete preset', () => {
         const classes = inputClasses({ invalid: true });
 
         expect(classes).toContain('border-danger');
-        expect(classes).not.toContain('border-surface-300');
+        expect(classes).not.toContain('border-surface-500');
     });
 
     it('uses the disabled surface when the control is disabled', () => {
