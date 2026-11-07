@@ -18,19 +18,19 @@ export default {
 
             // Colors
             {
-                'bg-info-50/90 dark:bg-info-500/20': props.message.severity == 'info',
-                'bg-success-50/90 dark:bg-success-500/20': props.message.severity == 'success',
+                'bg-info-50/90 dark:bg-info-950': props.message.severity == 'info',
+                'bg-success-50/90 dark:bg-success-950': props.message.severity == 'success',
                 'bg-surface-50 dark:bg-surface-800': props.message.severity == 'secondary',
-                'bg-warning-50/90 dark:bg-warning-500/20': props.message.severity == 'warn',
-                'bg-danger-50/90 dark:bg-danger-500/20': props.message.severity == 'error',
+                'bg-warning-50/90 dark:bg-warning-950': props.message.severity == 'warn',
+                'bg-danger-50/90 dark:bg-danger-950': props.message.severity == 'error',
                 'bg-surface-950 dark:bg-surface-0': props.message.severity == 'contrast'
             },
             {
-                'border-info-200 dark:border-info-500/20': props.message.severity == 'info',
-                'border-success-200 dark:border-success-500/20': props.message.severity == 'success',
+                'border-info-200 dark:border-info-800': props.message.severity == 'info',
+                'border-success-200 dark:border-success-800': props.message.severity == 'success',
                 'border-surface-300 dark:border-surface-500/20': props.message.severity == 'secondary',
-                'border-warning-200 dark:border-warning-500/20': props.message.severity == 'warn',
-                'border-danger-200 dark:border-danger-500/20': props.message.severity == 'error',
+                'border-warning-200 dark:border-warning-800': props.message.severity == 'warn',
+                'border-danger-200 dark:border-danger-800': props.message.severity == 'error',
                 'border-surface-950 dark:border-surface-0': props.message.severity == 'contrast'
             },
             {

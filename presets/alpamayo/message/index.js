@@ -3,7 +3,8 @@ export default {
         class: [
             // Spacing and Shape
             'rounded-md',
-            'outline-solid',
+            // A 1px border, not an outline: an outline reads as keyboard focus.
+            'border',
 
             // Colors
             {
@@ -15,12 +16,12 @@ export default {
                 'bg-surface-950 dark:bg-surface-0': props.severity == 'contrast'
             },
             {
-                'outline-info-200 dark:outline-info-500/20': props.severity == 'info',
-                'outline-success-200 dark:outline-success-500/20': props.severity == 'success',
-                'outline-surface-200 dark:outline-surface-500/20': props.severity == 'secondary',
-                'outline-warning-200 dark:outline-warning-500/20': props.severity == 'warn',
-                'outline-danger-200 dark:outline-danger-500/20': props.severity == 'error',
-                'outline-surface-950 dark:outline-surface-0': props.severity == 'contrast'
+                'border-info-200 dark:border-info-500/20': props.severity == 'info',
+                'border-success-200 dark:border-success-500/20': props.severity == 'success',
+                'border-surface-200 dark:border-surface-500/20': props.severity == 'secondary',
+                'border-warning-200 dark:border-warning-500/20': props.severity == 'warn',
+                'border-danger-200 dark:border-danger-500/20': props.severity == 'error',
+                'border-surface-950 dark:border-surface-0': props.severity == 'contrast'
             },
             {
                 'text-info-700 dark:text-info-300': props.severity == 'info',
